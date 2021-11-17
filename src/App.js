@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+//components
+import { GlobalStyle } from './components/Styled/GlobalStyle';
+import ErrorLoad from './components/Styled/Loaders/ErrorLoad';
+import Preloader from './components/Styled/Loaders/Preloader';
+import UsersTab from './components/UsersTab';
+// import FindUser from './components/FindUser';
+//store
+import { getStatistic, selectStatus, selectError } from './store/getStatisticSlice';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const dispatch = useDispatch(),
+		error = useSelector(selectError),
+		status = useSelector(selectStatus);
+
+	useEffect(() => dispatch(getStatistic()), [dispatch]);
+
+	return (
+    <>
+      <GlobalStyle/>
+      {(status === 'success') &&
+      <>
+        <UsersTab/>
+      </>
+      }
+      {(status === 'loading') && <Preloader/>}
+      {error && <ErrorLoad text={error}/>}
+    </>
+	);
 }
 
 export default App;
