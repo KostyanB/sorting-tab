@@ -1,16 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import env from '../env.json';
-import getDataProjections from '../functions/getDataProjections';
 
 const {
-    backend: {
-        usersDbUrl
-    },
     initialStates: {
         initDb: {
             initStatisticDb,
-            initStatisticObj,
-            initStatisticArr,
             initStatus,
             initError
         }
@@ -19,12 +13,12 @@ const {
 // запрос БД товаров с сервера
 export const getStatistic = createAsyncThunk (
     'statistic/fetchStatistic',
-    async function(_, {rejectWithValue}) {
+    async function({usersDbUrl, activeMonth, activeYear}, {rejectWithValue}) {
         try {
             const response = await fetch(usersDbUrl);
             if(!response.ok) throw new Error('Server error');
             const result = await response.json();
-            return result;
+            return {result, activeMonth, activeYear};
         } catch (error) {
             return rejectWithValue(error.message);
         }
@@ -35,8 +29,6 @@ export const getStatisticSlice = createSlice({
     name: 'statisticDb',
     initialState: {
         statisticDb: initStatisticDb,
-        statisticObj: initStatisticObj,
-        statisticArr: initStatisticArr,
         status: initStatus,
         error: initError,
     },
@@ -48,10 +40,7 @@ export const getStatisticSlice = createSlice({
         },
         [ getStatistic.fulfilled ]: (state, action) => {
             state.status = 'success';
-            state.statisticDb = action.payload;
-            const { projectionObj, projectionArr } = getDataProjections(action.payload);
-            state.statisticObj = projectionObj;
-            state.statisticArr = projectionArr;
+            state.statisticDb = action.payload.result;
         },
         [ getStatistic.rejected ]: (state, action) => {
             state.status = 'rejected';
@@ -60,11 +49,7 @@ export const getStatisticSlice = createSlice({
     }
 });
 
-// массив .юзеров
 export const selectStatisticDb = state => state.statisticDb.statisticDb;
-export const selectStatisticOdj = state => state.statisticDb.statisticOdj;
-export const selectStatisticArr = state => state.statisticDb.statisticArr;
-
 export const selectError = state => state.statisticDb.error;
 export const selectStatus = state => state.statisticDb.status;
 

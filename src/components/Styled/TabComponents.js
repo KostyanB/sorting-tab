@@ -1,0 +1,66 @@
+import styled from 'styled-components';
+
+export const Items = styled.ul`
+    display: grid;
+    justify-content: space-between;
+    align-items: center;
+    grid-template-columns: 200px 1fr 80px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    column-gap: 5px;
+`;
+
+export const ItemWrap = styled.li`
+    display: grid;
+    justify-content: space-between;
+    align-items: center;
+    grid-template-columns: repeat(31, minmax(60px, 1fr));
+`;
+
+export const Item = styled.div`
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-right: 1px solid gray;
+
+    &:last-of-type {
+        border: none;
+    }
+`;
+
+export const User = styled.li`
+    position:absolute;
+    left:0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    white-space: nowrap;
+    border: none;
+`;
+
+export const Total = styled.li`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    position:absolute;
+    right:0;
+    width:80px;
+    border: none;
+`;
+
+export const Sort = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+    margin-left: 5px;
+    width: 10px;
+    height: 30px;
+`;

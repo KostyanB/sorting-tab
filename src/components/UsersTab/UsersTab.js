@@ -1,48 +1,61 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { useSelector, useDispatch } from 'react-redux';
-import './usersTab.scss';
+import { useSelector } from 'react-redux';
 //components
 import Container from '../Styled/Container';
-//functions
-import createDaysArr from '../../functions/createDaysArr';
+import TabHeader from './TabHeader';
+import TabRow from './TabRow';
 //store
-import { selectStatisticDb } from '../../store/getStatisticSlice';
 import {
-    selectActiveMonth,
-    selectActiveYear,
-    setStartPage,
-    toggleSortingDirect,
-    setSortingColumn
+    selectDataOnPage,
 } from '../../store/statisticOnPageSlice';
+//styled
+const Tab = styled(Container)`
+    filter: drop-shadow(0px 2px 8px black);
+    background-color: lightgray;
+`;
+const TabContainer = styled.div`
+    position: relative;
+    display: inline-block;
+    width: 100%;
+`;
+const Wrapper = styled.div`
+    overflow-x: scroll;
+    overflow-y: visible;
+    width: calc(100% - 280px);
+    margin-left: 200px;
+    margin-right: 80px;
 
-const Wrapper = styled(Container)`
-    display: flex;
-    height: 40px;
-    background-color: lightcyan;
+    ::-webkit-scrollbar {
+        height: 5px;
+    }
+    ::-webkit-scrollbar-thumb {
+        background-color: gray;
+        border-radius: 100px;
+    }
 `;
 
 //  ****************************************************
 const UsersTab = () => {
-    const dispatch = useDispatch();
-    const statisticDb = useSelector(selectStatisticDb);
-    const activeYear = useSelector(selectActiveYear);
-    const activeMonth = useSelector(selectActiveMonth);
-    const daysArr = createDaysArr(activeMonth, activeYear);
-
-    useEffect(() => {
-        dispatch(setStartPage({ statisticDb, daysArr }));
-    }, [dispatch, statisticDb, daysArr]);
-
-    const toggleFn = () => dispatch(toggleSortingDirect());
-    const setSort = () => dispatch(setSortingColumn(5));
-
+    const dataOnPage = useSelector(selectDataOnPage);
 
     return (
-        <Wrapper>
-            <button onClick={toggleFn}>toggle</button>
-            <button onClick={setSort}>sort</button>
-        </Wrapper>
+        <Tab>
+            <TabContainer>
+                <Wrapper>
+                    <div>
+                    <TabHeader/>
+                    {dataOnPage && dataOnPage.map(({id, userName, total, days}) =>
+                        <TabRow key={id}
+                            name={userName}
+                            total={total}
+                            items={days}
+                        />
+                    )}
+                    </div>
+                </Wrapper>
+            </TabContainer>
+        </Tab>
 	);
 }
 export default UsersTab;

@@ -1,11 +1,13 @@
 import { calcVisitTime } from './calcVisitTime';
 
 // массив визитов -> ассоциативный массив
-const getDatesObj = (datesArr, daysArr) => {
+const getDatesObj = (datesArr, daysCount) => {
     const newDatesObj = {};
     let totalVisit = 0;
 
-    daysArr.forEach(day => {
+    for (let day = 1; day <= daysCount; day++) {
+    // daysArr.forEach(day => {
+        // const findDay = datesArr.find(item => new Date(item['Date']).getDate() === day);
         const findDay = datesArr.find(item => new Date(item['Date']).getDate() === day);
         if (findDay) {
             //получаем объект из визита { visitTime, visitMinute, visitHour, visitDay }
@@ -17,7 +19,8 @@ const getDatesObj = (datesArr, daysArr) => {
         } else {
             newDatesObj[day] = { visitTime: 0, visitMinute: 0, visitHour: 0, visitDay: day };
         }
-    });
+    // });
+    }
 
     return ({
         newDatesObj,
@@ -25,8 +28,8 @@ const getDatesObj = (datesArr, daysArr) => {
     });
 };
 // объект данных юзера
-const createUserData = (userData, daysArr) => {
-    const { newDatesObj, totalVisit } = getDatesObj(userData.Days, daysArr);
+const createUserData = (userData, daysCount) => {
+    const { newDatesObj, totalVisit } = getDatesObj(userData.Days, daysCount);
 
     return ({
         id: userData.id,
@@ -36,19 +39,16 @@ const createUserData = (userData, daysArr) => {
     });
 };
 
-const getDataProjections = (data, daysArr) => {
-    const projectionObj = {};
+const getDataProjections = (data, daysCount) => {
+    // const projectionObj = {};
     const projectionArr = [];
     //
-    daysArr && data.forEach(item => {
-        const obj = createUserData(item, daysArr);
-        projectionObj[item.id] = obj;
+    daysCount && data.forEach(item => {
+        const obj = createUserData(item, daysCount);
+        // projectionObj[item.id] = obj;
         projectionArr.push(obj);
     });
 
-    return ({
-        projectionObj,
-        projectionArr
-    });
+    return projectionArr
 };
 export default getDataProjections;
