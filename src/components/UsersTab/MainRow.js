@@ -8,7 +8,7 @@ import {
     Total
 } from '../Styled/TabComponents';
 
-const TabRow = ({ name, total, items }) => {
+const MainRow = ({ name, total, items }) => {
     const toLocal = val => val.toLocaleString("en-US", { minimumIntegerDigits: 2, useGrouping: false });
 
     const createMinHourText = visitTime => {
@@ -35,4 +35,4 @@ const TabRow = ({ name, total, items }) => {
         </Items>
     );
 }
-export default TabRow;
+export default MainRow;

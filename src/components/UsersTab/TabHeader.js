@@ -13,9 +13,9 @@ import {
 } from '../Styled/TabComponents';
 
 const RepeatItem = props => {
-    const { daysCount } = props;
+    const { count } = props;
     let items = [];
-    for (let i = 1; i <= daysCount; i++) {
+    for (let i = 1; i <= count; i++) {
         items.push(props.children(i))
     }
     return <>{items}</>
@@ -30,10 +30,10 @@ const TabHeader = () => {
                 <HeaderItem key='userName' text='Name' name='userName'/>
             </User>
             <ItemWrap>
-                <RepeatItem daysCount={daysInActiveMonth}>
+                <RepeatItem count={daysInActiveMonth}>
                     {(index) => (
-                        <Item>
-                            <HeaderItem key={index} text={index} name={index}/>
+                        <Item key={index}>
+                            <HeaderItem text={index} name={index}/>
                         </Item>
                     )}
                 </RepeatItem>

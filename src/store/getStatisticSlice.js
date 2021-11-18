@@ -6,7 +6,8 @@ const {
         initDb: {
             initStatisticDb,
             initStatus,
-            initError
+            initError,
+            initUsersCount,
         }
     }
 } = env;
@@ -31,6 +32,7 @@ export const getStatisticSlice = createSlice({
         statisticDb: initStatisticDb,
         status: initStatus,
         error: initError,
+        usersCount: initUsersCount
     },
     reducers: {},
     extraReducers: {
@@ -39,8 +41,10 @@ export const getStatisticSlice = createSlice({
             state.error = null;
         },
         [ getStatistic.fulfilled ]: (state, action) => {
+            const db = action.payload.result;
             state.status = 'success';
-            state.statisticDb = action.payload.result;
+            state.statisticDb = db;
+            state.usersCount = db.length;
         },
         [ getStatistic.rejected ]: (state, action) => {
             state.status = 'rejected';
@@ -52,5 +56,6 @@ export const getStatisticSlice = createSlice({
 export const selectStatisticDb = state => state.statisticDb.statisticDb;
 export const selectError = state => state.statisticDb.error;
 export const selectStatus = state => state.statisticDb.status;
+export const selectUsersCount = state => state.statisticDb.usersCount;
 
 export default getStatisticSlice.reducer;

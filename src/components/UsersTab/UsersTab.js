@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 //components
 import Container from '../Styled/Container';
 import TabHeader from './TabHeader';
-import TabRow from './TabRow';
+import MainRow from './MainRow';
 //store
 import {
     selectDataOnPage,
@@ -46,7 +46,7 @@ const UsersTab = () => {
                     <div>
                     <TabHeader/>
                     {dataOnPage && dataOnPage.map(({id, userName, total, days}) =>
-                        <TabRow key={id}
+                        <MainRow key={id}
                             name={userName}
                             total={total}
                             items={days}

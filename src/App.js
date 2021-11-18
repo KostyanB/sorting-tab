@@ -6,6 +6,7 @@ import { GlobalStyle } from './components/Styled/GlobalStyle';
 import ErrorLoad from './components/Styled/Loaders/ErrorLoad';
 import Preloader from './components/Styled/Loaders/Preloader';
 import UsersTab from './components/UsersTab';
+import Pagination from './components/Pagination/Pagination';
 // import FindUser from './components/FindUser';
 //store
 import { getStatistic, selectStatus, selectError } from './store/getStatisticSlice';
@@ -36,6 +37,7 @@ function App() {
       {(status === 'success') &&
       <>
         <UsersTab/>
+        <Pagination/>
       </>
       }
       {(status === 'loading') && <Preloader/>}
