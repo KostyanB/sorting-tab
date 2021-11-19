@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
+//helpers
+import toLocale from '../../helpers/toLocale';
 //components
-import { Button } from '../Styled/Button';
+import Button from '../Styled/Button';
 //store
 import {
     selectDirectSort,
@@ -13,7 +15,7 @@ import {
     setReverseSortingColumn,
     toggleSortingDirect,
 } from '../../store/statisticOnPageSlice';
-
+import { getModalData } from '../../store/modalSlice';
 //components
 import { UpIcon, DownIcon } from '../Styled/Icons/Icons';
 import { Sort } from '../Styled/TabComponents';
@@ -30,7 +32,6 @@ const SortButton = styled(Button)`
     }
 `;
 
-
 const HeaderItem = ({ text, name }) => {
     const dispatch = useDispatch();
     const directSort = useSelector(selectDirectSort);
@@ -40,8 +41,8 @@ const HeaderItem = ({ text, name }) => {
 
     const showWeather = (day, month, year) => {
         if (!day) return;
-        const date = new Date(`${year}, ${month}, ${day}`);
-        // console.log('date: ', date);
+        const date = `${year}-${toLocale(+month + 1)}-${toLocale(day)}`;
+        dispatch(getModalData(date));
     };
 
     const handleSorting = direct => {
@@ -61,12 +62,12 @@ const HeaderItem = ({ text, name }) => {
         </Button>
         <Sort>
             <SortButton onClick={() => handleSorting('up')}
-                color={(sortColumn === name && directSort) ? 'red' : 'black'}
+                color={(sortColumn === name && directSort) ? '#2796FF' : 'black'}
             >
                 <UpIcon />
             </SortButton>
             <SortButton onClick={() => handleSorting('down')}
-                color={(sortColumn === name && !directSort) ? 'red' : 'black'}
+                color={(sortColumn === name && !directSort) ? '#2796FF' : 'black'}
             >
                 <DownIcon/>
             </SortButton>

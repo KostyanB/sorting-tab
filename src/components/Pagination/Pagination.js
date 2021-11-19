@@ -10,7 +10,7 @@ import {
 } from '../../store/statisticOnPageSlice';
 //components
 import Container from '../Styled/Container';
-import { Button } from '../Styled/Button';
+import Button from '../Styled/Button';
 //styled
 const Wrapper = styled(Container)`
     /* display: flex; */
@@ -35,7 +35,7 @@ const Btn = styled(Button)`
 
     &:hover, :active {
         background-color: ${props => props.disabled ? 'lightgray' : 'gray'};
-        color: ${props => props.disabled ? 'black' : 'red'};
+        color: ${props => props.disabled ? 'black' : '#2796FF'};
     }
 `;
 const BtnPrev = styled(Btn)`
@@ -113,7 +113,7 @@ const Pagination = () => {
                 >
                     {({ index, otherProps }) => (
                         <Item key={index}
-                            color={(index === otherProps.activePage) ? "red" : "black"}
+                            color={(index === otherProps.activePage) ? "#2796FF" : "black"}
                         >
                             {index}
                         </Item>

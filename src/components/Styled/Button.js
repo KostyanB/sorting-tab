@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Button = styled.button`
+const Button = styled.button`
     background-color: none;
     -webkit-appearance: none;
     appearance: none;
@@ -21,6 +21,7 @@ export const Button = styled.button`
 
     &:hover,
     &:active {
-        color: red;
+        color: #2796FF;
     }
 `;
+export default Button;

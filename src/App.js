@@ -8,8 +8,16 @@ import Preloader from './components/Styled/Loaders/Preloader';
 import UsersTab from './components/UsersTab';
 import Pagination from './components/Pagination/Pagination';
 import FindUser from './components/FindUser';
+import Modal from './components/Modal';
 //store
-import { getData, selectStatus, selectError } from './store/getDataFromServerSlice';
+import {
+  getData,
+  selectStatus,
+  selectError
+} from './store/getDataFromServerSlice';
+import {
+  selectOpenModal
+} from './store/modalSlice';
 
 function App() {
   const {
@@ -23,7 +31,8 @@ function App() {
   } = env;
 	const dispatch = useDispatch(),
 		error = useSelector(selectError),
-		status = useSelector(selectStatus);
+		status = useSelector(selectStatus),
+    openModal = useSelector(selectOpenModal);
 
 	useEffect(() => dispatch(getData({
     usersDbUrl,
@@ -39,6 +48,7 @@ function App() {
         <FindUser/>
         <UsersTab/>
         <Pagination/>
+        {openModal && <Modal/>}
       </>
       }
       {(status === 'loading') && <Preloader/>}

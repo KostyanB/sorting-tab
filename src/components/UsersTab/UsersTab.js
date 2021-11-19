@@ -28,6 +28,7 @@ const Wrapper = styled.div`
 
     ::-webkit-scrollbar {
         height: 5px;
+        /* display: none; */
     }
     ::-webkit-scrollbar-thumb {
         background-color: gray;

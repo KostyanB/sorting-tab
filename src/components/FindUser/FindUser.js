@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 //store
 import {
     findUserStatistic,
@@ -8,7 +8,7 @@ import {
 } from '../../store/statisticOnPageSlice';
 //components
 import Container from '../Styled/Container';
-import { Button } from '../Styled/Button';
+import Button from '../Styled/Button';
 //styled
 const Wrapper = styled(Container)`
     display: flex;
