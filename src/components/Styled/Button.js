@@ -15,6 +15,10 @@ export const Button = styled.button`
     text-align: inherit;
     text-transform: inherit;
 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     &:hover,
     &:active {
         color: red;

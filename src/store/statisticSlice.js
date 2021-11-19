@@ -1,5 +1,5 @@
 import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
-import { getStatistic } from './getStatisticSlice';
+import { getDataFromServer } from './getDataFromServerSlice';
 
 // store пользователей
 export const statisticAdapter = createEntityAdapter();
@@ -10,7 +10,7 @@ export const statisticSlice = createSlice({
     extraReducers: (builder) => {
         builder
         .addCase(
-            getStatistic.fulfilled,
+            getDataFromServer.fulfilled,
             statisticAdapter.setAll
         );
     },

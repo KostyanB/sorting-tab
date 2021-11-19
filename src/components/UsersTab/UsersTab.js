@@ -33,6 +33,12 @@ const Wrapper = styled.div`
         background-color: gray;
         border-radius: 100px;
     }
+
+    @media(max-width: 576px) {
+        width: calc(100% - 220px);
+        margin-left: 150px;
+        margin-right: 70px;
+    }
 `;
 
 //  ****************************************************

@@ -3,29 +3,33 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 //store
 import {
-    selectUsersCount
-} from '../../store/getStatisticSlice.js'
-import {
+    selectUsersCount,
     selectActivePage,
     setActivePage,
+    selectRowOnPage,
 } from '../../store/statisticOnPageSlice';
 //components
 import Container from '../Styled/Container';
 import { Button } from '../Styled/Button';
 //styled
 const Wrapper = styled(Container)`
-    display: flex;
+    /* display: flex; */
+    display: grid;
     justify-content: center;
     align-items: center;
-    height: 40px;
-    margin-top: 15px;
+    grid-template-columns: max-content auto max-content;
+    grid-template-areas: "prev pag next";
+    gap: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
+
+    @media(max-width: 768px) {
+        grid-template-columns: repeat(2, max-content);
+        grid-template-rows: repeat(2, 1fr);
+        grid-template-areas: "pag pag" "prev next";
+    }
 `;
 const Btn = styled(Button)`
-    display: flex;
-    justify-content: center;
-    align-items: center;
     padding: 10px;
     background-color: lightgray;
 
@@ -34,7 +38,14 @@ const Btn = styled(Button)`
         color: ${props => props.disabled ? 'black' : 'red'};
     }
 `;
+const BtnPrev = styled(Btn)`
+    grid-area: prev;
+`;
+const BtnNext = styled(Btn)`
+    grid-area: next;
+`;
 const Pages = styled.ul`
+    grid-area: pag;
     display: flex;
     justify-content: flex-between;
     align-items: center;
@@ -61,14 +72,21 @@ const RepeatItem = props => {
 //  ****************************************************
 const Pagination = () => {
     const [ pagesCount, setPagesCount ] = useState(0);
+    const [ showPagination, setShowPagination ] = useState(false)
     const dispatch = useDispatch();
     const usersCount = useSelector(selectUsersCount);
     const activePage = useSelector(selectActivePage);
+    const rowOnPage = useSelector(selectRowOnPage);
 
     useEffect(() => {
-        const count = Math.ceil(usersCount / 10);
-        setPagesCount(count);
-    }, [usersCount]);
+        if (usersCount > rowOnPage) {
+            const count = Math.ceil(usersCount / 10);
+            setPagesCount(count);
+            setShowPagination(true);
+        } else {
+            setShowPagination(false);
+        }
+    }, [usersCount, rowOnPage]);
 
     const showPrev = () =>{
         const newPage = activePage - 1;
@@ -81,12 +99,14 @@ const Pagination = () => {
     };
 
 	return (
+        <>
+        {showPagination &&
         <Wrapper>
-            <Btn onClick={showPrev}
+            <BtnPrev onClick={showPrev}
                 disabled={(activePage === 1) ? true : false}
             >
                 Prev
-            </Btn>
+            </BtnPrev>
             <Pages>
                 <RepeatItem count={pagesCount}
                     activePage={activePage}
@@ -100,12 +120,14 @@ const Pagination = () => {
                     )}
                 </RepeatItem>
             </Pages>
-            <Btn onClick={showNext}
+            <BtnNext onClick={showNext}
                 disabled={(activePage === pagesCount) ? true : false}
             >
                 Next
-            </Btn>
+            </BtnNext>
         </Wrapper>
+        }
+        </>
 	);
 }
 export default Pagination;

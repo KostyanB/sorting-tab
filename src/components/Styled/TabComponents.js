@@ -8,6 +8,10 @@ export const Items = styled.ul`
     padding-top: 5px;
     padding-bottom: 5px;
     column-gap: 5px;
+
+    @media(max-width: 576px){
+        grid-template-columns: 150px 1fr 70px;
+    }
 `;
 
 export const ItemWrap = styled.li`
@@ -35,12 +39,18 @@ export const User = styled.li`
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    width: 200px;
     padding-top: 5px;
     padding-right: 5px;
     padding-bottom: 5px;
     padding-left: 15px;
     white-space: nowrap;
     border: none;
+
+    @media(max-width: 576px){
+        width: 150px;
+        white-space: normal;
+    }
 `;
 
 export const Total = styled.li`
@@ -52,6 +62,10 @@ export const Total = styled.li`
     right:0;
     width:80px;
     border: none;
+
+    @media(max-width: 576px) {
+        width: 70px;
+    }
 `;
 
 export const Sort = styled.div`

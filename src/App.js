@@ -7,9 +7,9 @@ import ErrorLoad from './components/Styled/Loaders/ErrorLoad';
 import Preloader from './components/Styled/Loaders/Preloader';
 import UsersTab from './components/UsersTab';
 import Pagination from './components/Pagination/Pagination';
-// import FindUser from './components/FindUser';
+import FindUser from './components/FindUser';
 //store
-import { getStatistic, selectStatus, selectError } from './store/getStatisticSlice';
+import { getData, selectStatus, selectError } from './store/getDataFromServerSlice';
 
 function App() {
   const {
@@ -25,7 +25,7 @@ function App() {
 		error = useSelector(selectError),
 		status = useSelector(selectStatus);
 
-	useEffect(() => dispatch(getStatistic({
+	useEffect(() => dispatch(getData({
     usersDbUrl,
     activeMonth,
     activeYear
@@ -36,6 +36,7 @@ function App() {
       <GlobalStyle/>
       {(status === 'success') &&
       <>
+        <FindUser/>
         <UsersTab/>
         <Pagination/>
       </>

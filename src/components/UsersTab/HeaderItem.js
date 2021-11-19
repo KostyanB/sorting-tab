@@ -19,9 +19,6 @@ import { UpIcon, DownIcon } from '../Styled/Icons/Icons';
 import { Sort } from '../Styled/TabComponents';
 //styled
 const SortButton = styled(Button)`
-    display: flex;
-    justify-content: center;
-    align-items: center;
     width: 8px;
     height: 8px;
     color: ${props => props.color};
