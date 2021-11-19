@@ -1,14 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
+import ScrollContainer from "react-indiana-drag-scroll";
 //components
 import Container from '../Styled/Container';
 import TabHeader from './TabHeader';
 import MainRow from './MainRow';
 //store
-import {
-    selectDataOnPage,
-} from '../../store/statisticOnPageSlice';
+import { selectDataOnPage } from '../../store/statisticOnPageSlice';
 //styled
 const Tab = styled(Container)`
     filter: drop-shadow(0px 2px 8px black);
@@ -27,13 +26,13 @@ const Wrapper = styled.div`
     margin-right: 80px;
 
     ::-webkit-scrollbar {
-        height: 5px;
-        /* display: none; */
+        /* height: 5px; */
+        display: none;
     }
-    ::-webkit-scrollbar-thumb {
+    /* ::-webkit-scrollbar-thumb {
         background-color: gray;
         border-radius: 100px;
-    }
+    } */
 
     @media(max-width: 576px) {
         width: calc(100% - 220px);
@@ -42,7 +41,6 @@ const Wrapper = styled.div`
     }
 `;
 
-//  ****************************************************
 const UsersTab = () => {
     const dataOnPage = useSelector(selectDataOnPage);
 
@@ -50,16 +48,20 @@ const UsersTab = () => {
         <Tab>
             <TabContainer>
                 <Wrapper>
-                    <div>
-                    <TabHeader/>
-                    {dataOnPage && dataOnPage.map(({id, userName, total, days}) =>
-                        <MainRow key={id}
-                            name={userName}
-                            total={total}
-                            items={days}
-                        />
-                    )}
-                    </div>
+                    <ScrollContainer horizontal={true}
+                        style={{ display: "flex" }}
+                    >
+                        <div>
+                            <TabHeader/>
+                            {dataOnPage && dataOnPage.map(({id, userName, total, days}) =>
+                                <MainRow key={id}
+                                    name={userName}
+                                    total={total}
+                                    items={days}
+                                />
+                            )}
+                        </div>
+                    </ScrollContainer>
                 </Wrapper>
             </TabContainer>
         </Tab>

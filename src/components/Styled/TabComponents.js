@@ -46,6 +46,7 @@ export const User = styled.li`
     padding-left: 15px;
     white-space: nowrap;
     border: none;
+    color: #2796FF;
 
     @media(max-width: 576px){
         width: 150px;
@@ -58,10 +59,11 @@ export const Total = styled.li`
     align-items: center;
     justify-content: center;
     padding: 5px;
-    position:absolute;
-    right:0;
-    width:80px;
+    position: absolute;
+    right: 0;
+    width: 80px;
     border: none;
+    color: #2796FF;
 
     @media(max-width: 576px) {
         width: 70px;

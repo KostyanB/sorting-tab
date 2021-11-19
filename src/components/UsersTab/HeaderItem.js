@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 //helpers
@@ -33,18 +33,21 @@ const SortButton = styled(Button)`
 `;
 
 const HeaderItem = ({ text, name }) => {
+    const [ date, setDate ] = useState('');
     const dispatch = useDispatch();
     const directSort = useSelector(selectDirectSort);
     const sortColumn = useSelector(selectSortColumn);
     const activeMonth = useSelector(selectActiveMonth);
     const activeYear = useSelector(selectActiveYear);
 
-    const showWeather = (day, month, year) => {
-        if (!day || day === 'Total' || day === 'Name') return;
-        const date = `${year}-${toLocale(+month + 1)}-${toLocale(day)}`;
+    useEffect(() => {
+        if (text !== 'Total' || text !== 'Name') {
+            const date = `${activeYear}-${toLocale(activeMonth + 1)}-${toLocale(text)}`;
+            setDate(date);
+        }
+    }, [text, activeYear, activeMonth]);
 
-        dispatch(getModalData(date));
-    };
+    const showWeather = date => dispatch(getModalData(date));
 
     const handleSorting = direct => {
         if (sortColumn === name) {
@@ -58,7 +61,9 @@ const HeaderItem = ({ text, name }) => {
 
     return (
         <>
-        <Button onClick={() => showWeather(text, activeMonth, activeYear)}>
+        <Button onClick={() => showWeather(date)}
+            title={date}
+        >
             {text}
         </Button>
         <Sort>

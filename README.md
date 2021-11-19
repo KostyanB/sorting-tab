@@ -1,70 +1,38 @@
-# Getting Started with Create React App
+# "Sorting tab"
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Тестовое задание
 
-## Available Scripts
+## О приложениии
 
-In the project directory, you can run:
+[Демо](https://sorting-tab.web.app)
 
-### `npm start`
+* При старте в таблицу загружаются данные о длительности визитов пользователя за выбранный месяц по дням и рассчитывается итог за месяц. (для демо загрузка за 1 месяц)
+* Стартовая сортировка по имени пользователя
+* Сортировка по всем столбцам. Направление выбирается стрелками.
+* Пагинация по 10 пользователей на страницу
+* При смене направления или столбца сортировки устанавливается 1 страница
+* Блокировка кнопок пагинации при достижении первой/последней страницы
+* Подсветка активного направления сортировки и активной пагинации
+* Вывод в заголовок активного месяца/года
+* Поиск по имени (части имени) или ID пользователя
+* Поддержка drag-scroll с фиксацией первого и последнего столбцов
+* При клике на ячейку в заголовке выводится модальное окно с данными API-запроса курсов валют за выбранную дату
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Стек технологий
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+* ReactJS, Redux, Toolkit, ReactHooks, React-Spring, StyledComponents, React-indiana-drag-scroll, Grid/Flex.
+* Настройки приложения в `env.json`.
+* Исходные данные юзеров для fake-Api в `public/db`.
+* Получение курсов валют по Api за выбранную дату c [openexchangerates.org](https://openexchangerates.org)
+* Сборка с помощью [Create React App](https://github.com/facebook/create-react-app).
+* Деплой демо готовой сборки на [Firebase Hosting](https://firebase.google.com).
 
-### `npm test`
+## Как установить?
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* Скопировать содержимое репозитория в рабочую папку
+* В терминале выполнить команду `npm install`
+* В случае создания проекта с помощью Create React App дополнительно установить пакеты из `add_packages.txt`.
+* Проверить соответствие версий установленной `NodeJS` и пакета `node-sass` в [документации](https://www.npmjs.com/package/node-sass).
+* Запустить development mode командой `npm start`.
+* Открыть `http://localhost:3000` для просмотра в браузере.
+* Для сборки приложения команда `npm run build`. Готовый проект будет в папке `build` рабочей директории.# Getting

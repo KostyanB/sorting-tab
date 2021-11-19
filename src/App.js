@@ -5,9 +5,10 @@ import env from './env.json';
 import { GlobalStyle } from './components/Styled/GlobalStyle';
 import ErrorLoad from './components/Styled/Loaders/ErrorLoad';
 import Preloader from './components/Styled/Loaders/Preloader';
+import Header from './components/Header';
+import FindUser from './components/FindUser';
 import UsersTab from './components/UsersTab';
 import Pagination from './components/Pagination/Pagination';
-import FindUser from './components/FindUser';
 import Modal from './components/Modal';
 //store
 import {
@@ -45,6 +46,7 @@ function App() {
       <GlobalStyle/>
       {(status === 'success') &&
       <>
+        <Header/>
         <FindUser/>
         <UsersTab/>
         <Pagination/>

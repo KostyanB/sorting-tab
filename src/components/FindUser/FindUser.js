@@ -11,13 +11,6 @@ import Container from '../Styled/Container';
 import Button from '../Styled/Button';
 //styled
 const Wrapper = styled(Container)`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    gap: 10px;
-
     @media (max-width: 576px) {
         flex-direction: column;
     }
@@ -70,7 +63,7 @@ const FindUser = () => {
                 onSubmit={e => showUser(e)}
             >
                 <label htmlFor="find">
-                    Find User by name, id or total
+                    Find User by name/surname or id
                 </label>
                 <Input type="text" id="find" ref={inputRef}/>
             </FindForm>

@@ -13,15 +13,11 @@ import Container from '../Styled/Container';
 import Button from '../Styled/Button';
 //styled
 const Wrapper = styled(Container)`
-    /* display: flex; */
     display: grid;
     justify-content: center;
     align-items: center;
     grid-template-columns: max-content auto max-content;
     grid-template-areas: "prev pag next";
-    gap: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
 
     @media(max-width: 768px) {
         grid-template-columns: repeat(2, max-content);

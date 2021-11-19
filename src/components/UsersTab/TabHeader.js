@@ -27,7 +27,7 @@ const TabHeader = () => {
     return (
         <Items>
             <User>
-                <HeaderItem key='userName' text='Name' name='userName'/>
+                <HeaderItem key='userName' text='Name' name='userName' style={{cursor: "default"}}/>
             </User>
             <ItemWrap>
                 <RepeatItem count={daysInActiveMonth}>
