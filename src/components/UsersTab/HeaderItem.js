@@ -40,8 +40,9 @@ const HeaderItem = ({ text, name }) => {
     const activeYear = useSelector(selectActiveYear);
 
     const showWeather = (day, month, year) => {
-        if (!day) return;
+        if (!day || day === 'Total' || day === 'Name') return;
         const date = `${year}-${toLocale(+month + 1)}-${toLocale(day)}`;
+
         dispatch(getModalData(date));
     };
 

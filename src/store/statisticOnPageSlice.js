@@ -24,6 +24,18 @@ const {
     }
 } = env;
 
+const setInitSorting = state => {
+    state.activePage = initActivePage;
+    state.sortColumn = initSortColumn;
+    state.directSort = initDirectSort;
+};
+
+const setArrState = (state, arr) => {
+    state.sortingDataArr = arr;
+    state.dataOnPage = getSlicedArr(initActivePage, state.rowOnPage, arr);
+    state.usersCount = arr.length;
+};
+
 export const statisticOnPageSlice = createSlice({
     name: 'statisticOnPage',
     initialState: {
@@ -70,18 +82,13 @@ export const statisticOnPageSlice = createSlice({
         },
         findUserStatistic: (state, data) => {
             const filteredArr = filterArray(data.payload, state.dbProjection);
-            // state.filteredArr = filteredArr;
-            state.sortingDataArr = filteredArr;
-            state.dataOnPage = getSlicedArr(1, state.rowOnPage, filteredArr);
-            state.usersCount = filteredArr.length;
-            state.activePage = 1;
+            setArrState(state, filteredArr);
+            setInitSorting(state);
         },
-        resetStatistic: (state, data) => {
+        resetStatistic: state => {
             const sortingArr = sortArray(initSortColumn, state.dbProjection);
-            state.sortingDataArr = sortingArr;
-            state.dataOnPage = getSlicedArr(1, state.rowOnPage, sortingArr);
-            state.usersCount = sortingArr.length;
-            state.activePage = 1;
+            setArrState(state, sortingArr);
+            setInitSorting(state);
         }
     },
     extraReducers: {
@@ -91,12 +98,10 @@ export const statisticOnPageSlice = createSlice({
             const projectionArr = getDataProjections(result, daysCount, activeMonth, activeYear);
             state.dbProjection = projectionArr;
             const startSortingArr = sortArray(initSortColumn, projectionArr);
-            state.sortingDataArr = startSortingArr;
-            state.dataOnPage = getSlicedArr(initActivePage, state.rowOnPage, startSortingArr);
+            setArrState(state, startSortingArr)
             state.activeMonth = activeMonth;
             state.activeYear = activeYear;
             state.daysInActiveMonth = daysCount;
-            state.usersCount = result.length;
         }
     }
 });

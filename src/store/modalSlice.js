@@ -44,7 +44,7 @@ export const modalSlice = createSlice({
     reducers: {
         closeModal: state => {
             state.openModal = false;
-            state.modalData.length = 0;
+            state.modalData = null;
         }
     },
     extraReducers: {

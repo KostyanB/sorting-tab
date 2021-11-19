@@ -95,6 +95,7 @@ const Modal = () => {
         modalData = useSelector(selectModalData),
         error = useSelector(selectError),
         message = useSelector(selectMessage);
+
     // закрытие модалки и сброс
     const close = e => {
         if (e.target.id === 'overlay' || e.target.id === 'close-btn') {
