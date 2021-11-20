@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 //store
-import { selectDaysInActiveMonth } from '../../store/statisticOnPageSlice';
+import { selectDaysArr } from '../../store/statisticOnPageSlice';
 //components
 import HeaderItem from './HeaderItem';
 import {
@@ -12,17 +12,8 @@ import {
     Total
 } from '../Styled/TabComponents';
 
-const RepeatItem = props => {
-    const { count } = props;
-    let items = [];
-    for (let i = 1; i <= count; i++) {
-        items.push(props.children(i))
-    }
-    return <>{items}</>
-};
-
 const TabHeader = () => {
-    const daysInActiveMonth = useSelector(selectDaysInActiveMonth);
+    const daysArr = useSelector(selectDaysArr);
 
     return (
         <Items>
@@ -30,13 +21,11 @@ const TabHeader = () => {
                 <HeaderItem key='userName' text='Name' name='userName' style={{cursor: "default"}}/>
             </User>
             <ItemWrap>
-                <RepeatItem count={daysInActiveMonth}>
-                    {(index) => (
-                        <Item key={index}>
-                            <HeaderItem text={index} name={index}/>
-                        </Item>
-                    )}
-                </RepeatItem>
+                {daysArr.map((item, i) =>
+                    <Item key={item}>
+                        <HeaderItem text={i + 1} name={i + 1} title={item}/>
+                    </Item>
+                )}
             </ItemWrap>
             <Total>
                 <HeaderItem key='total' text='Total' name='total'/>

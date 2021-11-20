@@ -1,10 +1,10 @@
-import toLocale from './toLocale';
+import toTwoDigit from './toTwoDigit';
 
 const createVisitTimeText = visitTime => {
     if (visitTime > 0) {
-        const visitMinute = toLocale(Math.floor(visitTime % 60));
-        const visitHour = toLocale(Math.floor(visitTime / 60));
-        return `${toLocale(visitHour)}:${toLocale(visitMinute)}`;
+        const visitMinute = toTwoDigit(Math.floor(visitTime % 60));
+        const visitHour = toTwoDigit(Math.floor(visitTime / 60));
+        return `${visitHour}:${visitMinute}`;
     } else {
         return '0';
     }

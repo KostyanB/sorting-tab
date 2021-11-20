@@ -6,7 +6,7 @@ import { selectModalData } from '../../store/modalSlice';
 const Course = () => {
     const modalData = useSelector(selectModalData);
     const { timestamp, rates: { RUB: rub, EUR: euro}} = modalData;
-    const date = new Date((timestamp - 18000)* 1000).toLocaleDateString().split(',')[0];
+    const date = new Date((timestamp - 18000)* 1000).toLocaleString().split(',')[0];
 
     return (
         <>

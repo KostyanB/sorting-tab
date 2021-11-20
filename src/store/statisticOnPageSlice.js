@@ -2,15 +2,17 @@ import { createSlice } from "@reduxjs/toolkit";
 import env from '../env.json';
 import { getData } from './getDataFromServerSlice';
 import getDataProjections from '../helpers/getDataProjections';
+import createDaysArr from '../helpers/createDaysArr';
 import sortArray from '../helpers/sortArray';
 import getSlicedArr from '../helpers/getSlicedArr';
-import getDaysCount from '../helpers/getDaysCount';
 import filterArray from "../helpers/filterArray";
 
 const {
     initialStates: {
         initStatOnPage: {
+            initDbProjection,
             initSortingDataArr,
+            initDaysArr,
             initRowOnPage,
             initActivePage,
             initDataOnPage,
@@ -18,8 +20,7 @@ const {
             initDirectSort,
             initActiveMonth,
             initActiveYear,
-            initDaysInActiveMonth,
-            initUsersCount
+            initUsersCount,
         }
     }
 } = env;
@@ -39,8 +40,9 @@ const setArrState = (state, arr) => {
 export const statisticOnPageSlice = createSlice({
     name: 'statisticOnPage',
     initialState: {
-        dbProjection: [],
+        dbProjection: initDbProjection,
         sortingDataArr: initSortingDataArr,
+        daysArr: initDaysArr,
         dataOnPage: initDataOnPage,
         activePage: initActivePage,
         rowOnPage: initRowOnPage,
@@ -48,8 +50,6 @@ export const statisticOnPageSlice = createSlice({
         directSort: initDirectSort,
         activeMonth: initActiveMonth,
         activeYear: initActiveYear,
-        daysInActiveMonth: initDaysInActiveMonth,
-        filteredArr: [],
         usersCount: initUsersCount,
     },
     reducers: {
@@ -94,14 +94,14 @@ export const statisticOnPageSlice = createSlice({
     extraReducers: {
         [ getData.fulfilled ]: (state, action) => {
             const { result, activeMonth, activeYear } = action.payload;
-            const daysCount = getDaysCount(activeMonth, activeYear);
-            const projectionArr = getDataProjections(result, daysCount, activeMonth, activeYear);
+            const daysArr = createDaysArr(activeMonth, activeYear);
+            state.daysArr = daysArr;
+            const projectionArr = getDataProjections(result, daysArr);
             state.dbProjection = projectionArr;
             const startSortingArr = sortArray(initSortColumn, projectionArr);
             setArrState(state, startSortingArr)
             state.activeMonth = activeMonth;
             state.activeYear = activeYear;
-            state.daysInActiveMonth = daysCount;
         }
     }
 });
@@ -122,7 +122,7 @@ export const selectDirectSort = state => state.statisticOnPage.directSort;
 export const selectSortColumn = state => state.statisticOnPage.sortColumn;
 export const selectActiveMonth = state => state.statisticOnPage.activeMonth;
 export const selectActiveYear = state => state.statisticOnPage.activeYear;
-export const selectDaysInActiveMonth = state => state.statisticOnPage.daysInActiveMonth;
 export const selectUsersCount = state => state.statisticOnPage.usersCount;
+export const selectDaysArr = state => state.statisticOnPage.daysArr;
 
 export default statisticOnPageSlice.reducer;

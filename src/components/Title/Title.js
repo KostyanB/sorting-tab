@@ -9,11 +9,11 @@ import {
 //components
 import Container from '../Styled/Container';
 //styled
-const Title = styled.h1`
+const HeadTitle = styled.h1`
     font-size: clamp(24px, 4vw, 32px);
 `;
 
-const Header = () => {
+const Title = () => {
     const [ month, setMonth ] = useState('');
     const [ year, setYear ] = useState('');
     const activeMonth = useSelector(selectActiveMonth);
@@ -27,10 +27,10 @@ const Header = () => {
 
 	return (
         <Container>
-            <Title>
+            <HeadTitle>
                 Users visit time in {month} {year}
-            </Title>
+            </HeadTitle>
         </Container>
 	);
 }
-export default Header;
+export default Title;

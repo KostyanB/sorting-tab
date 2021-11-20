@@ -1,16 +1,11 @@
 import calcVisitTime from './calcVisitTime';
-import toLocale from './toLocale';
-
 // массив визитов -> ассоциативный массив
-const getDatesObj = (...args) => {
-    const [datesArr, daysCount, month, year] = args;
+const createDatesProjections = (datesArr, daysArr) => {
     const newDatesObj = {};
     let totalVisit = 0;
 
-    const getFindedDay = (arr, day) => arr.find(item => new Date(item['Date']).getDate() === day);
-
-    for (let day = 1; day <= daysCount; day++) {
-        const findDay = getFindedDay(datesArr, day);
+    daysArr.forEach((day, index) => {
+        const findDay = datesArr.find(date => date['Date'] === day);
         if (findDay) {
             //получаем объект из визита { visitTime, visitMinute, visitHour, visitDay }
             const { Date: visitDate, End: timeEnd, Start: timeStart } = findDay;
@@ -18,9 +13,9 @@ const getDatesObj = (...args) => {
             totalVisit += timeObj.visitTime;
             newDatesObj[timeObj.visitDay] = { ...timeObj, date: visitDate };
         } else {
-            newDatesObj[day] = { visitDay: day, visitTime: 0, visitTimeText: '0', date: `${year}-${toLocale(month)}-${toLocale(day)}` };
+            newDatesObj[index + 1] = { visitDay: index + 1, visitTime: 0, visitTimeText: '0', date: day };
         }
-    }
+    });
 
     return ({
         newDatesObj,
@@ -28,9 +23,11 @@ const getDatesObj = (...args) => {
     });
 };
 // объект данных юзера
-const createUserData = (...args) => {
-    const [userData, ...other] = args;
-    const { newDatesObj, totalVisit } = getDatesObj(userData.Days, ...other);
+const createUserData = (userData, daysArr) => {
+    const {
+        newDatesObj,
+        totalVisit
+    } = createDatesProjections(userData.Days, daysArr);
 
     return ({
         id: userData.id,
@@ -40,12 +37,11 @@ const createUserData = (...args) => {
     });
 };
 
-const getDataProjections = (...args) => {
-    const [data, days, ...other] = args
+const getDataProjections = (dB, daysArr) => {
     const projectionArr = [];
 
-    days && data.forEach(item => {
-        const obj = createUserData(item, days, ...other);
+    daysArr && dB.forEach(user => {
+        const obj = createUserData(user, daysArr);
         projectionArr.push(obj);
     });
 

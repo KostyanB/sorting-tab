@@ -1,16 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-//helpers
-import toLocale from '../../helpers/toLocale';
 //components
 import Button from '../Styled/Button';
 //store
 import {
     selectDirectSort,
     selectSortColumn,
-    selectActiveMonth,
-    selectActiveYear,
     setSortingColumn,
     setReverseSortingColumn,
     toggleSortingDirect,
@@ -32,22 +28,12 @@ const SortButton = styled(Button)`
     }
 `;
 
-const HeaderItem = ({ text, name }) => {
-    const [ date, setDate ] = useState('');
+const HeaderItem = ({ text, name, title }) => {
     const dispatch = useDispatch();
     const directSort = useSelector(selectDirectSort);
     const sortColumn = useSelector(selectSortColumn);
-    const activeMonth = useSelector(selectActiveMonth);
-    const activeYear = useSelector(selectActiveYear);
 
-    useEffect(() => {
-        if (text !== 'Total' || text !== 'Name') {
-            const date = `${activeYear}-${toLocale(activeMonth + 1)}-${toLocale(text)}`;
-            setDate(date);
-        }
-    }, [text, activeYear, activeMonth]);
-
-    const showWeather = date => dispatch(getModalData(date));
+    const showWeather = date => date && dispatch(getModalData(date));
 
     const handleSorting = direct => {
         if (sortColumn === name) {
@@ -61,8 +47,8 @@ const HeaderItem = ({ text, name }) => {
 
     return (
         <>
-        <Button onClick={() => showWeather(date)}
-            title={date}
+        <Button onClick={() => showWeather(title)}
+            title={title}
         >
             {text}
         </Button>
