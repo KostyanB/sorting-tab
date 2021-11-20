@@ -23,7 +23,7 @@ const Title = () => {
     useEffect(() => {
         const monthArr = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         setYear(activeYear);
-        setMonth(monthArr[activeMonth]);
+        setMonth(monthArr[activeMonth - 1]);
     }, [activeYear, activeMonth]);
 
 	return (
