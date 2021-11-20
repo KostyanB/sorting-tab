@@ -49,7 +49,7 @@ const FindUser = () => {
     const showUser = (e) => {
         e.preventDefault();
         const request = inputRef.current.value;
-        dispatch(findUserStatistic(request));
+        request && dispatch(findUserStatistic(request));
     };
 
     const reset = () => {
