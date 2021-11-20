@@ -54,6 +54,14 @@ export const GlobalStyle = createGlobalStyle `
         color: black;
         overflow-x: hidden;
         overflow-y: auto;
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #2796FF;
+            border-radius: 100px;
+        }
     }
 
     button,
