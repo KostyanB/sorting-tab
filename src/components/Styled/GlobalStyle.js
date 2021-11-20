@@ -45,14 +45,15 @@ export const GlobalStyle = createGlobalStyle `
 
     body {
         min-width: 320px;
-        min-height: 100vh;
+        ${'' /* min-height: 100vh; */}
         margin: 0;
         background-color: #fff;
         font-family: "CoFo Sans", Arial, sans-serif;
         font-size: 16px;
         font-weight: 400;
         color: black;
-        overflow: hidden;
+        overflow-x: hidden;
+        overflow-y: auto;
     }
 
     button,

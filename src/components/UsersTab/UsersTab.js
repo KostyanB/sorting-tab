@@ -7,7 +7,7 @@ import Container from '../Styled/Container';
 import TabHeader from './TabHeader';
 import MainRow from './MainRow';
 //store
-import { selectDataOnPage } from '../../store/statisticOnPageSlice';
+import { selectDataOnPage } from '../../store/userDataSlice';
 //styled
 const Tab = styled(Container)`
     filter: drop-shadow(0px 2px 8px black);

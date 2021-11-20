@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 //store
-import { selectDaysArr } from '../../store/statisticOnPageSlice';
+import { selectDaysArr } from '../../store/userDataSlice';
 //components
 import HeaderItem from './HeaderItem';
 import {

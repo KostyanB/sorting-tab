@@ -12,10 +12,10 @@ import Pagination from './components/Pagination/Pagination';
 import Modal from './components/Modal';
 //store
 import {
-  getData,
+  getUserData,
   selectStatus,
   selectError
-} from './store/getDataFromServerSlice';
+} from './store/userDataSlice';
 import {
   selectOpenModal
 } from './store/modalSlice';
@@ -35,7 +35,7 @@ function App() {
 		status = useSelector(selectStatus),
     openModal = useSelector(selectOpenModal);
 
-	useEffect(() => dispatch(getData({
+	useEffect(() => dispatch(getUserData({
     usersDbUrl,
     activeMonth,
     activeYear

@@ -1,12 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import getDataFromServerReducer from './getDataFromServerSlice';
-import statisticOnPageReducer from './statisticOnPageSlice'
+import userDataReducer from './userDataSlice'
 import modalReducer from './modalSlice';
 
 export default configureStore({
     reducer: {
-        data: getDataFromServerReducer,
-        statisticOnPage: statisticOnPageReducer,
+        userData: userDataReducer,
         modal: modalReducer,
     }
 });

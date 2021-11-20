@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import {
     findUserStatistic,
     resetStatistic
-} from '../../store/statisticOnPageSlice';
+} from '../../store/userDataSlice';
 //components
 import Container from '../Styled/Container';
 import Button from '../Styled/Button';
@@ -20,7 +20,7 @@ const FindForm = styled.form`
     align-items: center;
     gap: 10px;
 
-    @media (max-width: 440px) {
+    @media (max-width: 576px) {
         flex-direction: column;
     }
 `;

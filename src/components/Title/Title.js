@@ -5,12 +5,13 @@ import { useSelector } from 'react-redux';
 import {
     selectActiveMonth,
     selectActiveYear
-} from '../../store/statisticOnPageSlice';
+} from '../../store/userDataSlice';
 //components
 import Container from '../Styled/Container';
 //styled
 const HeadTitle = styled.h1`
     font-size: clamp(24px, 4vw, 32px);
+    text-align: center;
 `;
 
 const Title = () => {

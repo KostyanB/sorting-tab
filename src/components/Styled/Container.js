@@ -7,7 +7,7 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     gap: 10px;
-    margin: 20px auto;
+    margin: 0 auto;
     padding-top: 10px;
     padding-bottom: 10px;
 `;

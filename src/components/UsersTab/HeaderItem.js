@@ -10,7 +10,7 @@ import {
     setSortingColumn,
     setReverseSortingColumn,
     toggleSortingDirect,
-} from '../../store/statisticOnPageSlice';
+} from '../../store/userDataSlice';
 import { getModalData } from '../../store/modalSlice';
 //components
 import { UpIcon, DownIcon } from '../Styled/Icons/Icons';

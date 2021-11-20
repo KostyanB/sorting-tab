@@ -7,7 +7,7 @@ import {
     selectActivePage,
     setActivePage,
     selectRowOnPage,
-} from '../../store/statisticOnPageSlice';
+} from '../../store/userDataSlice';
 //components
 import Container from '../Styled/Container';
 import Button from '../Styled/Button';
