@@ -6,31 +6,41 @@ import { selectDaysArr } from '../../store/userDataSlice';
 import HeaderItem from './HeaderItem';
 import {
     ItemWrap,
-    Items,
-    Item,
+    Row,
     User,
     Total
 } from '../Styled/TabComponents';
+import ItemHOC from './ItemHOC';
+
+const WrappedHeaderItem = ItemHOC(HeaderItem);
 
 const TabHeader = () => {
     const daysArr = useSelector(selectDaysArr);
 
     return (
-        <Items>
+        <Row>
             <User>
-                <HeaderItem key='userName' text='Name' name='userName' style={{cursor: "default"}}/>
+                <HeaderItem
+                    text='Name'
+                    name='userName'
+                />
             </User>
             <ItemWrap>
                 {daysArr.map((item, i) =>
-                    <Item key={item}>
-                        <HeaderItem text={i + 1} name={i + 1} title={item}/>
-                    </Item>
+                    <WrappedHeaderItem key={item}
+                        text={i + 1}
+                        name={i + 1}
+                        title={item}
+                    />
                 )}
             </ItemWrap>
             <Total>
-                <HeaderItem key='total' text='Total' name='total'/>
+                <HeaderItem
+                    text='Total'
+                    name='total'
+                />
             </Total>
-        </Items>
+        </Row>
     );
 }
 export default TabHeader;

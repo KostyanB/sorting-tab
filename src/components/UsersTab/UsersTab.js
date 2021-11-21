@@ -1,19 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
 import ScrollContainer from "react-indiana-drag-scroll";
 //components
 import Container from '../Styled/Container';
 import TabHeader from './TabHeader';
-import MainRow from './MainRow';
-//store
-import { selectDataOnPage } from '../../store/userDataSlice';
+import TabBody from './TabBody';
 //styled
-const Tab = styled(Container)`
+const TabContainer = styled(Container)`
+    margin-top: 10px;
     filter: drop-shadow(0px 2px 8px black);
     background-color: lightgray;
 `;
-const TabContainer = styled.div`
+const Tab = styled.div`
     position: relative;
     display: inline-block;
     width: 100%;
@@ -40,30 +38,20 @@ const Wrapper = styled.div`
     }
 `;
 
-const UsersTab = () => {
-    const dataOnPage = useSelector(selectDataOnPage);
-
-    return (
+const UsersTab = () => (
+    <TabContainer>
         <Tab>
-            <TabContainer>
-                <Wrapper>
-                    <ScrollContainer horizontal={true}
-                        style={{ display: "flex" }}
-                    >
-                        <div>
-                            <TabHeader/>
-                            {dataOnPage && dataOnPage.map(({id, userName, total, days}) =>
-                                <MainRow key={id}
-                                    name={userName}
-                                    total={total}
-                                    items={days}
-                                />
-                            )}
-                        </div>
-                    </ScrollContainer>
-                </Wrapper>
-            </TabContainer>
+            <Wrapper>
+                <ScrollContainer horizontal={true}
+                    style={{ display: "flex" }}
+                >
+                    <div>
+                        <TabHeader/>
+                        <TabBody/>
+                    </div>
+                </ScrollContainer>
+            </Wrapper>
         </Tab>
-	);
-}
+    </TabContainer>
+)
 export default UsersTab;

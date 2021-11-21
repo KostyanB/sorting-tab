@@ -13,6 +13,7 @@ import Container from '../Styled/Container';
 import Button from '../Styled/Button';
 //styled
 const Wrapper = styled(Container)`
+    margin-top: 10px;
     display: grid;
     justify-content: center;
     align-items: center;

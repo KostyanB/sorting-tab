@@ -11,6 +11,8 @@ import Container from '../Styled/Container';
 import Button from '../Styled/Button';
 //styled
 const Wrapper = styled(Container)`
+    margin-top: 10px;
+
     @media (max-width: 576px) {
         flex-direction: column;
     }

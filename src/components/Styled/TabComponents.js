@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Items = styled.ul`
+export const Row = styled.ul`
     display: grid;
     justify-content: space-between;
     align-items: center;
@@ -32,21 +32,22 @@ export const Item = styled.div`
         border: none;
     }
 `;
-
-export const User = styled.li`
+const Li = styled.li`
     position:absolute;
-    left:0;
     display: flex;
-    justify-content: flex-start;
     align-items: center;
-    width: 200px;
     padding-top: 5px;
     padding-right: 5px;
     padding-bottom: 5px;
-    padding-left: 15px;
-    white-space: nowrap;
     border: none;
     color: #2796FF;
+`;
+export const User = styled(Li)`
+    left:0;
+    justify-content: flex-start;
+    width: 200px;
+    padding-left: 15px;
+    white-space: nowrap;
 
     @media(max-width: 576px){
         width: 150px;
@@ -54,16 +55,11 @@ export const User = styled.li`
     }
 `;
 
-export const Total = styled.li`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 5px;
-    position: absolute;
+export const Total = styled(Li)`
     right: 0;
+    justify-content: center;
     width: 80px;
-    border: none;
-    color: #2796FF;
+    padding-left: 5px;
 
     @media(max-width: 576px) {
         width: 70px;
