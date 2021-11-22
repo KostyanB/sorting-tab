@@ -9,6 +9,7 @@ import {
 //components
 import Container from '../Styled/Container';
 import Button from '../Styled/Button';
+import BtnBlock from '../Styled/BtnBlock';
 //styled
 const Wrapper = styled(Container)`
     margin-top: 10px;
@@ -29,17 +30,18 @@ const FindForm = styled.form`
 const Input = styled.input`
     padding: 5px;
 `;
-const Buttons = styled.div`
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-`;
 const FindBtn = styled(Button)`
     padding: 5px;
     background-color: lightgray;
 
     &:hover, :active {
         background-color: gray;
+    }
+    &:hover {
+        color: #2796FF;
+    }
+    &:active {
+        color: white;
     }
 `;
 
@@ -69,14 +71,14 @@ const FindUser = () => {
                 </label>
                 <Input type="text" id="find" ref={inputRef}/>
             </FindForm>
-            <Buttons>
-            <FindBtn type="submit"
-                form="findUser"
-            >
-                Find
-            </FindBtn>
+            <BtnBlock>
+                <FindBtn type="submit"
+                    form="findUser"
+                >
+                    Find
+                </FindBtn>
             <FindBtn onClick={reset}>Reset</FindBtn>
-            </Buttons>
+            </BtnBlock>
         </Wrapper>
 	);
 }

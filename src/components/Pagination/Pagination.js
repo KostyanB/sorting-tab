@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 //store
 import {
     selectUsersCount,
     selectActivePage,
-    setActivePage,
     selectRowOnPage,
 } from '../../store/userDataSlice';
 //components
 import Container from '../Styled/Container';
-import Button from '../Styled/Button';
+import PrevBlock from './PrevBlock';
+import NextBlock from './NextBlock';
+import PagesBlock from './PagesBlock';
 //styled
 const Wrapper = styled(Container)`
     margin-top: 10px;
@@ -26,31 +27,6 @@ const Wrapper = styled(Container)`
         grid-template-areas: "pag pag" "prev next";
         column-gap: 20px;
     }
-`;
-const Btn = styled(Button)`
-    padding: 10px;
-    background-color: lightgray;
-    color: ${props => props.disabled ? '#a3a3a3' : 'black'};
-
-    &:hover, :active {
-        background-color: ${props => props.disabled ? 'lightgray' : 'gray'};
-    }
-    &:hover {
-        color: ${props => props.disabled ? '#a3a3a3' : '#2796FF'};
-    }
-    &:active {
-        color: ${props => props.disabled ? '#a3a3a3' : 'white'};
-    }
-`;
-const BtnBlock = styled.div`
-    display: flex;
-    gap: 10px;
-`;
-const PrevBlock = styled(BtnBlock)`
-    grid-area: prev;
-`;
-const NextBlock = styled(BtnBlock)`
-    grid-area: next;
 `;
 const Pages = styled.ul`
     grid-area: pag;
@@ -82,10 +58,7 @@ const RepeatItem = props => {
 const Pagination = () => {
     const [ pagesCount, setPagesCount ] = useState(0);
     const [ showPagination, setShowPagination ] = useState(false);
-    const [ disablePrev, setDisablePrev ] = useState(false);
-    const [ disableNext, setDisableNext ] = useState(false);
 
-    const dispatch = useDispatch();
     const usersCount = useSelector(selectUsersCount);
     const activePage = useSelector(selectActivePage);
     const rowOnPage = useSelector(selectRowOnPage);
@@ -100,68 +73,14 @@ const Pagination = () => {
         }
     }, [usersCount, rowOnPage]);
 
-    useEffect(() => {
-        const isPrevDisable = (activePage === 1) ? true : false;
-        const isNextDisable = (activePage === pagesCount) ? true : false;
-        setDisablePrev(isPrevDisable);
-        setDisableNext(isNextDisable);
-    }, [activePage, pagesCount]);
-
-    const showPrev = () =>{
-        const newPage = activePage - 1;
-        dispatch(setActivePage(newPage));
-    };
-
-    const showNext = () => {
-        const newPage = activePage + 1;
-        dispatch(setActivePage(newPage));
-    };
-
-    const showFirst = () => dispatch(setActivePage(1));
-
-    const showLast = () => dispatch(setActivePage(pagesCount));
-
 	return (
         <>
         {showPagination &&
         <Wrapper>
-            <PrevBlock>
-                <Btn onClick={showFirst}
-                    disabled={disablePrev}
-                >
-                    First
-                </Btn>
-                <Btn onClick={showPrev}
-                    disabled={disablePrev}
-                >
-                    Prev
-                </Btn>
-            </PrevBlock>
-            <Pages>
-                <RepeatItem count={pagesCount}
-                    activePage={activePage}
-                >
-                    {({ index, otherProps }) => (
-                        <Item key={index}
-                            color={(index === otherProps.activePage) ? "#2796FF" : "black"}
-                        >
-                            {index}
-                        </Item>
-                    )}
-                </RepeatItem>
-            </Pages>
-            <NextBlock>
-                <Btn onClick={showNext}
-                    disabled={disableNext}
-                >
-                    Next
-                </Btn>
-                <Btn onClick={showLast}
-                    disabled={disableNext}
-                >
-                    Last
-                </Btn>
-            </NextBlock>
+            <PrevBlock/>
+            <PagesBlock pagesCount={pagesCount}/>
+
+            <NextBlock pagesCount={pagesCount}/>
         </Wrapper>
         }
         </>
