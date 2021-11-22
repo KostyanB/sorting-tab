@@ -24,28 +24,40 @@ const Wrapper = styled(Container)`
         grid-template-columns: repeat(2, max-content);
         grid-template-rows: repeat(2, 1fr);
         grid-template-areas: "pag pag" "prev next";
+        column-gap: 20px;
     }
 `;
 const Btn = styled(Button)`
     padding: 10px;
     background-color: lightgray;
+    color: ${props => props.disabled ? '#a3a3a3' : 'black'};
 
     &:hover, :active {
         background-color: ${props => props.disabled ? 'lightgray' : 'gray'};
-        color: ${props => props.disabled ? 'black' : '#2796FF'};
+    }
+    &:hover {
+        color: ${props => props.disabled ? '#a3a3a3' : '#2796FF'};
+    }
+    &:active {
+        color: ${props => props.disabled ? '#a3a3a3' : 'white'};
     }
 `;
-const BtnPrev = styled(Btn)`
+const BtnBlock = styled.div`
+    display: flex;
+    gap: 10px;
+`;
+const PrevBlock = styled(BtnBlock)`
     grid-area: prev;
 `;
-const BtnNext = styled(Btn)`
+const NextBlock = styled(BtnBlock)`
     grid-area: next;
 `;
 const Pages = styled.ul`
     grid-area: pag;
     display: flex;
-    justify-content: flex-between;
+    justify-content: center;
     align-items: center;
+    gap: 5px;
     padding-left: 20px;
     padding-right: 20px;
 `;
@@ -69,7 +81,10 @@ const RepeatItem = props => {
 //  ****************************************************
 const Pagination = () => {
     const [ pagesCount, setPagesCount ] = useState(0);
-    const [ showPagination, setShowPagination ] = useState(false)
+    const [ showPagination, setShowPagination ] = useState(false);
+    const [ disablePrev, setDisablePrev ] = useState(false);
+    const [ disableNext, setDisableNext ] = useState(false);
+
     const dispatch = useDispatch();
     const usersCount = useSelector(selectUsersCount);
     const activePage = useSelector(selectActivePage);
@@ -85,6 +100,13 @@ const Pagination = () => {
         }
     }, [usersCount, rowOnPage]);
 
+    useEffect(() => {
+        const isPrevDisable = (activePage === 1) ? true : false;
+        const isNextDisable = (activePage === pagesCount) ? true : false;
+        setDisablePrev(isPrevDisable);
+        setDisableNext(isNextDisable);
+    }, [activePage, pagesCount]);
+
     const showPrev = () =>{
         const newPage = activePage - 1;
         dispatch(setActivePage(newPage));
@@ -95,15 +117,26 @@ const Pagination = () => {
         dispatch(setActivePage(newPage));
     };
 
+    const showFirst = () => dispatch(setActivePage(1));
+
+    const showLast = () => dispatch(setActivePage(pagesCount));
+
 	return (
         <>
         {showPagination &&
         <Wrapper>
-            <BtnPrev onClick={showPrev}
-                disabled={(activePage === 1) ? true : false}
-            >
-                Prev
-            </BtnPrev>
+            <PrevBlock>
+                <Btn onClick={showFirst}
+                    disabled={disablePrev}
+                >
+                    First
+                </Btn>
+                <Btn onClick={showPrev}
+                    disabled={disablePrev}
+                >
+                    Prev
+                </Btn>
+            </PrevBlock>
             <Pages>
                 <RepeatItem count={pagesCount}
                     activePage={activePage}
@@ -117,11 +150,18 @@ const Pagination = () => {
                     )}
                 </RepeatItem>
             </Pages>
-            <BtnNext onClick={showNext}
-                disabled={(activePage === pagesCount) ? true : false}
-            >
-                Next
-            </BtnNext>
+            <NextBlock>
+                <Btn onClick={showNext}
+                    disabled={disableNext}
+                >
+                    Next
+                </Btn>
+                <Btn onClick={showLast}
+                    disabled={disableNext}
+                >
+                    Last
+                </Btn>
+            </NextBlock>
         </Wrapper>
         }
         </>
