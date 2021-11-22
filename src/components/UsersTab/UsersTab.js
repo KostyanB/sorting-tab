@@ -24,13 +24,13 @@ const Wrapper = styled.div`
     margin-left: 200px;
     margin-right: 80px;
     /* scrollbar setting for use without drag-scroll*/
-    /* ::-webkit-scrollbar {
+    ::-webkit-scrollbar {
         height: 5px;
     }
     ::-webkit-scrollbar-thumb {
         background-color: #2796FF;
         border-radius: 100px;
-    } */
+    }
 
     @media(max-width: 576px) {
         width: calc(100% - 220px);
