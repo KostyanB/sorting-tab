@@ -106,6 +106,16 @@ export const GlobalStyle = createGlobalStyle `
     }
 
     button {
+        background-color: none;
+        -webkit-appearance: none;
+        appearance: none;
+        vertical-align: middle;
+        color: inherit;
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        text-align: inherit;
+        text-transform: inherit;
         cursor: pointer;
     }
 `;

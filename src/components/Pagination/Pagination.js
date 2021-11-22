@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 //store
 import {
     selectUsersCount,
-    selectActivePage,
     selectRowOnPage,
 } from '../../store/userDataSlice';
 //components
@@ -28,31 +27,6 @@ const Wrapper = styled(Container)`
         column-gap: 20px;
     }
 `;
-const Pages = styled.ul`
-    grid-area: pag;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    padding-left: 20px;
-    padding-right: 20px;
-`;
-const Item = styled.li`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px;
-    color: ${props => props.color};
-`;
-
-const RepeatItem = props => {
-    const { count, ...otherProps } = props;
-    let items = [];
-    for (let index = 1; index <= count; index++) {
-        items.push(props.children({ index, otherProps }))
-    }
-    return <>{items}</>
-};
 
 //  ****************************************************
 const Pagination = () => {
@@ -60,7 +34,6 @@ const Pagination = () => {
     const [ showPagination, setShowPagination ] = useState(false);
 
     const usersCount = useSelector(selectUsersCount);
-    const activePage = useSelector(selectActivePage);
     const rowOnPage = useSelector(selectRowOnPage);
 
     useEffect(() => {
@@ -76,12 +49,11 @@ const Pagination = () => {
 	return (
         <>
         {showPagination &&
-        <Wrapper>
-            <PrevBlock/>
-            <PagesBlock pagesCount={pagesCount}/>
-
-            <NextBlock pagesCount={pagesCount}/>
-        </Wrapper>
+            <Wrapper>
+                <PrevBlock/>
+                <PagesBlock pagesCount={pagesCount}/>
+                <NextBlock pagesCount={pagesCount}/>
+            </Wrapper>
         }
         </>
 	);

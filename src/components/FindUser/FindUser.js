@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 //store
@@ -8,7 +8,7 @@ import {
 } from '../../store/userDataSlice';
 //components
 import Container from '../Styled/Container';
-import Button from '../Styled/Button';
+import MainButton from '../Styled/MainButton';
 import BtnBlock from '../Styled/BtnBlock';
 //styled
 const Wrapper = styled(Container)`
@@ -30,36 +30,33 @@ const FindForm = styled.form`
 const Input = styled.input`
     padding: 5px;
 `;
-const FindBtn = styled(Button)`
+const FindBtn = styled(MainButton)`
     padding: 5px;
-    background-color: lightgray;
-
-    &:hover, :active {
-        background-color: gray;
-    }
-    &:hover {
-        color: #2796FF;
-    }
-    &:active {
-        color: white;
-    }
+    border-radius: 2px;
 `;
 
 //  ****************************************************
 const FindUser = () => {
-    const inputRef = useRef();
     const dispatch = useDispatch();
+    const [ disableFind, setDisableFind ] = useState(true);
+    const [ inputValue, setInputValue ] = useState('')
+
+    useEffect(() => {
+        const isFindDisable = inputValue ? false : true;
+        setDisableFind(isFindDisable);
+    }, [inputValue]);
 
     const showUser = (e) => {
         e.preventDefault();
-        const request = inputRef.current.value;
-        request && dispatch(findUserStatistic(request));
+        inputValue && dispatch(findUserStatistic(inputValue));
     };
 
     const reset = () => {
         dispatch(resetStatistic());
-        inputRef.current.value = '';
+        setInputValue('');
     };
+
+    const changeInput = e => setInputValue(e.target.value);
 
 	return (
         <Wrapper>
@@ -69,11 +66,16 @@ const FindUser = () => {
                 <label htmlFor="find">
                     Find User by name/surname or id
                 </label>
-                <Input type="text" id="find" ref={inputRef}/>
+                <Input type="text"
+                    id="find"
+                    value={inputValue}
+                    onChange={e => changeInput(e)}
+                />
             </FindForm>
             <BtnBlock>
                 <FindBtn type="submit"
                     form="findUser"
+                    disabled={disableFind}
                 >
                     Find
                 </FindBtn>

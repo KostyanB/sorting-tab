@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 //components
-import Button from '../Styled/Button';
+import { Button } from '../Styled/TabComponents';
 import HeaderItemSort from './HeaderItemSort';
 //store
 import { getModalData } from '../../store/modalSlice';

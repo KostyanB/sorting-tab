@@ -7,7 +7,7 @@ import {
     setActivePage,
 } from '../../store/userDataSlice';
 //components
-import Button from '../Styled/ButtonPagination';
+import Button from './PagButton';
 import BtnBlock from '../Styled/BtnBlock';
 //styled
 const NextWrap = styled(BtnBlock)`

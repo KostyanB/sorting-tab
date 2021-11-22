@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 //components
-import Button from '../Styled/Button';
+import { Button } from '../Styled/TabComponents';
 //components
 import { UpIcon, DownIcon } from '../Styled/Icons/Icons';
 //styled

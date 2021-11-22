@@ -78,16 +78,12 @@ export const userDataSlice = createSlice({
         },
         toggleSortingDirect: state => {
             const reverseDataArr = [...state.sortingDataArr].reverse();
-            // state.sortingDataArr = reverseDataArr;
-            // state.dataOnPage = getSlicedArr(initActivePage, state.rowOnPage, reverseDataArr);
             setArrState(state, reverseDataArr);
             state.directSort = !state.directSort;
             state.activePage = initActivePage;
         },
         setSortingColumn: (state, data) => {
             const newSortingArr = sortArray(data.payload, state.sortingDataArr);
-            // state.sortingDataArr = newSortingArr;
-            // state.dataOnPage = getSlicedArr(initActivePage, state.rowOnPage, newSortingArr);
             setArrState(state, newSortingArr);
             state.directSort = true;
             state.activePage = initActivePage;
@@ -95,8 +91,6 @@ export const userDataSlice = createSlice({
         },
         setReverseSortingColumn: (state, data) => {
             const newReverseSortingArr = sortArray(data.payload, state.sortingDataArr).reverse();
-            // state.sortingDataArr = newReverseSortingArr;
-            // state.dataOnPage = getSlicedArr(initActivePage, state.rowOnPage, newReverseSortingArr);
             setArrState(state, newReverseSortingArr);
             state.directSort = false;
             state.activePage = initActivePage;

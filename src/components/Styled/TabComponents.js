@@ -32,6 +32,7 @@ export const Item = styled.div`
         border: none;
     }
 `;
+
 const Li = styled.li`
     position:absolute;
     display: flex;
@@ -42,6 +43,7 @@ const Li = styled.li`
     border: none;
     color: #2796FF;
 `;
+
 export const User = styled(Li)`
     left:0;
     justify-content: flex-start;
@@ -75,4 +77,15 @@ export const Sort = styled.div`
     margin-left: 5px;
     width: 10px;
     height: 30px;
+`;
+
+export const Button = styled.button`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover,
+    &:active {
+        color: #2796FF;
+    }
 `;
