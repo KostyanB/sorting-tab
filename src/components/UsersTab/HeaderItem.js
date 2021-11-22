@@ -1,20 +1,38 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import {
+    useDispatch,
+    useSelector
+} from 'react-redux';
 //components
 import { Button } from '../Styled/TabComponents';
 import HeaderItemSort from './HeaderItemSort';
 //store
-import { getModalData } from '../../store/modalSlice';
+import {
+    getModalData,
+    selectModalData,
+    setOpenModal
+} from '../../store/modalSlice';
 
 
 const HeaderItem = ({ text, name, title }) => {
     const dispatch = useDispatch();
+    const modalData = useSelector(selectModalData);
 
-    const showWeather = date => date && dispatch(getModalData(date));
+    const showWeather = (date, day) => {
+        const storedDay = new Date((modalData.timestamp - 18000) * 1000).getDate();
+
+        if (date) {
+            if (storedDay === day) {
+                dispatch(setOpenModal());
+            } else {
+                dispatch(getModalData(date));
+            }
+        }
+    };
 
     return (
         <>
-            <Button onClick={() => showWeather(title)}
+            <Button onClick={() => showWeather(title, text)}
                 title={title}
             >
                 {text}

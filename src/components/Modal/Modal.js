@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { animated, useTransition } from 'react-spring'
@@ -11,7 +11,7 @@ import {
     selectModalData,
     selectError,
     selectMessage,
-    closeModal,
+    setCloseModal,
 } from '../../store/modalSlice';
 
 // styled
@@ -89,17 +89,15 @@ const BtnClose = styled.button`
 
 // ****************************************
 const Modal = () => {
+    const dispatch = useDispatch();
+    const openModal = useSelector(selectOpenModal);
+    const modalData = useSelector(selectModalData);
+    const error = useSelector(selectError);
 
-    const dispatch = useDispatch(),
-        openModal = useSelector(selectOpenModal),
-        modalData = useSelector(selectModalData),
-        error = useSelector(selectError),
-        message = useSelector(selectMessage);
-
-    // закрытие модалки и сброс
+    // закрытие модалки
     const close = e => {
         if (e.target.id === 'overlay' || e.target.id === 'close-btn') {
-            dispatch(closeModal());
+            dispatch(setCloseModal());
         }
     };
     // анимация открытия модалки
@@ -122,7 +120,7 @@ const Modal = () => {
                         }
                         {error &&
                             <Message>
-                                {message}
+                                Ошибка: {error}. Попробуйте повторить позже.
                             </Message>
                         }
                         <BtnClose onClick={close}

@@ -12,7 +12,6 @@ const {
             initOpenModal,
             initStatus,
             initError,
-            initMessage
         }
     }
 } = env;
@@ -39,12 +38,13 @@ export const modalSlice = createSlice({
         openModal: initOpenModal,
         status: initStatus,
         error: initError,
-        message: initMessage
     },
     reducers: {
-        closeModal: state => {
+        setCloseModal: state => {
             state.openModal = false;
-            state.modalData = null;
+        },
+        setOpenModal: state => {
+            state.openModal = true;
         }
     },
     extraReducers: {
@@ -60,14 +60,14 @@ export const modalSlice = createSlice({
         [ getModalData.rejected ]: (state, action) => {
             state.status = 'rejected';
             state.error = action.payload;
-            state.message = `Ошибка: ${action.payload}. Попробуйте повторить позже.`;
             state.openModal = true;
         }
     }
 });
 
 export const {
-    closeModal
+    setCloseModal,
+    setOpenModal,
 } = modalSlice.actions;
 
 export const selectModalData = state => state.modal.modalData;
