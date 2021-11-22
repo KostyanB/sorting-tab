@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import ScrollContainer from "react-indiana-drag-scroll";
+import env from '../../env.json';
 //components
+import ScrollContainer from "react-indiana-drag-scroll";
 import Container from '../Styled/Container';
 import TabHeader from './TabHeader';
 import TabBody from './TabBody';
@@ -23,13 +24,13 @@ const Wrapper = styled.div`
     margin-left: 200px;
     margin-right: 80px;
     /* scrollbar setting for use without drag-scroll*/
-    ::-webkit-scrollbar {
+    /* ::-webkit-scrollbar {
         height: 5px;
     }
     ::-webkit-scrollbar-thumb {
         background-color: #2796FF;
         border-radius: 100px;
-    }
+    } */
 
     @media(max-width: 576px) {
         width: calc(100% - 220px);
@@ -37,19 +38,30 @@ const Wrapper = styled.div`
         margin-right: 70px;
     }
 `;
+const TabScrollContainer = styled(ScrollContainer)`
+    display: flex;
+
+    ::-webkit-scrollbar {
+        height: 5px;
+    }
+    ::-webkit-scrollbar-thumb {
+        background-color: #2796FF;
+        border-radius: 100px;
+    }
+`;
 
 const UsersTab = () => (
     <TabContainer>
         <Tab>
             <Wrapper>
-                <ScrollContainer horizontal={true}
-                    style={{ display: "flex" }}
+                <TabScrollContainer horizontal={true}
+                    hideScrollbars={env.hideTabScrollbar}
                 >
                     <div>
                         <TabHeader/>
                         <TabBody/>
                     </div>
-                </ScrollContainer>
+                </TabScrollContainer>
             </Wrapper>
         </Tab>
     </TabContainer>
