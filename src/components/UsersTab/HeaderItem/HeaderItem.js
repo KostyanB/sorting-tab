@@ -18,10 +18,9 @@ const HeaderItem = ({ text, name, title }) => {
     const dispatch = useDispatch();
     const modalData = useSelector(selectModalData);
 
-    const showWeather = (date, day) => {
-        const storedDay = new Date((modalData.timestamp - 18000) * 1000).getDate();
-
+    const showCurrency = (date, day) => {
         if (date) {
+            const storedDay = modalData && new Date((modalData.timestamp - 18000) * 1000).getDate();
             if (storedDay === day) {
                 dispatch(setOpenModal());
             } else {
@@ -32,7 +31,7 @@ const HeaderItem = ({ text, name, title }) => {
 
     return (
         <>
-            <Button onClick={() => showWeather(title, text)}
+            <Button onClick={() => showCurrency(title, text)}
                 title={title}
             >
                 {text}
