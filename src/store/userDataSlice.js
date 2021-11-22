@@ -1,10 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import env from '../env.json';
-// import { getData } from './getDataFromServerSlice';
-import getDataProjections from '../helpers/getDataProjections';
+import getDataProjection from '../helpers/getDataProjection';
 import createDaysArr from '../helpers/createDaysArr';
 import sortArray from '../helpers/sortArray';
-import getSlicedArr from '../helpers/getSlicedArr';
 import filterArray from "../helpers/filterArray";
 
 const {
@@ -13,12 +11,10 @@ const {
             initData,
             initStatus,
             initError,
-            initDbProjection,
-            initSortingDataArr,
+            initSortingData,
             initDaysArr,
             initRowOnPage,
             initActivePage,
-            initDataOnPage,
             initSortColumn,
             initDirectSort,
             initActiveMonth,
@@ -48,21 +44,14 @@ const setInitSorting = state => {
     state.directSort = initDirectSort;
 };
 
-const setArrState = (state, arr) => {
-    state.sortingDataArr = arr;
-    state.dataOnPage = getSlicedArr(initActivePage, state.rowOnPage, arr);
-};
-
 export const userDataSlice = createSlice({
     name: 'userData',
     initialState: {
         data: initData,
         status: initStatus,
         error: initError,
-        dbProjection: initDbProjection,
-        sortingDataArr: initSortingDataArr,
+        sortingData: initSortingData,
         daysArr: initDaysArr,
-        dataOnPage: initDataOnPage,
         activePage: initActivePage,
         rowOnPage: initRowOnPage,
         sortColumn: initSortColumn,
@@ -73,39 +62,35 @@ export const userDataSlice = createSlice({
     },
     reducers: {
         setActivePage: (state, data) => {
-            state.dataOnPage = getSlicedArr(data.payload, state.rowOnPage, state.sortingDataArr);
             state.activePage = data.payload;
         },
         toggleSortingDirect: state => {
-            const reverseDataArr = [...state.sortingDataArr].reverse();
-            setArrState(state, reverseDataArr);
+            state.sortingData = [...state.sortingData].reverse();
             state.directSort = !state.directSort;
             state.activePage = initActivePage;
         },
         setSortingColumn: (state, data) => {
-            const newSortingArr = sortArray(data.payload, state.sortingDataArr);
-            setArrState(state, newSortingArr);
+            state.sortingData = sortArray(data.payload, state.sortingData);
             state.directSort = true;
             state.activePage = initActivePage;
             state.sortColumn = data.payload;
         },
         setReverseSortingColumn: (state, data) => {
-            const newReverseSortingArr = sortArray(data.payload, state.sortingDataArr).reverse();
-            setArrState(state, newReverseSortingArr);
+            state.sortingData = sortArray(data.payload, state.sortingData).reverse();
             state.directSort = false;
             state.activePage = initActivePage;
             state.sortColumn = data.payload;
         },
         findUserStatistic: (state, data) => {
-            const filteredArr = filterArray(data.payload, state.dbProjection);
+            const filteredArr = filterArray(data.payload, state.data);
             state.usersCount = filteredArr.length;
-            setArrState(state, filteredArr);
+            state.sortingData = filteredArr;
             setInitSorting(state);
         },
         resetStatistic: state => {
-            const sortingArr = sortArray(initSortColumn, state.dbProjection);
+            const sortingArr = sortArray(initSortColumn, state.data);
             state.usersCount = sortingArr.length;
-            setArrState(state, sortingArr);
+            state.sortingData = sortingArr
             setInitSorting(state);
         },
     },
@@ -117,19 +102,14 @@ export const userDataSlice = createSlice({
         [ getUserData.fulfilled ]: (state, action) => {
             state.status = 'success';
             const { result, activeMonth, activeYear } = action.payload;
-            state.data = result;
             state.activeMonth = activeMonth;
             state.activeYear = activeYear;
             state.usersCount = result.length;
-            // массив дат выбранного месяца YYYY-MM-DD
             const daysArr = createDaysArr(activeMonth, activeYear);
-            state.daysArr = daysArr;
-            // преобразованная исходная DB
-            const projectionArr = getDataProjections(result, daysArr);
-            state.dbProjection = projectionArr;
-            // стартовая сортировка
-            const startSortingArr = sortArray(initSortColumn, projectionArr);
-            setArrState(state, startSortingArr)
+            state.daysArr = daysArr; // arr -> YYYY-MM-DD
+            const projectionArr = getDataProjection(result, daysArr);
+            state.data = projectionArr;
+            state.sortingData = sortArray(initSortColumn, projectionArr);
         },
         [ getUserData.rejected ]: (state, action) => {
             state.status = 'rejected';
@@ -149,7 +129,7 @@ export const {
 
 export const selectError = state => state.userData.error;
 export const selectStatus = state => state.userData.status;
-export const selectDataOnPage = state => state.userData.dataOnPage;
+export const selectSortingData = state => state.userData.sortingData;
 export const selectActivePage = state => state.userData.activePage;
 export const selectRowOnPage = state => state.userData.rowOnPage;
 export const selectDirectSort = state => state.userData.directSort;

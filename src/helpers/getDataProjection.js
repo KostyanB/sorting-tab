@@ -1,6 +1,6 @@
 import calcVisitTime from './calcVisitTime';
 // массив визитов -> ассоциативный массив
-const createDatesProjections = (datesArr, daysArr) => {
+const createDatesObj = (datesArr, daysArr) => {
     const newDatesObj = {};
     let totalVisit = 0;
 
@@ -27,7 +27,7 @@ const createUserData = (userData, daysArr) => {
     const {
         newDatesObj,
         totalVisit
-    } = createDatesProjections(userData.Days, daysArr);
+    } = createDatesObj(userData.Days, daysArr);
 
     return ({
         id: userData.id,
@@ -37,7 +37,7 @@ const createUserData = (userData, daysArr) => {
     });
 };
 
-const getDataProjections = (dB, daysArr) => {
+const getDataProjection = (dB, daysArr) => {
     const projectionArr = [];
 
     daysArr && dB.forEach(user => {
@@ -47,4 +47,4 @@ const getDataProjections = (dB, daysArr) => {
 
     return projectionArr
 };
-export default getDataProjections;
+export default getDataProjection;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { animated, useTransition } from 'react-spring'
@@ -10,7 +10,6 @@ import {
     selectOpenModal,
     selectModalData,
     selectError,
-    selectMessage,
     setCloseModal,
 } from '../../store/modalSlice';
 

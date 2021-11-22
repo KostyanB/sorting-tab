@@ -7,9 +7,9 @@ import {
     setSortingColumn,
     setReverseSortingColumn,
     toggleSortingDirect,
-} from '../../store/userDataSlice';
+} from '../../../store/userDataSlice';
 //components
-import { Sort } from '../Styled/TabComponents';
+import { Sort } from '../../Styled/TabComponents';
 import HeaderSortBtn from './HeaderSortBtn';
 
 const HeaderItemSort = ({ name }) => {

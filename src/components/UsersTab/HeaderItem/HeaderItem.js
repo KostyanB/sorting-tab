@@ -4,14 +4,14 @@ import {
     useSelector
 } from 'react-redux';
 //components
-import { Button } from '../Styled/TabComponents';
+import { Button } from '../../Styled/TabComponents';
 import HeaderItemSort from './HeaderItemSort';
 //store
 import {
     getModalData,
     selectModalData,
     setOpenModal
-} from '../../store/modalSlice';
+} from '../../../store/modalSlice';
 
 
 const HeaderItem = ({ text, name, title }) => {
