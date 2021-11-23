@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+import env from '../../env.json';
+
+const { messageTextColor } = env.style.modal;
 
 const Message = styled.div`
     width: 100%;
@@ -8,7 +11,7 @@ const Message = styled.div`
     align-items: center;
     flex-direction: column;
     gap: 20px;
-    color: #2796FF;
+    color: ${messageTextColor};
     font-size: 2em;
     text-align: center;
 `;

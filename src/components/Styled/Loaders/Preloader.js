@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 import React from 'react';
 import LoadContainer from './LoadContainer';
+import env from '../../../env.json';
+//style-var
+const { loaderDashBack, loaderDashText } = env.style.loaders;
 
 // components
 const Loader = styled.div`
@@ -15,9 +18,9 @@ const Dash = styled.div`
   width: 60px;
   height: 40px;
   border-radius: 15px;
-  background: #33d9de;
+  background: ${loaderDashBack};
   text-align: center;
-  color: #002878;
+  color: ${loaderDashText};
   font-weight: 800;
   font-size: 30px;
   line-height: 40px;

@@ -1,6 +1,14 @@
-import {
-	createGlobalStyle
-} from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
+import env from '../../env.json';
+//style-var
+const {
+    bodyColor,
+    mainTextColor,
+    scrollbar: {
+        scrollbarColor,
+        scrollbarSize
+    }
+} = env.style;
 
 export const GlobalStyle = createGlobalStyle `
     @font-face {
@@ -47,19 +55,19 @@ export const GlobalStyle = createGlobalStyle `
         min-width: 320px;
         ${'' /* min-height: 100vh; */}
         margin: 0;
-        background-color: #fff;
+        background-color: ${bodyColor};
         font-family: "CoFo Sans", Arial, sans-serif;
         font-size: 16px;
         font-weight: 400;
-        color: black;
+        color: ${mainTextColor};
         overflow-x: hidden;
         overflow-y: auto;
 
         ::-webkit-scrollbar {
-            width: 10px;
+            width: ${scrollbarSize};
         }
         ::-webkit-scrollbar-thumb {
-            background-color: #2796FF;
+            background-color: ${scrollbarColor};
             border-radius: 100px;
         }
     }

@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import env from '../env.json';
 import getDataProjection from '../helpers/getDataProjection';
-import createDaysArr from '../helpers/createDaysArr';
 import sortArray from '../helpers/sortArray';
 import filterArray from "../helpers/filterArray";
 
@@ -12,13 +11,10 @@ const {
             initStatus,
             initError,
             initSortingData,
-            initDaysArr,
             initRowOnPage,
             initActivePage,
             initSortColumn,
             initDirectSort,
-            initActiveMonth,
-            initActiveYear,
             initUsersCount,
         }
     }
@@ -51,13 +47,10 @@ export const userDataSlice = createSlice({
         status: initStatus,
         error: initError,
         sortingData: initSortingData,
-        daysArr: initDaysArr,
         activePage: initActivePage,
         rowOnPage: initRowOnPage,
         sortColumn: initSortColumn,
         directSort: initDirectSort,
-        activeMonth: initActiveMonth,
-        activeYear: initActiveYear,
         usersCount: initUsersCount,
     },
     reducers: {
@@ -101,13 +94,10 @@ export const userDataSlice = createSlice({
         },
         [ getUserData.fulfilled ]: (state, action) => {
             state.status = 'success';
-            const { result, activeMonth, activeYear } = action.payload;
-            state.activeMonth = activeMonth;
-            state.activeYear = activeYear;
+            const { result, daysCount, rowOnPage } = action.payload;
             state.usersCount = result.length;
-            const daysArr = createDaysArr(activeMonth, activeYear);
-            state.daysArr = daysArr; // arr -> YYYY-MM-DD
-            const projectionArr = getDataProjection(result, daysArr);
+            state.rowOnPage = rowOnPage;
+            const projectionArr = getDataProjection(result, daysCount);
             state.data = projectionArr;
             state.sortingData = sortArray(initSortColumn, projectionArr);
         },
@@ -134,9 +124,6 @@ export const selectActivePage = state => state.userData.activePage;
 export const selectRowOnPage = state => state.userData.rowOnPage;
 export const selectDirectSort = state => state.userData.directSort;
 export const selectSortColumn = state => state.userData.sortColumn;
-export const selectActiveMonth = state => state.userData.activeMonth;
-export const selectActiveYear = state => state.userData.activeYear;
 export const selectUsersCount = state => state.userData.usersCount;
-export const selectDaysArr = state => state.userData.daysArr;
 
 export default userDataSlice.reducer;

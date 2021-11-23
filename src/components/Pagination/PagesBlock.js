@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
+import env from '../../env.json';
 //store
 import { selectActivePage } from '../../store/userDataSlice';
 //styled
@@ -33,6 +34,7 @@ const RepeatItem = props => {
 //  ****************************************************
 const PagesBlock = ({ pagesCount }) => {
     const activePage = useSelector(selectActivePage);
+    const { mainColor, activeColor } = env.style.pagination;
 
 	return (
         <PagesWrap>
@@ -41,7 +43,7 @@ const PagesBlock = ({ pagesCount }) => {
             >
                 {({ index, otherProps }) => (
                     <Item key={index}
-                        color={(index === otherProps.activePage) ? "#2796FF" : "black"}
+                        color={(index === otherProps.activePage) ? activeColor : mainColor}
                     >
                         {index}
                     </Item>

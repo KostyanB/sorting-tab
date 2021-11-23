@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import env from './env.json';
+//helpers
+import calcDaysInMonth from './helpers/calcDaysInMonth';
 //components
 import { GlobalStyle } from './components/Styled/GlobalStyle';
 import ErrorLoad from './components/Styled/Loaders/ErrorLoad';
@@ -20,35 +22,41 @@ import {
   selectOpenModal
 } from './store/modalSlice';
 
-function App() {
+function App({ activeMonth, activeYear, rowOnPage}) {
   const {
-    backend: {
-      usersDbUrl
-    },
-    startParams: {
-        activeMonth,
-        activeYear
-    }
+    backend: { getUsersUrl }
   } = env;
+
+  const [ daysInMonth, setDaysInMonth ] = useState(0);
+
 	const dispatch = useDispatch(),
 		error = useSelector(selectError),
 		status = useSelector(selectStatus),
     openModal = useSelector(selectOpenModal);
 
-	useEffect(() => dispatch(getUserData({
-    usersDbUrl,
-    activeMonth,
-    activeYear
-  })), [dispatch, activeMonth, activeYear, usersDbUrl]);
+    const prepareUrl = useCallback(baseUrl => {
+      //! здесь готовим API url для получения usersDb
+      const url = baseUrl;
+      return url;
+    }, []);
+
+  useEffect(() => {
+    const daysCount = calcDaysInMonth(activeMonth, activeYear);
+    setDaysInMonth(daysCount);
+
+    const usersDbUrl = prepareUrl(getUsersUrl);
+    dispatch(getUserData({ usersDbUrl, daysCount, rowOnPage }));
+  },
+  [dispatch, getUsersUrl, activeMonth, activeYear, rowOnPage, prepareUrl]);
 
 	return (
     <>
       <GlobalStyle/>
       {(status === 'success') &&
       <>
-        <Title/>
+        <Title activeMonth={activeMonth} activeYear={activeYear}/>
         <FindUser/>
-        <UsersTab/>
+        <UsersTab monthParam={{ daysInMonth, activeMonth, activeYear }}/>
         <Pagination/>
         {openModal && <Modal/>}
       </>

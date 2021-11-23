@@ -6,11 +6,21 @@ import ScrollContainer from "react-indiana-drag-scroll";
 import Container from '../Styled/Container';
 import TabHeader from './TabHeader';
 import TabBody from './TabBody';
+//style-var
+const {
+    scrollbar: {
+        hideTabScrollbar,
+        scrollbarColor,
+    },
+    tab: {
+        tabBackground
+    }
+} = env.style;
 //styled
 const TabContainer = styled(Container)`
     margin-top: 10px;
     filter: drop-shadow(0px 2px 8px black);
-    background-color: lightgray;
+    background-color: ${tabBackground};
 `;
 const Tab = styled.div`
     position: relative;
@@ -28,7 +38,7 @@ const Wrapper = styled.div`
         height: 5px;
     }
     ::-webkit-scrollbar-thumb {
-        background-color: #2796FF;
+        background-color: ${scrollbarColor};
         border-radius: 100px;
     }
 
@@ -45,20 +55,20 @@ const TabScrollContainer = styled(ScrollContainer)`
         height: 5px;
     }
     ::-webkit-scrollbar-thumb {
-        background-color: #2796FF;
+        background-color: ${scrollbarColor};
         border-radius: 100px;
     }
 `;
 
-const UsersTab = () => (
+const UsersTab = ({monthParam}) => (
     <TabContainer>
         <Tab>
             <Wrapper>
                 <TabScrollContainer horizontal={true}
-                    hideScrollbars={env.hideTabScrollbar}
+                    hideScrollbars={hideTabScrollbar}
                 >
                     <div>
-                        <TabHeader/>
+                        <TabHeader monthParam={monthParam}/>
                         <TabBody/>
                     </div>
                 </TabScrollContainer>

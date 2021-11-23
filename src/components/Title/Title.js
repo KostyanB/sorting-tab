@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
-//store
-import {
-    selectActiveMonth,
-    selectActiveYear
-} from '../../store/userDataSlice';
 //components
 import Container from '../Styled/Container';
 //styled
@@ -14,11 +8,9 @@ const HeadTitle = styled.h1`
     text-align: center;
 `;
 
-const Title = () => {
+const Title = ({ activeMonth, activeYear }) => {
     const [ month, setMonth ] = useState('');
     const [ year, setYear ] = useState('');
-    const activeMonth = useSelector(selectActiveMonth);
-    const activeYear = useSelector(selectActiveYear);
 
     useEffect(() => {
         const monthArr = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];

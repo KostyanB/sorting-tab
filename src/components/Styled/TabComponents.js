@@ -1,4 +1,10 @@
 import styled from 'styled-components';
+import env from '../../env.json';
+//style-var
+const {
+    border,
+    tabHoverColor
+} = env.style.tab;
 
 export const Row = styled.ul`
     display: grid;
@@ -26,7 +32,7 @@ export const Item = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    border-right: 1px solid gray;
+    border-right: ${border};
 
     &:last-of-type {
         border: none;
@@ -41,7 +47,7 @@ const Li = styled.li`
     padding-right: 5px;
     padding-bottom: 5px;
     border: none;
-    color: #2796FF;
+    color: ${tabHoverColor};
 `;
 
 export const User = styled(Li)`
@@ -86,6 +92,6 @@ export const Button = styled.button`
 
     &:hover,
     &:active {
-        color: #2796FF;
+        color: ${tabHoverColor};
     }
 `;

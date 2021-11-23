@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { animated, useTransition } from 'react-spring'
+import env from '../../env.json';
 // components
 import Message from '../Styled/Message';
 import Course from './Course';
@@ -12,6 +13,15 @@ import {
     selectError,
     setCloseModal,
 } from '../../store/modalSlice';
+// style-var
+const {
+    modal: {
+        overlayColor,
+        messageBack,
+        closeMain,
+        closeHov,
+    }
+} = env.style;
 
 // styled
 const Overlay = styled.div`
@@ -33,7 +43,7 @@ const Overlay = styled.div`
     height: 100vh;
     z-index: 1000;
     overflow-y: auto;
-    background: rgba(0, 0, 0, 0.5);
+    background: ${overlayColor};
     -webkit-backdrop-filter: blur(3px);
             backdrop-filter: blur(3px);
     -webkit-animation: fadeIn 300ms ease-in-out;
@@ -49,8 +59,7 @@ const ModalWrap = styled.div`
     border-radius: 8px;
     border: none;
     padding: 30px;
-    background-color: #000;
-    color: #fff;
+    background-color: ${messageBack};
     font-weight: 300;
 `;
 const BtnClose = styled.button`
@@ -71,7 +80,7 @@ const BtnClose = styled.button`
         top: 50%;
         right: 5px;
         left: 5px;
-        border-bottom: 1px solid white;
+        border-bottom: 1px solid ${closeMain};
         -webkit-transform: rotate(45deg);
             -ms-transform: rotate(45deg);
                 transform: rotate(45deg);
@@ -82,7 +91,7 @@ const BtnClose = styled.button`
             transform: rotate(-45deg);
     }
     :focus::before, :hover::before, :focus::after, :hover::after {
-        border-color: #2796FF;
+        border-color: ${closeHov};
     }
 `;
 

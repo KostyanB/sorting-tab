@@ -1,7 +1,6 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-//store
-import { selectDaysArr } from '../../store/userDataSlice';
+import React, { useState, useEffect } from 'react';
+//helpers
+import createDaysArr from '../../helpers/createDaysArr1';
 //components
 import HeaderItem from './HeaderItem';
 import {
@@ -14,8 +13,17 @@ import ItemHOC from './ItemHOC';
 
 const WrappedHeaderItem = ItemHOC(HeaderItem);
 
-const TabHeader = () => {
-    const daysArr = useSelector(selectDaysArr);
+const TabHeader = ({ monthParam }) => {
+    const { daysInMonth, activeMonth, activeYear } = monthParam;
+    const [ daysArr, setDaysArr ] = useState(null);
+
+    useEffect(() =>
+        setDaysArr(createDaysArr(daysInMonth, activeMonth, activeYear)),
+    [
+        daysInMonth,
+        activeMonth,
+        activeYear
+    ]);
 
     return (
         <Row>
@@ -26,7 +34,7 @@ const TabHeader = () => {
                 />
             </User>
             <ItemWrap>
-                {daysArr.map((item, i) =>
+                {daysArr && daysArr.map((item, i) =>
                     <WrappedHeaderItem key={item}
                         text={i + 1}
                         name={i + 1}

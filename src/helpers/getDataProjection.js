@@ -1,21 +1,23 @@
 import calcVisitTime from './calcVisitTime';
 // массив визитов -> ассоциативный массив
-const createDatesObj = (datesArr, daysArr) => {
+const createDatesObj = (datesArr, daysCount) => {
     const newDatesObj = {};
     let totalVisit = 0;
 
-    daysArr.forEach((day, index) => {
-        const findDay = datesArr.find(date => date['Date'] === day);
+    const getFindedDay = (arr, day) => arr.find(item => new Date(item['Date']).getDate() === day);
+
+    for (let day = 1; day <= daysCount; day++) {
+        const findDay = getFindedDay(datesArr, day);
         if (findDay) {
             //получаем объект из визита { visitTime, visitMinute, visitHour, visitDay }
             const { Date: visitDate, End: timeEnd, Start: timeStart } = findDay;
             const timeObj = calcVisitTime({ visitDate, timeEnd, timeStart });
             totalVisit += timeObj.visitTime;
-            newDatesObj[timeObj.visitDay] = { ...timeObj, date: visitDate };
+            newDatesObj[timeObj.visitDay] = { ...timeObj };
         } else {
-            newDatesObj[index + 1] = { visitDay: index + 1, visitTime: 0, visitTimeText: '0', date: day };
+            newDatesObj[day] = { visitDay: day, visitTime: 0, visitTimeText: '0' };
         }
-    });
+    }
 
     return ({
         newDatesObj,
@@ -23,11 +25,11 @@ const createDatesObj = (datesArr, daysArr) => {
     });
 };
 // объект данных юзера
-const createUserData = (userData, daysArr) => {
+const createUserData = (userData, daysCount) => {
     const {
         newDatesObj,
         totalVisit
-    } = createDatesObj(userData.Days, daysArr);
+    } = createDatesObj(userData.Days, daysCount);
 
     return ({
         id: userData.id,
@@ -37,11 +39,11 @@ const createUserData = (userData, daysArr) => {
     });
 };
 
-const getDataProjection = (dB, daysArr) => {
+const getDataProjection = (users, daysCount) => {
     const projectionArr = [];
 
-    daysArr && dB.forEach(user => {
-        const obj = createUserData(user, daysArr);
+    daysCount && users.forEach(user => {
+        const obj = createUserData(user, daysCount);
         projectionArr.push(obj);
     });
 
