@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
+import { useRecoilValue } from 'recoil';
 //store
 import {
     selectSortingData,
     selectActivePage,
-    selectRowOnPage,
 } from '../../store/userDataSlice';
+//recoil state
+import { rowOnPageState } from '../../recoilState/mainTabStates';
 //helpers
 import getSlicedArr from '../../helpers/getSlicedArr';
 //components
@@ -16,7 +18,8 @@ const TabBody = () => {
 
     const sortingData = useSelector(selectSortingData);
     const activePage = useSelector(selectActivePage);
-    const rowOnPage = useSelector(selectRowOnPage);
+
+    const rowOnPage = useRecoilValue(rowOnPageState);
 
     const getDataOnPage = useCallback(() =>
         getSlicedArr(activePage,

@@ -6,6 +6,10 @@ import App from './App';
 import store from './store';
 import { Provider } from 'react-redux';
 
+import {
+	RecoilRoot
+  } from 'recoil';
+
 const {
 	startActiveMonth,
 	startActiveYear,
@@ -15,10 +19,12 @@ const {
 const app = (
 	<React.StrictMode>
 		<Provider store={store}>
-			<App activeMonth={startActiveMonth}
-				activeYear={startActiveYear}
-				rowOnPage={startRowOnPage}
+			<RecoilRoot>
+			<App startActiveMonth={startActiveMonth}
+				startActiveYear={startActiveYear}
+				startRowOnPage={startRowOnPage}
 			/>
+			</RecoilRoot>
 		</Provider>
 	</React.StrictMode>
 );

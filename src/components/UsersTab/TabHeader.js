@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useRecoilValue } from 'recoil';
 //helpers
 import createDaysArr from '../../helpers/createDaysArr1';
+//recoil state
+import {
+    activePeriodState,
+    daysCountState
+} from '../../recoilState/mainTabStates';
 //components
 import HeaderItem from './HeaderItem';
 import {
@@ -13,14 +19,15 @@ import ItemHOC from './ItemHOC';
 
 const WrappedHeaderItem = ItemHOC(HeaderItem);
 
-const TabHeader = ({ monthParam }) => {
-    const { daysInMonth, activeMonth, activeYear } = monthParam;
+const TabHeader = () => {
     const [ daysArr, setDaysArr ] = useState(null);
+    const { activeMonth, activeYear } = useRecoilValue(activePeriodState);
+    const daysCount = useRecoilValue(daysCountState);
 
     useEffect(() =>
-        setDaysArr(createDaysArr(daysInMonth, activeMonth, activeYear)),
+        setDaysArr(createDaysArr(daysCount, activeMonth, activeYear)),
     [
-        daysInMonth,
+        daysCount,
         activeMonth,
         activeYear
     ]);

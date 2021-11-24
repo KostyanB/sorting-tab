@@ -11,10 +11,8 @@ const {
             initStatus,
             initError,
             initSortingData,
-            initRowOnPage,
             initActivePage,
             initSortColumn,
-            initDirectSort,
             initUsersCount,
         }
     }
@@ -37,7 +35,6 @@ export const getUserData = createAsyncThunk (
 const setInitSorting = state => {
     state.activePage = initActivePage;
     state.sortColumn = initSortColumn;
-    state.directSort = initDirectSort;
 };
 
 export const userDataSlice = createSlice({
@@ -48,9 +45,7 @@ export const userDataSlice = createSlice({
         error: initError,
         sortingData: initSortingData,
         activePage: initActivePage,
-        rowOnPage: initRowOnPage,
         sortColumn: initSortColumn,
-        directSort: initDirectSort,
         usersCount: initUsersCount,
     },
     reducers: {
@@ -59,18 +54,15 @@ export const userDataSlice = createSlice({
         },
         toggleSortingDirect: state => {
             state.sortingData = [...state.sortingData].reverse();
-            state.directSort = !state.directSort;
             state.activePage = initActivePage;
         },
         setSortingColumn: (state, data) => {
             state.sortingData = sortArray(data.payload, state.sortingData);
-            state.directSort = true;
             state.activePage = initActivePage;
             state.sortColumn = data.payload;
         },
         setReverseSortingColumn: (state, data) => {
             state.sortingData = sortArray(data.payload, state.sortingData).reverse();
-            state.directSort = false;
             state.activePage = initActivePage;
             state.sortColumn = data.payload;
         },
@@ -94,10 +86,9 @@ export const userDataSlice = createSlice({
         },
         [ getUserData.fulfilled ]: (state, action) => {
             state.status = 'success';
-            const { result, daysCount, rowOnPage } = action.payload;
+            const { result, days } = action.payload;
             state.usersCount = result.length;
-            state.rowOnPage = rowOnPage;
-            const projectionArr = getDataProjection(result, daysCount);
+            const projectionArr = getDataProjection(result, days);
             state.data = projectionArr;
             state.sortingData = sortArray(initSortColumn, projectionArr);
         },
@@ -121,7 +112,6 @@ export const selectError = state => state.userData.error;
 export const selectStatus = state => state.userData.status;
 export const selectSortingData = state => state.userData.sortingData;
 export const selectActivePage = state => state.userData.activePage;
-export const selectRowOnPage = state => state.userData.rowOnPage;
 export const selectDirectSort = state => state.userData.directSort;
 export const selectSortColumn = state => state.userData.sortColumn;
 export const selectUsersCount = state => state.userData.usersCount;

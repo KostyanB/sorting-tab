@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
+import { useSetRecoilState } from 'recoil';
 //store
 import {
     findUserStatistic,
     resetStatistic
 } from '../../store/userDataSlice';
+//recoil state
+import { directSortState } from '../../recoilState/mainTabStates';
 //components
 import Container from '../Styled/Container';
 import FindForm from './FindForm';
@@ -22,7 +25,8 @@ const Wrapper = styled(Container)`
 const FindUser = () => {
     const dispatch = useDispatch();
     const [ disableFind, setDisableFind ] = useState(true);
-    const [ inputValue, setInputValue ] = useState('')
+    const [ inputValue, setInputValue ] = useState('');
+    const setDirectSort = useSetRecoilState(directSortState);
 
     useEffect(() => {
         const isFindDisable = inputValue ? false : true;
@@ -31,11 +35,15 @@ const FindUser = () => {
 
     const showUser = (e) => {
         e.preventDefault();
-        inputValue && dispatch(findUserStatistic(inputValue));
+        if (inputValue) {
+            dispatch(findUserStatistic(inputValue));
+            setDirectSort(true);
+        }
     };
 
     const reset = () => {
         dispatch(resetStatistic());
+        setDirectSort(true);
         setInputValue('');
     };
 

@@ -17,7 +17,7 @@ const MainButton = styled.button`
     justify-content: center;
     align-items: center;
     background-color: ${btnBackMain};
-    color: ${props => props.disabled ? '' : mainTextColor};
+    color: ${props => props.disabled ? btnBackDis : mainTextColor};
 
     &:hover, :active {
         background-color: ${props => props.disabled ? btnBackMain : btnBackHover};

@@ -60,7 +60,7 @@ const TabScrollContainer = styled(ScrollContainer)`
     }
 `;
 
-const UsersTab = ({monthParam}) => (
+const UsersTab = () => (
     <TabContainer>
         <Tab>
             <Wrapper>
@@ -68,7 +68,7 @@ const UsersTab = ({monthParam}) => (
                     hideScrollbars={hideTabScrollbar}
                 >
                     <div>
-                        <TabHeader monthParam={monthParam}/>
+                        <TabHeader/>
                         <TabBody/>
                     </div>
                 </TabScrollContainer>

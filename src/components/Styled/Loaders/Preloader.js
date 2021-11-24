@@ -1,10 +1,9 @@
 import styled from 'styled-components';
 import React from 'react';
-import LoadContainer from './LoadContainer';
+import Container from '../Container';
 import env from '../../../env.json';
 //style-var
 const { loaderDashBack, loaderDashText } = env.style.loaders;
-
 // components
 const Loader = styled.div`
   position: absolute;
@@ -145,13 +144,13 @@ const Dash4 = styled(Dash)`
 `;
 //************************ */
 const Preloader = () => (
-  <LoadContainer>
+  <Container>
     <Loader>
       <Dash1>L</Dash1>
       <Dash2>O</Dash2>
       <Dash3>A</Dash3>
       <Dash4>D</Dash4>
     </Loader>
-  </LoadContainer>
+  </Container>
 )
 export default Preloader;

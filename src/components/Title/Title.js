@@ -1,5 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
+//recoil state
+import { activePeriodState } from '../../recoilState/mainTabStates';
 //components
 import Container from '../Styled/Container';
 //styled
@@ -8,20 +11,15 @@ const HeadTitle = styled.h1`
     text-align: center;
 `;
 
-const Title = ({ activeMonth, activeYear }) => {
-    const [ month, setMonth ] = useState('');
-    const [ year, setYear ] = useState('');
-
-    useEffect(() => {
-        const monthArr = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        setYear(activeYear);
-        setMonth(monthArr[activeMonth - 1]);
-    }, [activeYear, activeMonth]);
+const Title = () => {
+    const monthArr = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const { activeMonth, activeYear } = useRecoilValue(activePeriodState);
+    const month = monthArr[activeMonth - 1];
 
 	return (
         <Container>
             <HeadTitle>
-                Users visit time in {month} {year}
+                Users visit time in {month} {activeYear}
             </HeadTitle>
         </Container>
 	);

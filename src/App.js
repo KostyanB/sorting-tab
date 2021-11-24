@@ -1,17 +1,9 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useSetRecoilState, useRecoilState } from 'recoil';
 import env from './env.json';
 //helpers
 import calcDaysInMonth from './helpers/calcDaysInMonth';
-//components
-import { GlobalStyle } from './components/Styled/GlobalStyle';
-import ErrorLoad from './components/Styled/Loaders/ErrorLoad';
-import Preloader from './components/Styled/Loaders/Preloader';
-import Title from './components/Title';
-import FindUser from './components/FindUser';
-import UsersTab from './components/UsersTab';
-import Pagination from './components/Pagination/Pagination';
-import Modal from './components/Modal';
 //store
 import {
   getUserData,
@@ -21,50 +13,82 @@ import {
 import {
   selectOpenModal
 } from './store/modalSlice';
+//recoil state
+import {
+  activePeriodState,
+  daysCountState,
+  rowOnPageState,
+} from './recoilState/mainTabStates';
+//components
+import { GlobalStyle } from './components/Styled/GlobalStyle';
+import ErrorLoad from './components/Styled/Loaders/ErrorLoad';
+import Preloader from './components/Styled/Loaders/Preloader';
+import Title from './components/Title';
+import FindUser from './components/FindUser';
+import UsersTab from './components/UsersTab';
+import Pagination from './components/Pagination/Pagination';
+import Modal from './components/Modal';
 
-function App({ activeMonth, activeYear, rowOnPage}) {
-  const {
-    backend: { getUsersUrl }
-  } = env;
+//****************************************************** */
+function App({ startActiveMonth, startActiveYear, startRowOnPage }) {
+  const { getUsersUrl } = env.backend;
 
-  const [ daysInMonth, setDaysInMonth ] = useState(0);
+  const dispatch = useDispatch(),
+  error = useSelector(selectError),
+  status = useSelector(selectStatus),
+  openModal = useSelector(selectOpenModal);
 
-	const dispatch = useDispatch(),
-		error = useSelector(selectError),
-		status = useSelector(selectStatus),
-    openModal = useSelector(selectOpenModal);
+  //recoil states
+  const setRowOnPage = useSetRecoilState(rowOnPageState),
+    setDaysCount = useSetRecoilState(daysCountState),
+    [activePeriod, setActivePeriod] = useRecoilState(activePeriodState);
 
-    const prepareUrl = useCallback(baseUrl => {
-      //! здесь готовим API url для получения usersDb
-      const url = baseUrl;
-      return url;
-    }, []);
+  //prepare url from active period
+  const prepareUrl = useCallback(baseUrl => {
+    //! здесь готовим API url для получения usersDb
+    const url = baseUrl;
+    return url;
+  }, []);
 
   useEffect(() => {
-    const daysCount = calcDaysInMonth(activeMonth, activeYear);
-    setDaysInMonth(daysCount);
-
+    //set recoil states
+    const days = calcDaysInMonth(startActiveMonth, startActiveYear);
+    setDaysCount(days);
+    setActivePeriod({
+      activeMonth: startActiveMonth,
+      activeYear: startActiveYear
+    });
+    setRowOnPage(startRowOnPage);
+    //get Db
     const usersDbUrl = prepareUrl(getUsersUrl);
-    dispatch(getUserData({ usersDbUrl, daysCount, rowOnPage }));
-  },
-  [dispatch, getUsersUrl, activeMonth, activeYear, rowOnPage, prepareUrl]);
+    dispatch(getUserData({ usersDbUrl, days }));
+  }, [
+    startActiveMonth,
+    startActiveYear,
+    startRowOnPage,
+    setActivePeriod,
+    setDaysCount,
+    setRowOnPage,
+    dispatch,
+    getUsersUrl,
+    prepareUrl
+  ]);
 
 	return (
     <>
       <GlobalStyle/>
+      {activePeriod && <Title/>}
+      <FindUser/>
       {(status === 'success') &&
-      <>
-        <Title activeMonth={activeMonth} activeYear={activeYear}/>
-        <FindUser/>
-        <UsersTab monthParam={{ daysInMonth, activeMonth, activeYear }}/>
-        <Pagination/>
-        {openModal && <Modal/>}
-      </>
+        <>
+          <UsersTab/>
+          <Pagination/>
+        </>
       }
       {(status === 'loading') && <Preloader/>}
       {error && <ErrorLoad text={error}/>}
+      {openModal && <Modal/>}
     </>
 	);
 }
-
 export default App;
