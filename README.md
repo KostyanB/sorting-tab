@@ -23,7 +23,7 @@
 
 ## Стек технологий
 
-* ReactJS, Redux, Toolkit, ReactHooks, React-Spring, StyledComponents, React-indiana-drag-scroll, Grid/Flex.
+* ReactJS, Recoil, React-Spring, StyledComponents, React-indiana-drag-scroll, Grid/Flex.
 * Исходные данные юзеров для fake-Api в `public/db`.
 * Получение курсов валют по Api за выбранную дату c [openexchangerates.org](https://openexchangerates.org)
 * Сборка с помощью [Create React App](https://github.com/facebook/create-react-app).
