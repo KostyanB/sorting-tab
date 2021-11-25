@@ -8,7 +8,7 @@ import {
   activePeriodState,
   daysCountState,
   dbUrlState,
-} from './recoilStore/userDataStore';
+} from './recoilStore/usersDataStore';
 import { rowOnPageState } from './recoilStore/usersTabStore';
 import { openModalState } from './recoilStore/modalStore';
 //components

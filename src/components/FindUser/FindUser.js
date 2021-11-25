@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useSetRecoilState } from 'recoil';
-import env from '../../env.json';
+import { useSetRecoilState, useResetRecoilState } from 'recoil';
 //recoil states
 import {
     directSortState,
@@ -13,12 +12,7 @@ import {
 import Container from '../Styled/Container';
 import FindForm from './FindForm';
 import FindButtons from './FindButtons';
-//init store values
-const {
-    initActivePage,
-    initSortColumn,
-    initDirectSort,
-} = env.initialStates.initStatOnPage;
+
 //styled
 const Wrapper = styled(Container)`
     margin-top: 10px;
@@ -33,9 +27,9 @@ const FindUser = () => {
     const [ inputValue, setInputValue ] = useState('');
 
     const setArrFilter = useSetRecoilState(arrFilterState);
-    const setDirectSort = useSetRecoilState(directSortState);
-    const setActivePage = useSetRecoilState(activePageState);
-    const setSortColumn = useSetRecoilState(sortColumnState);
+    const resetDirectSort = useResetRecoilState(directSortState);
+    const resetActivePage = useResetRecoilState(activePageState);
+    const resetSortColumn = useResetRecoilState(sortColumnState);
 
     useEffect(() => {
         const isFindDisable = inputValue ? false : true;
@@ -43,9 +37,9 @@ const FindUser = () => {
     }, [inputValue]);
 
     const resetPageStates = () => {
-        setActivePage(initActivePage);
-        setDirectSort(initDirectSort);
-        setSortColumn(initSortColumn);
+        resetActivePage();
+        resetDirectSort();
+        resetSortColumn();
     };
 
     const showUser = (e) => {

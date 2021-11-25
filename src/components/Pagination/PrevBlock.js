@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 //recoil state
 import { activePageState } from '../../recoilStore/usersTabStore';
 //components
@@ -16,6 +16,7 @@ const PrevBlock = () => {
     const [ disablePrev, setDisablePrev ] = useState(false);
 
     const [ activePage, setActivePage ] = useRecoilState(activePageState);
+    const resetActivePage = useResetRecoilState(activePageState);
 
     useEffect(() => {
         const isPrevDisable = (activePage === 1) ? true : false;
@@ -27,7 +28,7 @@ const PrevBlock = () => {
         setActivePage(newPage);
     };
 
-    const showFirst = () => setActivePage(1);
+    const showFirst = () => resetActivePage();
 
 	return (
         <PrevWrap>

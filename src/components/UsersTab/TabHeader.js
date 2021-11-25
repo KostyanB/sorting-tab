@@ -6,7 +6,7 @@ import createDaysArr from '../../helpers/createDaysArr1';
 import {
     activePeriodState,
     daysCountState
-} from '../../recoilStore/userDataStore';
+} from '../../recoilStore/usersDataStore';
 //components
 import HeaderItem from './HeaderItem';
 import { ItemWrap, Row, User, Total } from '../Styled/TabComponents';

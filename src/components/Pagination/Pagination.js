@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 //recoil state
 import { rowOnPageState } from '../../recoilStore/usersTabStore';
-import { usersCountState } from '../../recoilStore/userDataStore';
+import { usersCountState } from '../../recoilStore/usersDataStore';
 //components
 import Container from '../Styled/Container';
 import PrevBlock from './PrevBlock';

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 //recoil state
-import { activePeriodState } from '../../recoilStore/userDataStore';
+import { activePeriodState } from '../../recoilStore/usersDataStore';
 //components
 import Container from '../Styled/Container';
 //styled

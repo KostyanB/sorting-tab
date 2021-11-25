@@ -3,7 +3,6 @@ import { atom, selector, selectorFamily } from 'recoil';
 import getDataProjection from '../helpers/getDataProjection';
 import sortArray from '../helpers/sortArray';
 import filterArray from '../helpers/filterArray';
-
 //recoil states
 import {
     directSortState,

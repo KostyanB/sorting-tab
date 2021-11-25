@@ -1,7 +1,7 @@
 import { atom, selector } from 'recoil';
 import env from '../env.json';
 //recoil states
-import { sortingArrState } from './userDataStore';
+import { sortingArrState } from './usersDataStore';
 //helpers
 import getSlicedArr from '../helpers/getSlicedArr'
 
