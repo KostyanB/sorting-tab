@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
 import { useRecoilValue } from 'recoil';
-//store
-import {
-    selectUsersCount,
-} from '../../store/userDataSlice';
 //recoil state
-import { rowOnPageState } from '../../recoilState/mainTabStates';
+import { rowOnPageState } from '../../recoilStore/usersTabStore';
+import { usersCountState } from '../../recoilStore/userDataStore';
 //components
 import Container from '../Styled/Container';
 import PrevBlock from './PrevBlock';
@@ -35,9 +31,8 @@ const Pagination = () => {
     const [ pagesCount, setPagesCount ] = useState(0);
     const [ showPagination, setShowPagination ] = useState(false);
 
-    const usersCount = useSelector(selectUsersCount);
-
     const rowOnPage = useRecoilValue(rowOnPageState);
+    const usersCount = useRecoilValue(usersCountState);
 
     useEffect(() => {
         if (usersCount > rowOnPage) {

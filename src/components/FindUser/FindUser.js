@@ -1,18 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
 import { useSetRecoilState } from 'recoil';
-//store
+import env from '../../env.json';
+//recoil states
 import {
-    findUserStatistic,
-    resetStatistic
-} from '../../store/userDataSlice';
-//recoil state
-import { directSortState } from '../../recoilState/mainTabStates';
+    directSortState,
+    arrFilterState,
+    activePageState,
+    sortColumnState
+} from '../../recoilStore/usersTabStore';
 //components
 import Container from '../Styled/Container';
 import FindForm from './FindForm';
 import FindButtons from './FindButtons';
+//init store values
+const {
+    initActivePage,
+    initSortColumn,
+    initDirectSort,
+} = env.initialStates.initStatOnPage;
 //styled
 const Wrapper = styled(Container)`
     margin-top: 10px;
@@ -23,27 +29,36 @@ const Wrapper = styled(Container)`
 `;
 
 const FindUser = () => {
-    const dispatch = useDispatch();
     const [ disableFind, setDisableFind ] = useState(true);
     const [ inputValue, setInputValue ] = useState('');
+
+    const setArrFilter = useSetRecoilState(arrFilterState);
     const setDirectSort = useSetRecoilState(directSortState);
+    const setActivePage = useSetRecoilState(activePageState);
+    const setSortColumn = useSetRecoilState(sortColumnState);
 
     useEffect(() => {
         const isFindDisable = inputValue ? false : true;
         setDisableFind(isFindDisable);
     }, [inputValue]);
 
+    const resetPageStates = () => {
+        setActivePage(initActivePage);
+        setDirectSort(initDirectSort);
+        setSortColumn(initSortColumn);
+    };
+
     const showUser = (e) => {
         e.preventDefault();
         if (inputValue) {
-            dispatch(findUserStatistic(inputValue));
-            setDirectSort(true);
+            setArrFilter(inputValue);
+            resetPageStates();
         }
     };
 
     const reset = () => {
-        dispatch(resetStatistic());
-        setDirectSort(true);
+        setArrFilter('');
+        resetPageStates();
         setInputValue('');
     };
 

@@ -21,11 +21,11 @@ const Icon = ({name}) => ((name === 'up') ? <UpIcon /> : <DownIcon/>);
 const HeaderSortBtn = ({ color, sortingFn, directName }) => {
 
     return (
-            <SortButton onClick={() => sortingFn(directName)}
-                color={color}
-            >
-                <Icon name={directName}/>
-            </SortButton>
+        <SortButton onClick={() => sortingFn(directName)}
+            color={color}
+        >
+            <Icon name={directName}/>
+        </SortButton>
     );
 }
 export default HeaderSortBtn;

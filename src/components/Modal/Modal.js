@@ -1,19 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useSelector, useDispatch } from 'react-redux';
-import { animated, useTransition } from 'react-spring'
+import { animated, useTransition } from 'react-spring';
+import { useRecoilState } from 'recoil';
 import env from '../../env.json';
+//recoil state
+import { openModalState } from '../../recoilStore/modalStore';
 // components
-import Message from '../Styled/Message';
-import Course from './Course';
-// store
-import {
-    selectOpenModal,
-    selectModalData,
-    selectError,
-    setCloseModal,
-} from '../../store/modalSlice';
-// style-var
+import ModalInfo from './ModalInfo';
+// styled-var
 const {
     modal: {
         overlayColor,
@@ -22,7 +16,6 @@ const {
         closeHov,
     }
 } = env.style;
-
 // styled
 const Overlay = styled.div`
     display: -webkit-box;
@@ -97,15 +90,12 @@ const BtnClose = styled.button`
 
 // ****************************************
 const Modal = () => {
-    const dispatch = useDispatch();
-    const openModal = useSelector(selectOpenModal);
-    const modalData = useSelector(selectModalData);
-    const error = useSelector(selectError);
+    const [ openModal, setOpenModal ] = useRecoilState(openModalState);
 
     // закрытие модалки
-    const close = e => {
+    const closeModal = e => {
         if (e.target.id === 'overlay' || e.target.id === 'close-btn') {
-            dispatch(setCloseModal());
+            setOpenModal(false);
         }
     };
     // анимация открытия модалки
@@ -117,21 +107,12 @@ const Modal = () => {
     });
 
     return (
-        <Overlay onClick={close} id="overlay">
+        <Overlay onClick={closeModal} id="overlay">
             {transitions((styles, item) => item &&
                 <animated.div style={styles}>
                     <ModalWrap>
-                        {modalData &&
-                            <Message>
-                                <Course/>
-                            </Message>
-                        }
-                        {error &&
-                            <Message>
-                                Ошибка: {error}. Попробуйте повторить позже.
-                            </Message>
-                        }
-                        <BtnClose onClick={close}
+                        <ModalInfo/>
+                        <BtnClose onClick={closeModal}
                             id="close-btn"
                         />
                     </ModalWrap>

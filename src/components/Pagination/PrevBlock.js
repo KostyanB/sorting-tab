@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useSelector, useDispatch } from 'react-redux';
-//store
-import {
-    selectActivePage,
-    setActivePage,
-} from '../../store/userDataSlice';
+import { useRecoilState } from 'recoil';
+//recoil state
+import { activePageState } from '../../recoilStore/usersTabStore';
 //components
 import Button from './PagButton';
 import BtnBlock from '../Styled/BtnBlock';
@@ -18,8 +15,7 @@ const PrevWrap = styled(BtnBlock)`
 const PrevBlock = () => {
     const [ disablePrev, setDisablePrev ] = useState(false);
 
-    const dispatch = useDispatch();
-    const activePage = useSelector(selectActivePage);
+    const [ activePage, setActivePage ] = useRecoilState(activePageState);
 
     useEffect(() => {
         const isPrevDisable = (activePage === 1) ? true : false;
@@ -28,10 +24,10 @@ const PrevBlock = () => {
 
     const showPrev = () =>{
         const newPage = activePage - 1;
-        dispatch(setActivePage(newPage));
+        setActivePage(newPage);
     };
 
-    const showFirst = () => dispatch(setActivePage(1));
+    const showFirst = () => setActivePage(1);
 
 	return (
         <PrevWrap>

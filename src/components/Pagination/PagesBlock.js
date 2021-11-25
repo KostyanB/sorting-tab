@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import{ useRecoilState } from 'recoil';
 import env from '../../env.json';
-//store
-import { selectActivePage } from '../../store/userDataSlice';
+//recoil state
+import { activePageState, } from '../../recoilStore/usersTabStore';
 //styled
-const PagesWrap = styled.ul`
+const PagesWrap = styled.div`
     grid-area: pag;
     display: flex;
     justify-content: center;
@@ -14,7 +14,7 @@ const PagesWrap = styled.ul`
     padding-left: 20px;
     padding-right: 20px;
 `;
-const Item = styled.li`
+const Item = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -33,7 +33,7 @@ const RepeatItem = props => {
 
 //  ****************************************************
 const PagesBlock = ({ pagesCount }) => {
-    const activePage = useSelector(selectActivePage);
+    const [ activePage, setActivePage ] = useRecoilState(activePageState);
     const { mainColor, activeColor } = env.style.pagination;
 
 	return (
@@ -44,6 +44,7 @@ const PagesBlock = ({ pagesCount }) => {
                 {({ index, otherProps }) => (
                     <Item key={index}
                         color={(index === otherProps.activePage) ? activeColor : mainColor}
+                        onClick={() => setActivePage(index)}
                     >
                         {index}
                     </Item>

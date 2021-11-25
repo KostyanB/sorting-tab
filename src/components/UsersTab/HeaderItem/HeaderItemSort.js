@@ -1,40 +1,41 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import env from '../../../env.json';
-//store
-import {
-    selectSortColumn,
-    setSortingColumn,
-    setReverseSortingColumn,
-    toggleSortingDirect,
-} from '../../../store/userDataSlice';
 //recoil state
-import { directSortState } from '../../../recoilState/mainTabStates';
+import {
+    directSortState,
+    sortColumnState,
+    activePageState,
+} from '../../../recoilStore/usersTabStore';
 //components
 import { Sort } from '../../Styled/TabComponents';
 import HeaderSortBtn from './HeaderSortBtn';
 //style-var
+const {
+    tabHoverColor,
+    sortBtnMain
+} = env.style.tab;
 
+//*************************************** */
 const HeaderItemSort = ({ name }) => {
-    const { tabHoverColor, sortBtnMain } = env.style.tab;
-    const dispatch = useDispatch();
     const [ directSort, setDirectSort ] = useRecoilState(directSortState);
-    const sortColumn = useSelector(selectSortColumn);
+    const [ sortColumn, setSortColumn ] = useRecoilState(sortColumnState);
+    const setActivePage = useSetRecoilState(activePageState);
 
-    const colorStyleUp = (sortColumn === name && directSort) ? tabHoverColor : sortBtnMain;
-    const colorStyleDown = (sortColumn === name && !directSort) ? tabHoverColor : sortBtnMain;
+    const colorStyleUp = (sortColumn === name && directSort)
+        ? tabHoverColor
+        : sortBtnMain;
+    const colorStyleDown = (sortColumn === name && !directSort)
+        ? tabHoverColor
+        : sortBtnMain;
 
     const handleSorting = direct => {
         if (sortColumn === name) {
-            dispatch(toggleSortingDirect());
             setDirectSort(!directSort);
-        } else if (direct === 'up'){
-            dispatch(setSortingColumn(name));
-            setDirectSort(true);
         } else {
-            dispatch(setReverseSortingColumn(name));
-            setDirectSort(false);
+            setSortColumn(name);
+            setActivePage(1);
+            setDirectSort((direct === 'up') ? true : false);
         }
     };
 

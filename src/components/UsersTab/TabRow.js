@@ -1,13 +1,8 @@
 import React from 'react';
-
-import {
-    ItemWrap,
-    Row,
-    User,
-    Total
-} from '../Styled/TabComponents';
+//components
+import { ItemWrap, Row, User, Total } from '../Styled/TabComponents';
 import ItemHOC from './ItemHOC';
-
+//use HOC
 const MainItem = ({text}) => <>{text}</>;
 const WrappedMainItem = ItemHOC(MainItem);
 

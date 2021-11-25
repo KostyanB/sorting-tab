@@ -6,30 +6,29 @@ import createDaysArr from '../../helpers/createDaysArr1';
 import {
     activePeriodState,
     daysCountState
-} from '../../recoilState/mainTabStates';
+} from '../../recoilStore/userDataStore';
 //components
 import HeaderItem from './HeaderItem';
-import {
-    ItemWrap,
-    Row,
-    User,
-    Total
-} from '../Styled/TabComponents';
+import { ItemWrap, Row, User, Total } from '../Styled/TabComponents';
 import ItemHOC from './ItemHOC';
 
 const WrappedHeaderItem = ItemHOC(HeaderItem);
 
 const TabHeader = () => {
     const [ daysArr, setDaysArr ] = useState(null);
-    const { activeMonth, activeYear } = useRecoilValue(activePeriodState);
+
+    const activePeriod = useRecoilValue(activePeriodState);
     const daysCount = useRecoilValue(daysCountState);
 
     useEffect(() =>
-        setDaysArr(createDaysArr(daysCount, activeMonth, activeYear)),
-    [
+        activePeriod && setDaysArr(createDaysArr(
+            daysCount,
+            activePeriod.activeMonth,
+            activePeriod.activeYear
+        )
+    ), [
         daysCount,
-        activeMonth,
-        activeYear
+        activePeriod
     ]);
 
     return (

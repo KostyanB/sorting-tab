@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useSelector, useDispatch } from 'react-redux';
-//store
+import { useRecoilState } from 'recoil';
+//recoil state
 import {
-    selectActivePage,
-    setActivePage,
-} from '../../store/userDataSlice';
+    activePageState,
+} from '../../recoilStore/usersTabStore';
 //components
 import Button from './PagButton';
 import BtnBlock from '../Styled/BtnBlock';
@@ -18,8 +17,7 @@ const NextWrap = styled(BtnBlock)`
 const NextBlock = ({ pagesCount }) => {
     const [ disableNext, setDisableNext ] = useState(false);
 
-    const dispatch = useDispatch();
-    const activePage = useSelector(selectActivePage);
+    const [ activePage, setActivePage ] = useRecoilState(activePageState);
 
     useEffect(() => {
         const isNextDisable = (activePage === pagesCount) ? true : false;
@@ -28,10 +26,10 @@ const NextBlock = ({ pagesCount }) => {
 
     const showNext = () => {
         const newPage = activePage + 1;
-        dispatch(setActivePage(newPage));
+        setActivePage(newPage);
     };
 
-    const showLast = () => dispatch(setActivePage(pagesCount));
+    const showLast = () => setActivePage(pagesCount);
 
 	return (
         <NextWrap>

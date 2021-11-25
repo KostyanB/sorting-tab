@@ -1,37 +1,29 @@
 import React from 'react';
-import {
-    useDispatch,
-    useSelector
-} from 'react-redux';
+import { useSetRecoilState } from 'recoil';
 //components
 import { Button } from '../../Styled/TabComponents';
 import HeaderItemSort from './HeaderItemSort';
-//store
+//recoil state
 import {
-    getModalData,
-    selectModalData,
-    setOpenModal
-} from '../../../store/modalSlice';
+    openModalState,
+    activeDateState,
+} from '../../../recoilStore/modalStore';
 
 
 const HeaderItem = ({ text, name, title }) => {
-    const dispatch = useDispatch();
-    const modalData = useSelector(selectModalData);
+    const setOpenModal = useSetRecoilState(openModalState);
+    const setActiveDate = useSetRecoilState(activeDateState);
 
-    const showCurrency = (date, day) => {
+    const showModal = date => {
         if (date) {
-            const storedDay = modalData && new Date((modalData.timestamp - 18000) * 1000).getDate();
-            if (storedDay === day) {
-                dispatch(setOpenModal());
-            } else {
-                dispatch(getModalData(date));
-            }
+            setActiveDate(date);
+            setOpenModal(true);
         }
     };
 
     return (
         <>
-            <Button onClick={() => showCurrency(title, text)}
+            <Button onClick={() => showModal(title, text)}
                 title={title}
             >
                 {text}

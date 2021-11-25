@@ -1,10 +1,6 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-// store
-import { selectModalData } from '../../store/modalSlice';
 
-const Course = () => {
-    const modalData = useSelector(selectModalData);
+const Course = ({modalData}) => {
     const { timestamp, rates: { RUB: rub, EUR: euro}} = modalData;
     const date = new Date((timestamp - 18000)* 1000).toLocaleString().split(',')[0];
 
