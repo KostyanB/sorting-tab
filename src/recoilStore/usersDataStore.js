@@ -12,10 +12,9 @@ import {
 } from './usersTabStore';
 //
 const {
-    initStatus,
-    initError,
     initActivePeriod,
     initDaysCount,
+    initDbUrl
 } = env.initialStates.initUsersData;
 
 //activePeriod {activeMonth, activeYear}
@@ -28,20 +27,10 @@ export const daysCountState = atom({
     key: 'daysCountState',
     default: initDaysCount,
 });
-//usersData
-export const usersData = atom({
-    key: 'usersData',
-    default: null,
-});
-//error
-export const errorState = atom({
-    key: 'errorState',
-    default: initError,
-});
-//loading
-export const loadingState = atom({
-    key: 'State',
-    default: initStatus,
+
+export const dbUrlState = atom({
+    key: 'dbUrlState',
+    default: initDbUrl,
 });
 
 const usersDataQuery = selectorFamily({
@@ -55,17 +44,12 @@ const usersDataQuery = selectorFamily({
     },
 });
 
-export const dbUrlState = atom({
-    key: 'dbUrlState',
-    default: '',
-});
-
-export const usersDataState = selector({
+const usersDataState = selector({
     key: 'usersDataState',
     get: ({ get }) => get(usersDataQuery(get(dbUrlState))),
 });
 
-export const projectionArrState = selector({
+const projectionArrState = selector({
     key: 'projectionArrState',
     get: ({ get }) => getDataProjection(get(usersDataState), get(daysCountState)),
 });
