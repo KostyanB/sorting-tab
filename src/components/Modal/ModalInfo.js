@@ -11,6 +11,7 @@ import {
 // components
 import Course from './Course';
 import Message from '../Styled/Message';
+import Loader from '../Styled/Loader';
 
 const InfoBlock = () => {
     const activeDate = useRecoilValue(activeDateState);
@@ -27,7 +28,7 @@ const InfoBlock = () => {
                     throw new Error(modalDataLoadable.contents.message);
                 }
             case 'loading':
-                return <>Loading ...</>;
+                return <Loader/>;
             case 'hasError':
                 throw new Error(modalDataLoadable.contents);
         }

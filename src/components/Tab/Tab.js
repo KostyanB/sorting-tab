@@ -17,7 +17,7 @@ import UsersTab from '../UsersTab';
 import Pagination from '../Pagination/Pagination';
 import Modal from '../Modal';
 import ErrorBoundary from '../Styled/ErrorBoundary'
-import Preloader from '../Styled/Preloader';
+import Loader from '../Styled/Loader';
 
 //****************************************************** */
 const Tab = ({ period, rowOnPage }) => {
@@ -55,7 +55,7 @@ const Tab = ({ period, rowOnPage }) => {
 	return (
     <>
         <ErrorBoundary>
-            <Suspense fallback={<Preloader/>}>
+            <Suspense fallback={<Loader/>}>
                 <FindUser/>
                 <UsersTab/>
                 <Pagination/>
