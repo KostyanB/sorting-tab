@@ -1,7 +1,6 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { render } from 'react-dom';
 import env from './env.json';
-import { RecoilRoot } from 'recoil';
 import App from './App';
 
 const {
@@ -12,14 +11,12 @@ const {
 
 const app = (
 	<React.StrictMode>
-		<RecoilRoot>
-			<Suspense fallback={<>Loading...</>}>
-				<App startActiveMonth={startActiveMonth}
-					startActiveYear={startActiveYear}
-					startRowOnPage={startRowOnPage}
-				/>
-			</Suspense>
-		</RecoilRoot>
+		<App startRowOnPage={startRowOnPage}
+			startActivePeriod={{
+				activeMonth: startActiveMonth,
+				activeYear: startActiveYear
+			}}
+		/>
 	</React.StrictMode>
 );
 

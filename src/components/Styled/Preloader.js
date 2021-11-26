@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import React from 'react';
-import Container from '../Container';
-import env from '../../../env.json';
+import Container from './Container';
+import env from '../../env.json';
 //style-var
 const { loaderDashBack, loaderDashText } = env.style.loaders;
 // components

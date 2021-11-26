@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 //helpers
-import createDaysArr from '../../helpers/createDaysArr1';
+import createDaysArr from '../../helpers/createDaysArr';
 //recoil state
 import {
     activePeriodState,

@@ -1,4 +1,5 @@
 import { atom, selector, selectorFamily } from 'recoil';
+import env from '../env.json';
 // helpers
 import getDataProjection from '../helpers/getDataProjection';
 import sortArray from '../helpers/sortArray';
@@ -9,16 +10,23 @@ import {
     sortColumnState,
     arrFilterState
 } from './usersTabStore';
+//
+const {
+    initStatus,
+    initError,
+    initActivePeriod,
+    initDaysCount,
+} = env.initialStates.initUsersData;
 
 //activePeriod {activeMonth, activeYear}
 export const activePeriodState = atom({
     key: 'activePeriodState',
-    default: null,
+    default: initActivePeriod,
 });
 
 export const daysCountState = atom({
     key: 'daysCountState',
-    default: 0,
+    default: initDaysCount,
 });
 //usersData
 export const usersData = atom({
@@ -28,12 +36,12 @@ export const usersData = atom({
 //error
 export const errorState = atom({
     key: 'errorState',
-    default: '',
+    default: initError,
 });
 //loading
 export const loadingState = atom({
     key: 'State',
-    default: '',
+    default: initStatus,
 });
 
 const usersDataQuery = selectorFamily({

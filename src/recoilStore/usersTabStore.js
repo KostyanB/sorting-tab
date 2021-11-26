@@ -10,7 +10,7 @@ const {
     initActivePage,
     initSortColumn,
     initDirectSort,
-} = env.initialStates.initStatOnPage;
+} = env.initialStates.initUsersTab;
 
 export const rowOnPageState = atom({
     key: 'rowOnPageState',

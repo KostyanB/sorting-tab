@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
+// import { useRecoilValue } from 'recoil';
 //recoil state
-import { activePeriodState } from '../../recoilStore/usersDataStore';
+// import { activePeriodState } from '../../recoilStore/usersDataStore';
 //components
 import Container from '../Styled/Container';
 //styled
@@ -11,9 +11,10 @@ const HeadTitle = styled.h1`
     text-align: center;
 `;
 
-const Title = () => {
+const Title = ({ period }) => {
     const monthArr = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    const { activeMonth, activeYear } = useRecoilValue(activePeriodState);
+    // const { activeMonth, activeYear } = useRecoilValue(activePeriodState);
+    const { activeMonth, activeYear } = period;
     const month = monthArr[activeMonth - 1];
 
 	return (
