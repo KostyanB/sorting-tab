@@ -21,8 +21,7 @@ import Loader from '../Styled/Loader';
 
 //****************************************************** */
 const Tab = ({ period, rowOnPage }) => {
-
-  //recoil states
+    //recoil states
     const setRowOnPage = useSetRecoilState(rowOnPageState),
         setDaysCount = useSetRecoilState(daysCountState),
         setActivePeriod = useSetRecoilState(activePeriodState),

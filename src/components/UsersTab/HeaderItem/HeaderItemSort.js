@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import env from '../../../env.json';
 //recoil state
@@ -8,13 +9,23 @@ import {
     activePageState,
 } from '../../../recoilStore/usersTabStore';
 //components
-import { Sort } from '../../Styled/TabComponents';
 import HeaderSortBtn from './HeaderSortBtn';
 //style-var
 const {
     tabHoverColor,
     sortBtnMain
 } = env.style.tab;
+//styled
+export const Sort = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+    margin-left: 5px;
+    width: 10px;
+    height: 100%;
+`;
 
 //*************************************** */
 const HeaderItemSort = ({ name }) => {

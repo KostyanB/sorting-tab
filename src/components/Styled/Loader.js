@@ -1,96 +1,70 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import env from '../../env.json';
-// import Container from './Container';
 
 const { hoverColor } = env.style;
+const animationParam = '1s cubic-bezier(.42, .61, .58, .41) infinite';
 
 const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 20px;
 `;
 const Wrapper = styled.div`
-    position: relative;
-    width: 60px;
-    height: 60px;
+    width: ${props => props.size || '90px'};
+    height: ${props => props.size || '90px'};
     border-radius: 50%;
-    margin: 75px;
-    display: inline-block;
-    vertical-align: middle;
+    display: grid;
 `;
-const Outter = styled.div`
-    position: absolute;
+//direction keyframes
+const Rotate = keyframes`
+    from {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+`;
+const ReverseRotate = keyframes`
+    from {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(-360deg);
+        transform: rotate(-360deg);
+    }
+`;
+const Circle = styled.div`
+    grid-area: 1/-1;
     border: 4px solid ${hoverColor};
-    border-left-color: transparent;
-    border-bottom: 0;
+    border-radius: 50%;
+`;
+const Outter = styled(Circle)`
     width: 100%;
     height: 100%;
-    border-radius: 50%;
-    -webkit-animation: loader-1-outter 1s cubic-bezier(.42, .61, .58, .41) infinite;
-    animation: loader-1-outter 1s cubic-bezier(.42, .61, .58, .41) infinite;
-
-    @-webkit-keyframes loader-1-outter {
-        0% {
-            -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-        }
-        100% {
-            -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-        }
-    }
-
-    @keyframes loader-1-outter {
-        0% {
-            -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-        }
-        100% {
-            -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-        }
-    }
+    border-bottom: 0;
+    border-left-color: transparent;
+    -webkit-animation: ${Rotate} ${animationParam};
+    animation: ${Rotate} ${animationParam};
 `;
-const Inner = styled.div`
-    position: absolute;
-    border: 4px solid ${hoverColor};
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    left: calc(50% - 20px);
-    top: calc(50% - 20px);
+const Inner = styled(Circle)`
+    align-self: center;
+    justify-self: center;
+    width: 75%;
+    height: 75%;
     border-right: 0;
     border-top-color: transparent;
-    -webkit-animation: loader-1-inner 1s cubic-bezier(.42, .61, .58, .41) infinite;
-    animation: loader-1-inner 1s cubic-bezier(.42, .61, .58, .41) infinite;
-
-    @-webkit-keyframes loader-1-inner {
-        0% {
-            -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-        }
-        100% {
-            -webkit-transform: rotate(-360deg);
-            transform: rotate(-360deg);
-        }
-    }
-
-    @keyframes loader-1-inner {
-        0% {
-            -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-        }
-        100% {
-            -webkit-transform: rotate(-360deg);
-            transform: rotate(-360deg);
-        }
-    }
+    -webkit-animation: ${ReverseRotate} ${animationParam};
+    animation: ${ReverseRotate} ${animationParam};
 `;
 
-const Loader = () => (
+const Loader = ({ size }) => (
     <Container>
-        <Wrapper>
+        <Wrapper size={size}>
             <Outter/>
             <Inner/>
         </Wrapper>

@@ -9,13 +9,11 @@ import { openModalState } from '../../recoilStore/modalStore';
 import ModalInfo from './ModalInfo';
 // styled-var
 const {
-    modal: {
-        overlayColor,
-        messageBack,
-        closeMain,
-        closeHov,
-    }
-} = env.style;
+    overlayColor,
+    messageBack,
+    closeMain,
+    closeHov,
+} = env.style.modal;
 // styled
 const Overlay = styled.div`
     display: -webkit-box;

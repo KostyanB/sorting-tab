@@ -47,9 +47,11 @@ const Wrapper = styled.div`
         margin-left: 150px;
         margin-right: 70px;
     }
-`;
+    `;
 const TabScrollContainer = styled(ScrollContainer)`
     display: flex;
+    padding-top: 15px;
+    padding-bottom: 10px;
 
     ::-webkit-scrollbar {
         height: 5px;
@@ -59,7 +61,13 @@ const TabScrollContainer = styled(ScrollContainer)`
         border-radius: 100px;
     }
 `;
-
+const Table = styled.table`
+    height: 100%;
+    width:100%;
+    text-align: center;
+    vertical-align: middle;
+    border-collapse: collapse;
+`;
 const UsersTab = () => (
     <TabContainer>
         <Tab>
@@ -67,10 +75,10 @@ const UsersTab = () => (
                 <TabScrollContainer horizontal={true}
                     hideScrollbars={hideTabScrollbar}
                 >
-                    <div>
+                    <Table>
                         <TabHeader/>
                         <TabBody/>
-                    </div>
+                    </Table>
                 </TabScrollContainer>
             </Wrapper>
         </Tab>

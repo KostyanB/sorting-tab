@@ -9,10 +9,8 @@ import {
 } from '../../recoilStore/usersDataStore';
 //components
 import HeaderItem from './HeaderItem';
-import { ItemWrap, Row, User, Total } from '../Styled/TabComponents';
-import ItemHOC from './ItemHOC';
+import { User, Total } from '../Styled/TabComponents';
 
-const WrappedHeaderItem = ItemHOC(HeaderItem);
 
 const TabHeader = () => {
     const [ daysArr, setDaysArr ] = useState(null);
@@ -32,29 +30,31 @@ const TabHeader = () => {
     ]);
 
     return (
-        <Row>
-            <User>
-                <HeaderItem
-                    text='Name'
-                    name='userName'
-                />
-            </User>
-            <ItemWrap>
-                {daysArr && daysArr.map((item, i) =>
-                    <WrappedHeaderItem key={item}
-                        text={i + 1}
-                        name={i + 1}
-                        title={item}
+        <thead>
+            <tr>
+                <User>
+                    <HeaderItem
+                        text='Name'
+                        name='userName'
                     />
+                </User>
+                {daysArr && daysArr.map((item, i) =>
+                    <td>
+                        <HeaderItem key={item}
+                            text={i + 1}
+                            name={i + 1}
+                            title={item}
+                        />
+                    </td>
                 )}
-            </ItemWrap>
-            <Total>
-                <HeaderItem
-                    text='Total'
-                    name='total'
-                />
-            </Total>
-        </Row>
+                <Total>
+                    <HeaderItem
+                        text='Total'
+                        name='total'
+                    />
+                </Total>
+            </tr>
+        </thead>
     );
 }
 export default TabHeader;

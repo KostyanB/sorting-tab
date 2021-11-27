@@ -8,7 +8,7 @@ const Container = styled.div`
     align-items: center;
     gap: 10px;
     margin: 0 auto;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 `;
 export default Container;

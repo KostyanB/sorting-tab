@@ -9,16 +9,16 @@ const TabBody = () => {
     const dataOnPage = useRecoilValue(dataOnPageState);
 
     return (
-        <>
-        {dataOnPage && dataOnPage.map(({id, userName, total, days}) =>
-            <TabRow key={id}
-                id={id}
-                name={userName}
-                total={total}
-                items={days}
-            />
-        )}
-        </>
+        <tbody>
+            {dataOnPage && dataOnPage.map(({id, userName, total, days}) =>
+                <TabRow key={id}
+                    id={id}
+                    name={userName}
+                    total={total}
+                    items={days}
+                />
+            )}
+        </tbody>
 	);
 }
 export default TabBody;

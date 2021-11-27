@@ -126,4 +126,8 @@ export const GlobalStyle = createGlobalStyle `
         text-transform: inherit;
         cursor: pointer;
     }
+    td,
+    th {
+        padding: 10px;
+    }
 `;
