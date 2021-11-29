@@ -11,7 +11,7 @@ import NextBlock from './NextBlock';
 import PagesBlock from './PagesBlock';
 //styled
 const Wrapper = styled(Container)`
-    margin-top: 10px;
+    margin-top: 20px;
     display: grid;
     justify-content: center;
     align-items: center;

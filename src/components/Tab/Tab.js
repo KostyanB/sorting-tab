@@ -48,6 +48,7 @@ const Tab = ({ period, rowOnPage }) => {
         setActivePeriod,
         setDaysCount,
         setRowOnPage,
+        setDbUrlState,
         prepareUrl
     ]);
 

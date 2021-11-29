@@ -7,10 +7,11 @@ import Tab from './components/Tab';
 
 //****************************************************** */
 function App({ startActivePeriod, startRowOnPage }) {
+  const darkTheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
   return (
     <>
-      <GlobalStyle/>
+      <GlobalStyle dark={darkTheme}/>
       <Title period={startActivePeriod}/>
       <RecoilRoot>
         <Tab period={startActivePeriod}

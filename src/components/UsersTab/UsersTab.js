@@ -19,8 +19,10 @@ const {
 //styled
 const TabContainer = styled(Container)`
     margin-top: 10px;
-    filter: drop-shadow(0px 2px 8px black);
+    /* filter: drop-shadow(0px 2px 8px black); */
     background-color: ${tabBackground};
+    border-radius: 2px;
+    padding: 0px;
 `;
 const Tab = styled.div`
     position: relative;
@@ -69,7 +71,7 @@ const Table = styled.table`
     border-collapse: collapse;
 `;
 const UsersTab = () => (
-    <TabContainer>
+    <TabContainer className="shadow">
         <Tab>
             <Wrapper>
                 <TabScrollContainer horizontal={true}

@@ -4,9 +4,19 @@ import env from '../../env.json';
 const {
     bodyColor,
     mainTextColor,
+    darkThemeText,
+    darkColor,
     scrollbar: {
         scrollbarColor,
         scrollbarSize
+    },
+    borders: {
+        darkBorder,
+        lightBorder
+    },
+    shadow: {
+        darkShadow,
+        lightShadow
     }
 } = env.style;
 
@@ -39,11 +49,6 @@ export const GlobalStyle = createGlobalStyle `
         font-display: swap;
     }
 
-    :root {
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-    }
-
     *,
     *::before,
     *::after {
@@ -55,11 +60,11 @@ export const GlobalStyle = createGlobalStyle `
         min-width: 320px;
         ${'' /* min-height: 100vh; */}
         margin: 0;
-        background-color: ${bodyColor};
+        ${'' /* background-color: ${bodyColor}; */}
         font-family: "CoFo Sans", Arial, sans-serif;
         font-size: 16px;
         font-weight: 400;
-        color: ${mainTextColor};
+        ${'' /* color: ${mainTextColor}; */}
         overflow-x: hidden;
         overflow-y: auto;
 
@@ -72,6 +77,14 @@ export const GlobalStyle = createGlobalStyle `
         }
     }
 
+    :root {
+        background-color: ${props => props.dark ? darkColor : bodyColor};
+        ${'' /* --text-primary: ${mainTextColor} */}
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        color: ${props => props.dark ? darkThemeText : mainTextColor};
+    }
+
     button,
     input,
     optgroup,
@@ -80,6 +93,10 @@ export const GlobalStyle = createGlobalStyle `
         font: inherit;
         margin: 0;
         padding: 0;
+        background-color: ${props => props.dark ? darkColor : bodyColor};
+        border-color: ${props => props.dark ? lightBorder : darkBorder};
+        border-radius: 2px;
+        color: inherit;
     }
 
     img {
@@ -129,5 +146,10 @@ export const GlobalStyle = createGlobalStyle `
     td,
     th {
         padding: 10px;
+        color: ${props => props.dark ? darkColor : mainTextColor};
+    }
+
+    .shadow {
+        filter: drop-shadow(0px 2px 8px ${props => props.dark ? lightShadow : darkShadow});
     }
 `;

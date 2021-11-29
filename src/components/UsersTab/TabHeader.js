@@ -5,7 +5,7 @@ import createDaysArr from '../../helpers/createDaysArr';
 //recoil state
 import {
     activePeriodState,
-    daysCountState
+    daysCountState,
 } from '../../recoilStore/usersDataStore';
 //components
 import HeaderItem from './HeaderItem';
@@ -39,8 +39,8 @@ const TabHeader = () => {
                     />
                 </User>
                 {daysArr && daysArr.map((item, i) =>
-                    <td>
-                        <HeaderItem key={item}
+                    <td  key={item}>
+                        <HeaderItem
                             text={i + 1}
                             name={i + 1}
                             title={item}

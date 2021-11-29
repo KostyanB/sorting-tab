@@ -21,7 +21,7 @@ export const Sort = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap: 5px;
+    gap: 3px;
     margin-left: 5px;
     width: 10px;
     height: 100%;

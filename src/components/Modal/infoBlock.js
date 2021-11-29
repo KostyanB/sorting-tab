@@ -22,15 +22,16 @@ const InfoBlock = () => {
     try {
         switch (modalDataLoadable.state) {
             case 'hasValue':
-                if (!modalDataLoadable.contents.error) {
-                    return <Course modalData={modalDataLoadable.contents}/>;
-                } else {
+                if (modalDataLoadable.contents.error) {
                     throw new Error(modalDataLoadable.contents.message);
+                } else {
+                    return <Course modalData={modalDataLoadable.contents}/>;
                 }
             case 'loading':
                 return <Loader size='60px'/>;
             case 'hasError':
                 throw new Error(modalDataLoadable.contents);
+            default: return;
         }
     } catch (error) {
         return <ErrMessage text={error.message}/>

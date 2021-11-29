@@ -4,6 +4,7 @@ import{ useRecoilState } from 'recoil';
 import env from '../../env.json';
 //recoil state
 import { activePageState, } from '../../recoilStore/usersTabStore';
+const { activeColor } = env.style.pagination;
 //styled
 const PagesWrap = styled.div`
     grid-area: pag;
@@ -20,6 +21,10 @@ const Item = styled.button`
     align-items: center;
     padding: 5px;
     color: ${props => props.color};
+
+    &:hover, :active {
+        color: ${activeColor};
+    }
 `;
 
 const RepeatItem = props => {
@@ -34,7 +39,7 @@ const RepeatItem = props => {
 //  ****************************************************
 const PagesBlock = ({ pagesCount }) => {
     const [ activePage, setActivePage ] = useRecoilState(activePageState);
-    const { mainColor, activeColor } = env.style.pagination;
+
 
 	return (
         <PagesWrap>
@@ -43,7 +48,7 @@ const PagesBlock = ({ pagesCount }) => {
             >
                 {({ index, otherProps }) => (
                     <Item key={index}
-                        color={(index === otherProps.activePage) ? activeColor : mainColor}
+                        color={(index === otherProps.activePage) ? activeColor : 'inherit'}
                         onClick={() => setActivePage(index)}
                     >
                         {index}
