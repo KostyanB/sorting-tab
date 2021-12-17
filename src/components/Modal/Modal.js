@@ -90,11 +90,10 @@ const BtnClose = styled.button`
 const Modal = () => {
     const [ openModal, setOpenModal ] = useRecoilState(openModalState);
 
-    // закрытие модалки
-    const closeModal = e => {
-        if (e.target.id === 'overlay' || e.target.id === 'close-btn') {
-            setOpenModal(false);
-        }
+    const isTargetForClose = elemId => (elemId === 'overlay' || elemId === 'close-btn');
+
+    const closeModal = event => {
+        if (isTargetForClose(event.target.id)) setOpenModal(false);
     };
     // анимация открытия модалки
     const transitions = useTransition(openModal, {

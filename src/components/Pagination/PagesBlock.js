@@ -1,61 +1,63 @@
-import React from 'react';
-import styled from 'styled-components';
-import{ useRecoilState } from 'recoil';
-import env from '../../env.json';
+import React from "react";
+import styled from "styled-components";
+import { useRecoilState } from "recoil";
+import env from "../../env.json";
 //recoil state
-import { activePageState, } from '../../recoilStore/usersTabStore';
+import { activePageState } from "../../recoilStore/usersTabStore";
+
 const { activeColor } = env.style.pagination;
 //styled
 const PagesWrap = styled.div`
-    grid-area: pag;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    padding-left: 20px;
-    padding-right: 20px;
+  grid-area: pag;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
 `;
 const Item = styled.button`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px;
-    color: ${props => props.color};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  color: ${(props) => props.color};
 
-    &:hover, :active {
-        color: ${activeColor};
-    }
+  &:hover,
+  :active {
+    color: ${activeColor};
+  }
 `;
 
-const RepeatItem = props => {
-    const { count, ...otherProps } = props;
-    let items = [];
-    for (let index = 1; index <= count; index++) {
-        items.push(props.children({ index, otherProps }))
-    }
-    return <>{items}</>
+const RepeatItem = (props) => {
+  const { count, ...otherProps } = props;
+  let items = [];
+  for (let index = 1; index <= count; index++) {
+    items.push(props.children({ index, otherProps }));
+  }
+  return <>{items}</>;
 };
 
-//  ****************************************************
 const PagesBlock = ({ pagesCount }) => {
-    const [ activePage, setActivePage ] = useRecoilState(activePageState);
+  const [activePage, setActivePage] = useRecoilState(activePageState);
 
+  const setActiveColor = (index, activePage) =>
+    index === activePage ? activeColor : "inherit";
 
-	return (
-        <PagesWrap>
-            <RepeatItem count={pagesCount}
-                activePage={activePage}
-            >
-                {({ index, otherProps }) => (
-                    <Item key={index}
-                        color={(index === otherProps.activePage) ? activeColor : 'inherit'}
-                        onClick={() => setActivePage(index)}
-                    >
-                        {index}
-                    </Item>
-                )}
-            </RepeatItem>
-        </PagesWrap>
-	);
-}
+  return (
+    <PagesWrap>
+      <RepeatItem count={pagesCount} activePage={activePage}>
+        {({ index, otherProps }) => (
+          <Item
+            key={index}
+            color={setActiveColor(index, otherProps.activePage)}
+            onClick={() => setActivePage(index)}
+          >
+            {index}
+          </Item>
+        )}
+      </RepeatItem>
+    </PagesWrap>
+  );
+};
 export default PagesBlock;

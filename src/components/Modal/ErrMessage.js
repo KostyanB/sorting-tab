@@ -8,7 +8,7 @@ const ErrMessage = ({ text }) => {
         <div style={{color: errorText}}>
             <p>Ошибка: {text}.</p>
             <p>Попробуйте повторить позже.</p>
-        </div >
+        </div>
     )
 };
 export default ErrMessage;

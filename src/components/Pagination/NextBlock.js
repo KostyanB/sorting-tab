@@ -1,49 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
+import React from "react";
+import { useRecoilState } from "recoil";
 //recoil state
-import {
-    activePageState,
-} from '../../recoilStore/usersTabStore';
+import { activePageState } from "../../recoilStore/usersTabStore";
 //components
-import Button from './PagButton';
-import BtnBlock from '../Styled/BtnBlock';
-//styled
-const NextWrap = styled(BtnBlock)`
-    grid-area: next;
-`;
+import ButtonsBlock from "./ButtonsBlock";
 
-//  ****************************************************
 const NextBlock = ({ pagesCount }) => {
-    const [ disableNext, setDisableNext ] = useState(false);
+  const [ activePage, setActivePage ] = useRecoilState(activePageState);
 
-    const [ activePage, setActivePage ] = useRecoilState(activePageState);
+  const showNext = () => {
+    const newPage = activePage + 1;
+    setActivePage(newPage);
+  };
 
-    useEffect(() => {
-        const isNextDisable = (activePage === pagesCount) ? true : false;
-        setDisableNext(isNextDisable);
-    }, [activePage, pagesCount]);
+  const showLast = () => setActivePage(pagesCount);
 
-    const showNext = () => {
-        const newPage = activePage + 1;
-        setActivePage(newPage);
-    };
-
-    const showLast = () => setActivePage(pagesCount);
-
-	return (
-        <NextWrap>
-            <Button onClick={showNext}
-                disabled={disableNext}
-            >
-                Next
-            </Button>
-            <Button onClick={showLast}
-                disabled={disableNext}
-            >
-                Last
-            </Button>
-        </NextWrap>
-	);
-}
+  return (
+    <ButtonsBlock
+      numForDisable={pagesCount}
+      leftBtnFn={showNext}
+      rightBtnFn={showLast}
+      areaName="next"
+      text={["Next", "Last"]}
+    />
+  );
+};
 export default NextBlock;

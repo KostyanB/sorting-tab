@@ -42,17 +42,18 @@ const FindUser = () => {
         resetSortColumn();
     };
 
+    const showResult = (value = '') => {
+        setArrFilter(value);
+        resetPageStates();
+    };
+
     const showUser = (e) => {
         e.preventDefault();
-        if (inputValue) {
-            setArrFilter(inputValue);
-            resetPageStates();
-        }
+        inputValue && showResult(inputValue);
     };
 
     const reset = () => {
-        setArrFilter('');
-        resetPageStates();
+        showResult();
         setInputValue('');
     };
 

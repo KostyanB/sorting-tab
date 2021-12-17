@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 //components
 import MainButton from '../Styled/MainButton';
-import BtnBlock from '../Styled/BtnBlock';
+import BtnWrapper from '../Styled/BtnWrapper';
 //styled
 const FindBtn = styled(MainButton)`
     padding: 5px;
@@ -10,7 +10,7 @@ const FindBtn = styled(MainButton)`
 `;
 
 const FindButtons = ({ disableFind, reset }) => (
-    <BtnBlock>
+    <BtnWrapper>
         <FindBtn type="submit"
             form="findUser"
             disabled={disableFind}
@@ -18,6 +18,6 @@ const FindButtons = ({ disableFind, reset }) => (
             Find
         </FindBtn>
     <FindBtn onClick={reset}>Reset</FindBtn>
-    </BtnBlock>
+    </BtnWrapper>
 )
 export default FindButtons;
