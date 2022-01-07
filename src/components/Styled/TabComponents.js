@@ -30,6 +30,7 @@ export const User = styled.th`
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    cursor: default;
   }
 `;
 

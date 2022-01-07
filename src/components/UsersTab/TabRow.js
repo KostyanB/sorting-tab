@@ -2,10 +2,10 @@ import React from 'react';
 //components
 import { User, Total, Item } from '../Styled/TabComponents';
 
-const TabRow = ({ name, total, items }) => (
+const TabRow = ({ id, name, total, items }) => (
   <tr>
     <User>
-      <div>{name}</div>
+      <div title={`id: ${id}`}>{name}</div>
     </User>
     {items &&
       Object.values(items).map((item, i) => (
