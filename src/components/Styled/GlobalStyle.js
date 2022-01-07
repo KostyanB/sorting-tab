@@ -2,25 +2,16 @@ import { createGlobalStyle } from 'styled-components';
 import env from '../../env.json';
 //style-var
 const {
-    bodyColor,
-    mainTextColor,
-    darkThemeText,
-    darkColor,
-    scrollbar: {
-        scrollbarColor,
-        scrollbarSize
-    },
-    borders: {
-        darkBorder,
-        lightBorder
-    },
-    shadow: {
-        darkShadow,
-        lightShadow
-    }
+  bodyColor,
+  mainTextColor,
+  darkThemeText,
+  darkColor,
+  scrollbar: { scrollbarColor, scrollbarSize },
+  borders: { darkBorder, lightBorder },
+  shadow: { darkShadow, lightShadow },
 } = env.style;
 
-export const GlobalStyle = createGlobalStyle `
+export const GlobalStyle = createGlobalStyle`
     @font-face {
         font-family: 'CoFo Sans';
         src: local("CoFo Sans Bold"), local("CoFoSans-Bold"), url("./fonts/CoFoSans-Bold.woff2") format("woff2"), url("./fonts/CoFoSans-Bold.woff") format("woff");
@@ -78,11 +69,11 @@ export const GlobalStyle = createGlobalStyle `
     }
 
     :root {
-        background-color: ${props => props.dark ? darkColor : bodyColor};
+        background-color: ${props => (props.dark ? darkColor : bodyColor)};
         ${'' /* --text-primary: ${mainTextColor} */}
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
-        color: ${props => props.dark ? darkThemeText : mainTextColor};
+        color: ${props => (props.dark ? darkThemeText : mainTextColor)};
     }
 
     button,
@@ -93,8 +84,8 @@ export const GlobalStyle = createGlobalStyle `
         font: inherit;
         margin: 0;
         padding: 0;
-        background-color: ${props => props.dark ? darkColor : bodyColor};
-        border-color: ${props => props.dark ? lightBorder : darkBorder};
+        background-color: ${props => (props.dark ? darkColor : bodyColor)};
+        border-color: ${props => (props.dark ? lightBorder : darkBorder)};
         border-radius: 2px;
         color: inherit;
     }
@@ -146,10 +137,11 @@ export const GlobalStyle = createGlobalStyle `
     td,
     th {
         padding: 10px;
-        color: ${props => props.dark ? darkColor : mainTextColor};
+        color: ${props => (props.dark ? darkColor : mainTextColor)};
     }
 
     .shadow {
-        filter: drop-shadow(0px 2px 8px ${props => props.dark ? lightShadow : darkShadow});
+        filter: drop-shadow(0px 2px 8px ${props =>
+          props.dark ? lightShadow : darkShadow});
     }
 `;

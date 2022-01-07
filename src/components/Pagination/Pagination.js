@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import { useRecoilValue } from "recoil";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
 //recoil state
-import { rowOnPageState } from "../../recoilStore/usersTabStore";
-import { usersCountState } from "../../recoilStore/usersDataStore";
+import { rowOnPageState } from '../../recoilStore/showTabStore';
+import { usersCountState } from '../../recoilStore/usersDataStore';
 //components
-import Container from "../Styled/Container";
-import PrevBlock from "./PrevBlock";
-import NextBlock from "./NextBlock";
-import PagesBlock from "./PagesBlock";
+import Container from '../Styled/Container';
+import PrevBlock from './PrevBlock';
+import NextBlock from './NextBlock';
+import PagesBlock from './PagesBlock';
 //styled
 const Wrapper = styled(Container)`
   margin-top: 20px;
@@ -16,12 +16,12 @@ const Wrapper = styled(Container)`
   justify-content: center;
   align-items: center;
   grid-template-columns: max-content auto max-content;
-  grid-template-areas: "prev pag next";
+  grid-template-areas: 'prev pag next';
 
   @media (max-width: 768px) {
     grid-template-columns: repeat(2, max-content);
     grid-template-rows: repeat(2, 1fr);
-    grid-template-areas: "pag pag" "prev next";
+    grid-template-areas: 'pag pag' 'prev next';
     column-gap: 20px;
   }
 `;
@@ -48,8 +48,8 @@ const Pagination = () => {
       {showPagination && (
         <Wrapper>
           <PrevBlock />
-          <PagesBlock pagesCount={pagesCount}/>
-          <NextBlock pagesCount={pagesCount}/>
+          <PagesBlock pagesCount={pagesCount} />
+          <NextBlock pagesCount={pagesCount} />
         </Wrapper>
       )}
     </>

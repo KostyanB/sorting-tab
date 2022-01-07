@@ -1,9 +1,9 @@
-import React from "react";
-import styled from "styled-components";
-import { useRecoilState } from "recoil";
-import env from "../../env.json";
+import React from 'react';
+import styled from 'styled-components';
+import { useRecoilState } from 'recoil';
+import env from '../../env.json';
 //recoil state
-import { activePageState } from "../../recoilStore/usersTabStore";
+import { activePageState } from '../../recoilStore/showTabStore';
 
 const { activeColor } = env.style.pagination;
 //styled
@@ -21,7 +21,7 @@ const Item = styled.button`
   justify-content: center;
   align-items: center;
   padding: 5px;
-  color: ${(props) => props.color};
+  color: ${props => props.color};
 
   &:hover,
   :active {
@@ -29,9 +29,10 @@ const Item = styled.button`
   }
 `;
 
-const RepeatItem = (props) => {
+const RepeatItem = props => {
   const { count, ...otherProps } = props;
-  let items = [];
+  const items = [];
+
   for (let index = 1; index <= count; index++) {
     items.push(props.children({ index, otherProps }));
   }
@@ -42,7 +43,7 @@ const PagesBlock = ({ pagesCount }) => {
   const [activePage, setActivePage] = useRecoilState(activePageState);
 
   const setActiveColor = (index, activePage) =>
-    index === activePage ? activeColor : "inherit";
+    index === activePage ? activeColor : 'inherit';
 
   return (
     <PagesWrap>

@@ -6,37 +6,35 @@ import { Button } from '../../Styled/TabComponents';
 import HeaderItemSort from './HeaderItemSort';
 //recoil state
 import {
-    openModalState,
-    activeDateState,
+  openModalState,
+  activeDateState,
 } from '../../../recoilStore/modalStore';
 //styled
 const Wrapper = styled.div`
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const HeaderItem = ({ text, name, title }) => {
-    const setOpenModal = useSetRecoilState(openModalState);
-    const setActiveDate = useSetRecoilState(activeDateState);
+  const setOpenModal = useSetRecoilState(openModalState);
+  const setActiveDate = useSetRecoilState(activeDateState);
 
-    const showModal = date => {
-        if (date) {
-            setActiveDate(date);
-            setOpenModal(true);
-        }
-    };
+  const showModal = date => {
+    if (date) {
+      setActiveDate(date);
+      setOpenModal(true);
+    }
+  };
 
-    return (
-        <Wrapper>
-            <Button onClick={() => showModal(title, text)}
-                title={title}
-            >
-                {text}
-            </Button>
-            <HeaderItemSort name={name}/>
-        </Wrapper>
-    );
-}
+  return (
+    <Wrapper>
+      <Button onClick={() => showModal(title, text)} title={title}>
+        {text}
+      </Button>
+      <HeaderItemSort name={name} />
+    </Wrapper>
+  );
+};
 export default HeaderItem;

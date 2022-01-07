@@ -1,43 +1,45 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 //recoil state
-import { activePageState } from '../../recoilStore/usersTabStore';
+import { activePageState } from '../../recoilStore/showTabStore';
 //components
-import MainButton from '../Styled/MainButton';
 import BtnWrapper from '../Styled/BtnWrapper';
+import MainButton from '../MainButton';
 //styled
 const Wrapper = styled(BtnWrapper)`
   grid-area: ${props => props.areaName};
 `;
-const Button = styled(MainButton)`
-    padding: 10px;
-    border-radius: 5px;
-`;
 
-const ButtonsBlock = ({ numForDisable, leftBtnFn, rightBtnFn, areaName, text }) => {
-  const [ disableBlock, setDisableBlock ] = useState(false);
+const ButtonsBlock = ({
+  pageNumForDisableBtn,
+  handleBtnFunctions,
+  areaName,
+  btnTexts,
+}) => {
+  const [leftText, rightText] = btnTexts;
+  const [handleLeftBtn, handleRightBtn] = handleBtnFunctions;
+
+  const paginationBtnStyle = { padding: 10, border: 5 };
+
   const activePage = useRecoilValue(activePageState);
-  const [ leftText, rightText ] = text;
+  const isBlockDisable = activePage === pageNumForDisableBtn ? true : false;
 
-  useEffect(() => {
-      const isPrevDisable = (activePage === numForDisable) ? true : false;
-      setDisableBlock(isPrevDisable);
-  }, [numForDisable, activePage]);
-
-	return (
+  return (
     <Wrapper areaName={areaName}>
-      <Button onClick={leftBtnFn}
-          disabled={disableBlock}
-      >
-        {leftText}
-      </Button>
-      <Button onClick={rightBtnFn}
-          disabled={disableBlock}
-      >
-        {rightText}
-      </Button>
+      <MainButton
+        text={leftText}
+        isDisable={isBlockDisable}
+        clickFunction={handleLeftBtn}
+        btnStyle={paginationBtnStyle}
+      />
+      <MainButton
+        text={rightText}
+        isDisable={isBlockDisable}
+        clickFunction={handleRightBtn}
+        btnStyle={paginationBtnStyle}
+      />
     </Wrapper>
-	);
-}
+  );
+};
 export default ButtonsBlock;

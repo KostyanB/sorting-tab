@@ -5,64 +5,65 @@ import env from '../../env.json';
 import calcDaysInMonth from '../../helpers/calcDaysInMonth';
 //recoil state
 import {
-    activePeriodState,
-    daysCountState,
-    dbUrlState,
+  activePeriodState,
+  daysCountState,
+  dbUrlState,
 } from '../../recoilStore/usersDataStore';
-import { rowOnPageState } from '../../recoilStore/usersTabStore';
+import { rowOnPageState } from '../../recoilStore/showTabStore';
 import { openModalState } from '../../recoilStore/modalStore';
 //components
 import FindUser from '../FindUser';
 import UsersTab from '../UsersTab';
 import Pagination from '../Pagination/Pagination';
 import Modal from '../Modal';
-import ErrorBoundary from '../Styled/ErrorBoundary'
+import ErrorBoundary from '../Styled/ErrorBoundary';
 import Loader from '../Styled/Loader';
 
 //****************************************************** */
 const Tab = ({ period, rowOnPage }) => {
-    //recoil states
-    const setRowOnPage = useSetRecoilState(rowOnPageState),
-        setDaysCount = useSetRecoilState(daysCountState),
-        setActivePeriod = useSetRecoilState(activePeriodState),
-        setDbUrlState = useSetRecoilState(dbUrlState);
-    const openModal = useRecoilValue(openModalState);
+  //recoil states
+  const setRowOnPage = useSetRecoilState(rowOnPageState),
+    setDaysCount = useSetRecoilState(daysCountState),
+    setActivePeriod = useSetRecoilState(activePeriodState),
+    setDbUrlState = useSetRecoilState(dbUrlState);
+  const openModal = useRecoilValue(openModalState);
 
   //prepare url from active period
-    const prepareUrl = useCallback(period => {
-        //! здесь готовим API url для получения usersDb
-        const { getUsersUrl } = env.backend
+  const prepareUrl = useCallback(period => {
+    //! здесь готовим API url для получения usersDb
+    const { getUsersUrl } = env.backend;
 
-        return getUsersUrl;
-    }, []);
+    return getUsersUrl;
+  }, []);
 
-    useEffect(() => {
-        const days = calcDaysInMonth(period.activeMonth, period.activeYear);
-        setDaysCount(days);
-        setActivePeriod(period);
-        setRowOnPage(rowOnPage);
-        setDbUrlState(prepareUrl(period));
-    }, [
-        period,
-        rowOnPage,
-        setActivePeriod,
-        setDaysCount,
-        setRowOnPage,
-        setDbUrlState,
-        prepareUrl
-    ]);
+  useEffect(() => {
+    const { month, year } = period;
+    const days = calcDaysInMonth(month, year);
+    setDaysCount(days);
+    setActivePeriod(period);
+    setRowOnPage(rowOnPage);
+    setDbUrlState(prepareUrl(period));
+  }, [
+    period,
+    rowOnPage,
+    setActivePeriod,
+    setDaysCount,
+    setRowOnPage,
+    setDbUrlState,
+    prepareUrl,
+  ]);
 
-	return (
+  return (
     <>
-        <ErrorBoundary>
-            <Suspense fallback={<Loader/>}>
-                <FindUser/>
-                <UsersTab/>
-                <Pagination/>
-            </Suspense>
-        </ErrorBoundary>
-        {openModal && <Modal/>}
+      <ErrorBoundary>
+        <Suspense fallback={<Loader />}>
+          <FindUser />
+          <UsersTab />
+          <Pagination />
+        </Suspense>
+      </ErrorBoundary>
+      {openModal && <Modal />}
     </>
-	);
-}
+  );
+};
 export default Tab;

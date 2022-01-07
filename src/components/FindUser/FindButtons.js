@@ -1,23 +1,17 @@
 import React from 'react';
-import styled from 'styled-components';
 //components
-import MainButton from '../Styled/MainButton';
+import MainButton from '../MainButton';
 import BtnWrapper from '../Styled/BtnWrapper';
-//styled
-const FindBtn = styled(MainButton)`
-    padding: 5px;
-    border-radius: 2px;
-`;
 
-const FindButtons = ({ disableFind, reset }) => (
+const FindButtons = ({ disableFind, reset }) => {
+  const btnStyle = { padding: 5, border: 2 };
+  const findBtnStyle = { type: 'submit', form: 'findUser', ...btnStyle };
+
+  return (
     <BtnWrapper>
-        <FindBtn type="submit"
-            form="findUser"
-            disabled={disableFind}
-        >
-            Find
-        </FindBtn>
-    <FindBtn onClick={reset}>Reset</FindBtn>
+      <MainButton text="Find" isDisable={disableFind} btnStyle={findBtnStyle} />
+      <MainButton clickFunction={reset} text="Reset" btnStyle={btnStyle} />
     </BtnWrapper>
-)
+  );
+};
 export default FindButtons;
