@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback, Suspense } from 'react';
-import { useSetRecoilState, useRecoilValue } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import env from '../../env.json';
 //helpers
 import calcDaysInMonth from '../../helpers/calcDaysInMonth';
@@ -10,7 +10,6 @@ import {
   dbUrlState,
 } from '../../recoilStore/usersDataStore';
 import { rowOnPageState } from '../../recoilStore/showTabStore';
-import { openModalState } from '../../recoilStore/modalStore';
 //components
 import FindUser from '../FindUser';
 import UsersTab from '../UsersTab';
@@ -25,8 +24,6 @@ const Tab = ({ period, rowOnPage }) => {
     setDaysCount = useSetRecoilState(daysCountState),
     setActivePeriod = useSetRecoilState(activePeriodState),
     setDbUrlState = useSetRecoilState(dbUrlState);
-
-  const openModal = useRecoilValue(openModalState);
 
   //prepare url from active period
   const prepareUrl = useCallback(period => {
@@ -60,7 +57,7 @@ const Tab = ({ period, rowOnPage }) => {
           <Pagination />
         </Suspense>
       </ErrorBoundary>
-      {openModal && <Modal />}
+      <Modal />
     </>
   );
 };

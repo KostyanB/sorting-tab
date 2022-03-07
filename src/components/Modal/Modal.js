@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { animated, useTransition } from 'react-spring';
 import { useRecoilState } from 'recoil';
 import env from '../../env.json';
 //recoil state
@@ -10,15 +9,9 @@ import ModalInfo from './ModalInfo';
 // styled-var
 const { overlayColor, messageBack, closeMain, closeHov } = env.style.modal;
 // styled
-const Overlay = styled.div`
-  display: -webkit-box;
-  display: -ms-flexbox;
+const Overlay = styled.dialog`
   display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
   justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   position: fixed;
   top: 0;
@@ -27,31 +20,44 @@ const Overlay = styled.div`
   right: 0;
   width: 100%;
   height: 100vh;
+  max-width: 100vw;
+  max-height: 100vh;
   z-index: 1000;
   overflow-y: auto;
   background: ${overlayColor};
-  -webkit-backdrop-filter: blur(3px);
   backdrop-filter: blur(3px);
-  -webkit-animation: fadeIn 300ms ease-in-out;
-  animation: fadeIn 300ms ease-in-out;
+  border: none;
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+
+  &[open] {
+    transform: scale(1);
+    opacity: 1;
+    & > div {
+      transform: scale(1);
+    }
+  }
 `;
-const ModalWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-  max-width: 100%;
-  min-height: 200px;
+const ContentWrap = styled.div`
+  display: grid;
+  width: min(500px, 100vw);
+  min-height: 220px;
   border-radius: 8px;
   border: none;
-  padding: 30px;
   background-color: ${messageBack};
   font-weight: 300;
+
+  transform: scale(0);
+  transition: transform 0.5s ease-in-out;
+
+  & > * {
+    grid-area: 1/-1;
+  }
 `;
 const BtnClose = styled.button`
-  position: absolute;
-  top: 0;
-  right: 0;
+  position: relative;
+  place-self: start end;
   width: 3em;
   height: 3em;
   color: inherit;
@@ -59,8 +65,9 @@ const BtnClose = styled.button`
   border: none;
   cursor: pointer;
   outline: none;
-  ::before,
-  ::after {
+
+  &::before,
+  &::after {
     content: '';
     display: block;
     position: absolute;
@@ -68,54 +75,46 @@ const BtnClose = styled.button`
     right: 5px;
     left: 5px;
     border-bottom: 1px solid ${closeMain};
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
+  }
+  &::before {
     transform: rotate(45deg);
   }
-  ::after {
-    -webkit-transform: rotate(-45deg);
-    -ms-transform: rotate(-45deg);
+  &::after {
     transform: rotate(-45deg);
   }
-  :focus::before,
-  :hover::before,
-  :focus::after,
-  :hover::after {
-    border-color: ${closeHov};
+
+  &:hover {
+    &::before,
+    &::after {
+      border-color: ${closeHov};
+    }
   }
 `;
 
-// ****************************************
 const Modal = () => {
   const [openModal, setOpenModal] = useRecoilState(openModalState);
 
-  const isTargetForClose = elemId =>
-    elemId === 'overlay' || elemId === 'close-btn';
+  const dialogRef = useRef(null);
+  const closeRef = useRef(null);
+
+  const isTargetForClose = target =>
+    target === dialogRef.current || target === closeRef.current;
 
   const closeModal = event => {
-    if (isTargetForClose(event.target.id)) setOpenModal(false);
+    if (isTargetForClose(event.target)) setOpenModal(false);
   };
-  // анимация открытия модалки
-  const transitions = useTransition(openModal, {
-    from: { opacity: 0, transform: `scale(0, 0)` },
-    enter: { opacity: 1, transform: `scale(1, 1)` },
-    leave: { opacity: 0, transform: `scale(0, 0)` },
-    delay: 200,
-  });
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    openModal ? dialog.showModal() : dialog.close();
+  }, [openModal]);
 
   return (
-    <Overlay onClick={closeModal} id="overlay">
-      {transitions(
-        (styles, item) =>
-          item && (
-            <animated.div style={styles}>
-              <ModalWrap>
-                <ModalInfo />
-                <BtnClose onClick={closeModal} id="close-btn" />
-              </ModalWrap>
-            </animated.div>
-          ),
-      )}
+    <Overlay onClick={closeModal} id='overlay' ref={dialogRef}>
+      <ContentWrap>
+        <ModalInfo />
+        <BtnClose onClick={closeModal} id='close-btn' ref={closeRef} />
+      </ContentWrap>
     </Overlay>
   );
 };
