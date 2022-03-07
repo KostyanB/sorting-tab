@@ -19,13 +19,13 @@ import Modal from '../Modal';
 import ErrorBoundary from '../Styled/ErrorBoundary';
 import Loader from '../Styled/Loader';
 
-//****************************************************** */
 const Tab = ({ period, rowOnPage }) => {
   //recoil states
   const setRowOnPage = useSetRecoilState(rowOnPageState),
     setDaysCount = useSetRecoilState(daysCountState),
     setActivePeriod = useSetRecoilState(activePeriodState),
     setDbUrlState = useSetRecoilState(dbUrlState);
+
   const openModal = useRecoilValue(openModalState);
 
   //prepare url from active period
@@ -37,9 +37,7 @@ const Tab = ({ period, rowOnPage }) => {
   }, []);
 
   useEffect(() => {
-    const { month, year } = period;
-    const days = calcDaysInMonth(month, year);
-    setDaysCount(days);
+    setDaysCount(calcDaysInMonth(period));
     setActivePeriod(period);
     setRowOnPage(rowOnPage);
     setDbUrlState(prepareUrl(period));

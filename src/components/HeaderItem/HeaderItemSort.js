@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import env from '../../../env.json';
+import env from '../../env.json';
 //recoil state
 import {
   directSortState,
   sortColumnState,
   activePageState,
-} from '../../../recoilStore/showTabStore';
+} from '../../recoilStore/showTabStore';
 //components
 import HeaderSortBtn from './HeaderSortBtn';
 //style-var
@@ -49,12 +49,12 @@ const HeaderItemSort = ({ name }) => {
       <HeaderSortBtn
         color={colorStyleUp}
         sortingFn={handleSorting}
-        directName="up"
+        directName='up'
       />
       <HeaderSortBtn
         color={colorStyleDown}
         sortingFn={handleSorting}
-        directName="down"
+        directName='down'
       />
     </Sort>
   );

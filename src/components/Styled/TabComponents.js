@@ -12,10 +12,13 @@ export const Item = styled.td`
   }
 `;
 
-export const User = styled.th`
+const Th = styled.th`
   position: absolute;
   border: none;
   color: ${tabHoverColor};
+`;
+
+export const User = styled(Th)`
   left: 0;
   width: 200px;
   padding-left: 15px;
@@ -34,10 +37,7 @@ export const User = styled.th`
   }
 `;
 
-export const Total = styled.th`
-  position: absolute;
-  border: none;
-  color: ${tabHoverColor};
+export const Total = styled(Th)`
   right: 0;
   width: 80px;
 

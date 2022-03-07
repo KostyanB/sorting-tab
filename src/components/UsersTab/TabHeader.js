@@ -8,7 +8,7 @@ import {
   daysCountState,
 } from '../../recoilStore/usersDataStore';
 //components
-import HeaderItem from './HeaderItem';
+import HeaderItem from '../HeaderItem';
 import { User, Total } from '../Styled/TabComponents';
 
 const TabHeader = () => {
@@ -34,7 +34,7 @@ const TabHeader = () => {
     <thead>
       <tr>
         <User>
-          <HeaderItem text="Name" name="userName" />
+          <HeaderItem text='Name' name='userName' />
         </User>
         {daysArr &&
           daysArr.map((item, i) => (
@@ -43,7 +43,7 @@ const TabHeader = () => {
             </td>
           ))}
         <Total>
-          <HeaderItem text="Total" name="total" />
+          <HeaderItem text='Total' name='total' />
         </Total>
       </tr>
     </thead>

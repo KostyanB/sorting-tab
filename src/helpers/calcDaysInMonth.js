@@ -1,4 +1,4 @@
-const calcDaysInMonth = (month, year) => {
+const calcDaysInMonth = ({ activeMonth: month, activeYear: year }) => {
   // високосный?
   const yearIsLeap = year => {
     return !((year % 4 || !(year % 100)) && year % 400);

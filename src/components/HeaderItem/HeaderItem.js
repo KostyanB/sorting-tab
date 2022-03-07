@@ -2,13 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSetRecoilState } from 'recoil';
 //components
-import { Button } from '../../Styled/TabComponents';
+import { Button } from '../Styled/TabComponents';
 import HeaderItemSort from './HeaderItemSort';
 //recoil state
-import {
-  openModalState,
-  activeDateState,
-} from '../../../recoilStore/modalStore';
+import { openModalState, activeDateState } from '../../recoilStore/modalStore';
 //styled
 const Wrapper = styled.div`
   width: 100%;
