@@ -1,4 +1,5 @@
 import React from 'react';
+import createVisitTimeText from '../../helpers/createVisitTimeText';
 //components
 import { User, Total, Item } from '../Styled/TabComponents';
 
@@ -12,7 +13,7 @@ const TabRow = ({ id, name, total, items }) => (
         <Item key={i}>{item.visitTimeText}</Item>
       ))}
     <Total>
-      <div>{total}</div>
+      <div>{createVisitTimeText(total)}</div>
     </Total>
   </tr>
 );

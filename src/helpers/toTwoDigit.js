@@ -1,3 +1,2 @@
-const toTwoDigit = val =>
-  val.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false });
+const toTwoDigit = val => (parseInt(val) <= 9 ? '0' + val : val);
 export default toTwoDigit;

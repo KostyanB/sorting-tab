@@ -1,10 +1,4 @@
-import toTwoDigit from './toTwoDigit';
-
-const createVisitTimeText = visitTime => {
-  const visitMinute = toTwoDigit(Math.floor(visitTime % 60));
-  const visitHour = toTwoDigit(Math.floor(visitTime / 60));
-  return `${visitHour}:${visitMinute}`;
-};
+import createVisitTimeText from './createVisitTimeText';
 
 const getTime = (date, time) =>
   new Date(`${date} ${time.split('-').join(':')}`);

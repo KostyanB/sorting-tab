@@ -34,16 +34,24 @@ const TabHeader = () => {
     <thead>
       <tr>
         <User>
-          <HeaderItem text='Name' name='userName' />
+          <HeaderItem text='Name' name='userName' title='User Name/Surname' />
         </User>
         {daysArr &&
           daysArr.map((item, i) => (
             <td key={item}>
-              <HeaderItem text={i + 1} name={i + 1} title={item} />
+              <HeaderItem
+                text={i + 1}
+                name={i + 1}
+                title={`Dollar and euro exchange rate on ${item}`}
+              />
             </td>
           ))}
         <Total>
-          <HeaderItem text='Total' name='total' />
+          <HeaderItem
+            text='Total'
+            name='total'
+            title='Total visits per month'
+          />
         </Total>
       </tr>
     </thead>
