@@ -43,6 +43,7 @@ const TabHeader = () => {
                 text={i + 1}
                 name={i + 1}
                 title={`Dollar and euro exchange rate on ${item}`}
+                date={item}
               />
             </td>
           ))}

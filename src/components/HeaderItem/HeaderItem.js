@@ -14,11 +14,11 @@ const Wrapper = styled.div`
   justify-content: center;
 `;
 
-const HeaderItem = ({ text, name, title }) => {
+const HeaderItem = ({ text, name, title, date }) => {
   const setOpenModal = useSetRecoilState(openModalState);
   const setActiveDate = useSetRecoilState(activeDateState);
 
-  const showModal = date => {
+  const showModal = () => {
     if (date) {
       setActiveDate(date);
       setOpenModal(true);
@@ -27,7 +27,7 @@ const HeaderItem = ({ text, name, title }) => {
 
   return (
     <Wrapper>
-      <Button onClick={() => showModal(title, text)} title={title}>
+      <Button onClick={showModal} title={title}>
         {text}
       </Button>
       <HeaderItemSort name={name} />
