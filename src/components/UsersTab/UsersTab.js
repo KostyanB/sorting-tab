@@ -7,15 +7,12 @@ import Container from '../Styled/Container';
 import TabHeader from './TabHeader';
 import TabBody from './TabBody';
 //style-var
-const {
-  scrollbar: { hideTabScrollbar, scrollbarColor },
-  tab: { tabBackground },
-} = env.style;
+const { hideTabScrollbar, darkThemeText, hoverColor } = env.style;
 //styled
 const TabContainer = styled(Container)`
   margin-top: 10px;
   /* filter: drop-shadow(0px 2px 8px black); */
-  background-color: ${tabBackground};
+  background-color: ${darkThemeText};
   border-radius: 2px;
   padding: 0px;
 `;
@@ -27,22 +24,22 @@ const Tab = styled.div`
 const Wrapper = styled.div`
   overflow-x: scroll;
   overflow-y: visible;
-  width: calc(100% - 280px);
+  width: calc(100% - 300px);
   margin-left: 200px;
-  margin-right: 80px;
+  margin-right: 100px;
   /* scrollbar setting for use without drag-scroll*/
   ::-webkit-scrollbar {
     height: 5px;
   }
   ::-webkit-scrollbar-thumb {
-    background-color: ${scrollbarColor};
+    background-color: ${hoverColor};
     border-radius: 100px;
   }
 
   @media (max-width: 576px) {
-    width: calc(100% - 220px);
+    width: calc(100% - 230px);
     margin-left: 150px;
-    margin-right: 70px;
+    margin-right: 80px;
   }
 `;
 const TabScrollContainer = styled(ScrollContainer)`
@@ -54,7 +51,7 @@ const TabScrollContainer = styled(ScrollContainer)`
     height: 5px;
   }
   ::-webkit-scrollbar-thumb {
-    background-color: ${scrollbarColor};
+    background-color: ${hoverColor};
     border-radius: 100px;
   }
 `;
@@ -66,7 +63,7 @@ const Table = styled.table`
   border-collapse: collapse;
 `;
 const UsersTab = () => (
-  <TabContainer className="shadow">
+  <TabContainer className='shadow'>
     <Tab>
       <Wrapper>
         <TabScrollContainer horizontal={true} hideScrollbars={hideTabScrollbar}>

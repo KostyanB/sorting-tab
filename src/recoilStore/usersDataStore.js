@@ -1,5 +1,5 @@
 import { atom, selector, selectorFamily } from 'recoil';
-import env from '../env.json';
+import initialStates from './initialStates';
 // helpers
 import getDataProjection from '../helpers/getDataProjection';
 import sortArray from '../helpers/sortArray';
@@ -12,7 +12,7 @@ import {
 } from './showTabStore';
 //
 const { initActivePeriod, initDaysCount, initDbUrl } =
-  env.initialStates.initUsersData;
+  initialStates.initUsersData;
 
 export const activePeriodState = atom({
   key: 'activePeriodState',

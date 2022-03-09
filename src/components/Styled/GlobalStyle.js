@@ -6,7 +6,7 @@ const {
   mainTextColor,
   darkThemeText,
   darkColor,
-  scrollbar: { scrollbarColor, scrollbarSize },
+  hoverColor,
   borders: { darkBorder, lightBorder },
   shadow: { darkShadow, lightShadow },
 } = env.style;
@@ -49,28 +49,24 @@ export const GlobalStyle = createGlobalStyle`
 
     body {
         min-width: 320px;
-        ${'' /* min-height: 100vh; */}
         margin: 0;
-        ${'' /* background-color: ${bodyColor}; */}
         font-family: "CoFo Sans", Arial, sans-serif;
         font-size: 16px;
         font-weight: 400;
-        ${'' /* color: ${mainTextColor}; */}
         overflow-x: hidden;
         overflow-y: auto;
 
         ::-webkit-scrollbar {
-            width: ${scrollbarSize};
+            width: 10px;
         }
         ::-webkit-scrollbar-thumb {
-            background-color: ${scrollbarColor};
+            background-color: ${hoverColor};
             border-radius: 100px;
         }
     }
 
     :root {
         background-color: ${props => (props.dark ? darkColor : bodyColor)};
-        ${'' /* --text-primary: ${mainTextColor} */}
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
         color: ${props => (props.dark ? darkThemeText : mainTextColor)};

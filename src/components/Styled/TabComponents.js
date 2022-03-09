@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import env from '../../env.json';
 //style-var
-const { border, tabHoverColor } = env.style.tab;
+const { hoverColor } = env.style;
 
 export const Item = styled.td`
-  border-right: ${border};
+  border-right: 1px solid #808080;
   width: min(50px, 5vw);
 
   &:last-of-type {
@@ -15,13 +15,16 @@ export const Item = styled.td`
 const Th = styled.th`
   position: absolute;
   border: none;
-  color: ${tabHoverColor};
+  color: ${hoverColor};
+  vertical-align: middle;
+  cursor: default;
 `;
 
 export const User = styled(Th)`
   left: 0;
   width: 200px;
   padding-left: 15px;
+  text-align: left;
   white-space: nowrap;
 
   @media (max-width: 576px) {
@@ -29,26 +32,18 @@ export const User = styled(Th)`
     white-space: normal;
   }
 
-  div {
-    display: flex;
-    align-items: center;
+  & > div {
     justify-content: flex-start;
-    cursor: default;
   }
 `;
 
 export const Total = styled(Th)`
   right: 0;
-  width: 80px;
-
-  div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  width: 100px;
+  text-align: center;
 
   @media (max-width: 576px) {
-    width: 70px;
+    width: 80px;
   }
 `;
 
@@ -56,9 +51,10 @@ export const Button = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: ${props => props.cursor};
 
   &:hover,
   &:active {
-    color: ${tabHoverColor};
+    color: ${hoverColor};
   }
 `;

@@ -5,7 +5,7 @@ import { useSetRecoilState } from 'recoil';
 import { Button } from '../Styled/TabComponents';
 import HeaderItemSort from './HeaderItemSort';
 //recoil state
-import { openModalState, activeDateState } from '../../recoilStore/modalStore';
+import { activeDateState } from '../../recoilStore/modalStore';
 //styled
 const Wrapper = styled.div`
   width: 100%;
@@ -15,19 +15,17 @@ const Wrapper = styled.div`
 `;
 
 const HeaderItem = ({ text, name, title, date }) => {
-  const setOpenModal = useSetRecoilState(openModalState);
   const setActiveDate = useSetRecoilState(activeDateState);
 
-  const showModal = () => {
-    if (date) {
-      setActiveDate(date);
-      setOpenModal(true);
-    }
-  };
+  const showModal = () => date && setActiveDate(date);
 
   return (
     <Wrapper>
-      <Button onClick={showModal} title={title}>
+      <Button
+        onClick={showModal}
+        title={title}
+        cursor={date ? 'pointer' : 'default'}
+      >
         {text}
       </Button>
       <HeaderItemSort name={name} />

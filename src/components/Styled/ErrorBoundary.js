@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Container from './Container';
 import env from '../../env.json';
 //style-var
-const { errorText } = env.style.loaders;
+const { errorText } = env.style;
 // styled
 const ErrorContainer = styled(Container)`
   flex-direction: column;

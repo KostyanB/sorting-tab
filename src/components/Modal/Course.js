@@ -5,6 +5,7 @@ const Course = ({ modalData }) => {
     timestamp,
     rates: { RUB: rub, EUR: euro },
   } = modalData;
+
   const date = new Date((timestamp - 18000) * 1000)
     .toLocaleString()
     .split(',')[0];

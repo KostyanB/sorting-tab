@@ -6,15 +6,13 @@ import { User } from '../Styled/TabComponents';
 const Wrap = styled.tr`
   height: 50px;
 `;
-const Message = styled.div`
-  color: ${env.style.loaders.errorText};
+const Message = styled(User)`
+  color: ${env.style.errorText};
 `;
 
 const NothingFound = () => (
   <Wrap>
-    <User>
-      <Message>Nothing found</Message>
-    </User>
+    <Message>Nothing found</Message>
   </Wrap>
 );
 export default NothingFound;

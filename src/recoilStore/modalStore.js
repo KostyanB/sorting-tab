@@ -1,15 +1,13 @@
 import { atom, selectorFamily } from 'recoil';
 import env from '../env.json';
+import initialStates from './initialStates';
+
 const { getModalDataUrl, getModalDataApi } = env.backend;
+const { initActiveDate } = initialStates.initModal;
 
 export const activeDateState = atom({
   key: 'activeDateState',
-  default: '',
-});
-
-export const openModalState = atom({
-  key: 'openModalState',
-  default: false,
+  default: initActiveDate,
 });
 
 export const modalDataQuery = selectorFamily({

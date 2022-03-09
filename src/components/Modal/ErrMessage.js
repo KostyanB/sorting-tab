@@ -1,9 +1,9 @@
 import React from 'react';
 import env from '../../env.json';
 
-const ErrMessage = ({ text }) => {
-  const { errorText } = env.style.loaders;
+const errorText = env.style.errorText;
 
+const ErrMessage = ({ text }) => {
   return (
     <div style={{ color: errorText }}>
       <p>Ошибка: {text}.</p>

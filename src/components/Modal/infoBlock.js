@@ -20,7 +20,7 @@ const InfoBlock = () => {
           return <Course modalData={modalDataLoadable.contents} />;
         }
       case 'loading':
-        return <Loader size="60px" />;
+        return <Loader size='60px' />;
       case 'hasError':
         throw new Error(modalDataLoadable.contents);
       default:

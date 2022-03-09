@@ -1,12 +1,12 @@
 import { atom, selector } from 'recoil';
-import env from '../env.json';
+import initialStates from './initialStates';
 //recoil states
 import { sortingArrState } from './usersDataStore';
 //helpers
 import getSlicedArr from '../helpers/getSlicedArr';
 
 const { initRowOnPage, initActivePage, initSortColumn, initDirectSort } =
-  env.initialStates.initUsersTab;
+  initialStates.initUsersTab;
 
 export const rowOnPageState = atom({
   key: 'rowOnPageState',

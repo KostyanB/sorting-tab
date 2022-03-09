@@ -11,7 +11,7 @@ import {
 //components
 import HeaderSortBtn from './HeaderSortBtn';
 //style-var
-const { tabHoverColor, sortBtnMain } = env.style.tab;
+const { hoverColor, mainTextColor } = env.style;
 //styled
 export const Sort = styled.div`
   display: flex;
@@ -30,9 +30,9 @@ const HeaderItemSort = ({ name }) => {
   const setActivePage = useSetRecoilState(activePageState);
 
   const colorStyleUp =
-    sortColumn === name && directSort ? tabHoverColor : sortBtnMain;
+    sortColumn === name && directSort ? hoverColor : mainTextColor;
   const colorStyleDown =
-    sortColumn === name && !directSort ? tabHoverColor : sortBtnMain;
+    sortColumn === name && !directSort ? hoverColor : mainTextColor;
 
   const handleSorting = direct => {
     if (sortColumn === name) {

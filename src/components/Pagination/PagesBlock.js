@@ -5,7 +5,7 @@ import env from '../../env.json';
 //recoil state
 import { activePageState } from '../../recoilStore/showTabStore';
 
-const { activeColor } = env.style.pagination;
+const activeColor = env.style.hoverColor;
 //styled
 const PagesWrap = styled.div`
   grid-area: pag;
